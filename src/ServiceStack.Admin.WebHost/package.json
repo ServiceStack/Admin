@@ -1,8 +1,12 @@
 {
   "jspm": {
     "dependencies": {
+      "es6-shim": "github:es-shims/es6-shim@^0.34.4",
+      "jquery": "npm:jquery@^2.2.0",
       "react": "npm:react@^0.14.7",
       "react-dom": "npm:react-dom@^0.14.7",
+      "react-redux": "npm:react-redux@^4.4.0",
+      "redux": "npm:redux@^3.3.1",
       "ss-utils": "npm:ss-utils@^0.0.7"
     }
   }

@@ -5,6 +5,9 @@
     <meta charset="utf-8" />
     <title>Admin - AutoQuery</title>
     <link href="img/iconfont/material-icons.css" rel="stylesheet" />
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script src="deps.lib.js"></script>
     <style>
         /* roboto-regular - latin */
         @font-face {
@@ -102,52 +105,11 @@
 </head>
 <body>
 
-    <div id="header" style="display: flex; flex-direction: row; ">
-        <i class="material-icons" style="cursor: pointer" onclick="document.getElementById('sidebar').classList.toggle('hide')">menu</i>
-        <h1>AutoQuery</h1>
-        <div id="header-content" style="display: flex; flex: 1;">
-            <div>
-                <div class="seperator"></div>
-            </div>
-            <h2>StackOverflowQuery</h2>
-            <div></div>
-            <form style="flex: 1; display: flex; background: #f5f5f5; border-radius: 2px; height: 40px; line-height: 40px; padding: 0 0 0 10px;">
-                <label class="material-icons" style="margin: auto; padding: 0 5px 0 0" for="txtSearch">search</label>
-                <input type="text" id="txtSearch" style="flex: 1; margin: auto; background: none; border: none; font-size: 18px; color: #676767" />
-            </form>
-            <div style="margin: auto; flex: 1"></div>
-        </div>
-    </div>
+    <div id="app"></div>
 
-    <div id="body" style="position: absolute; top: 90px; display:flex; flex-direction: row; width: 100%; height: 100%;">
-        <div id="sidebar">
-            <div id="aq-list">
-                <div class="aq-item">
-                    <i class="material-icons">backup</i>
-                    <div>
-                        Item 1
-                    </div>
-                </div>
-                <div class="aq-item">
-                    <i class="material-icons">android</i>
-                    <div>
-                        Item 2
-                    </div>
-                </div>
-                <div class="aq-item active">
-                    <i class="material-icons">build</i>
-                    <div>
-                        Item 3
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="content" style="flex: 1;">
-            <h2>Content</h2>
-        </div>
-    </div>
-
-
+    <script>
+        System.import("./src/main");
+    </script>
 
 </body>
 </html>
