@@ -150,6 +150,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\deps.tsx" />
+    <TypeScriptCompile Include="src\Content.tsx" />
+    <TypeScriptCompile Include="src\Sidebar.tsx" />
+    <TypeScriptCompile Include="src\Header.tsx" />
     <TypeScriptCompile Include="src\main.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
