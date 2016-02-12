@@ -4,104 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <title>Admin - AutoQuery</title>
-    <link href="img/iconfont/material-icons.css" rel="stylesheet" />
+    <link href="img/iconfont/material-icons.css" rel="stylesheet"/>
+    <link href="img/octicon/octicon.css" rel="stylesheet" />
+    <link href="default.css" rel="stylesheet" />
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
     <script src="deps.lib.js"></script>
-    <style>
-        /* roboto-regular - latin */
-        @font-face {
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 400;
-            src: local('Roboto'), local('Roboto-Regular'), url('fonts/roboto-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+ */
-            url('fonts/roboto-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            background: #eee;
-        }
-
-        h1, h2, h3, h4, h5, h6, form {
-            margin: 0;
-            padding: 0;
-        }
-
-        #header {
-            background: #fff;
-            color: #676767;
-            box-shadow: 0 1px 8px rgba(0,0,0,.3);
-            position: fixed;
-            width: 100%;
-            color: #676767;
-            padding: 15px 0 15px 15px;
-        }
-            #header > *, #header-content > * {
-                margin: auto;
-                padding: 0 10px;
-            }
-            #header table {
-                margin: 0;
-                border-collapse: collapse;
-            }
-            #header td {
-                height: 30px;
-                padding: 0 0 0 20px;
-            }
-            #header h1, #header h2 {
-                font-size: 20px;
-                line-height: 40px;
-            }
-
-        #txtSearch:focus {
-            outline: none;
-        }
-
-        form:focus {
-            border: 1px solid #333;
-        }
-
-        .seperator {
-            background: #ddd;
-            width: 1px;
-            height: 30px;
-        }
-
-        #sidebar {
-            margin-left: 0;
-            transition: .3s;
-            width: 200px;
-            padding: 0 50px 0 0;
-        }
-            #sidebar.hide {
-                margin-left: -200px;
-                transition: .3s;
-                transition-timing-function: ease-out;
-            }
-
-        .aq-item {
-            display: flex;
-        }
-            .aq-item i {
-                color: #757575;
-                margin: auto;
-                padding: 0 15px;
-            }
-            .aq-item div {
-                color: rgba(0,0,0,0.87);
-                line-height: 40px;
-                font-size: 14px;
-                flex: 1;
-            }
-            .aq-item.active, .aq-item:hover {
-                background: #e7e7e7;
-            }
-            .aq-item.active {
-                color: #272727;
-            }
-    </style>
 </head>
 <body>
 
