@@ -6,8 +6,8 @@ namespace ServiceStack.Admin.WebHost
 {
     [Route("/questions")]
     [AutoQueryViewer(
-        Title = "Explore StackOverflow Questions", Description = "Find ServiceStack Questions on StackOverflow", IconUrl = "/Content/app/stacks-white-75.png",
-        DefaultSearchField = "Title", DefaultSearchType = "Contains", DefaultSearchText = "ServiceStack")]
+        Title = "Explore StackOverflow Questions", Description = "Find ServiceStack Questions on StackOverflow", 
+        IconUrl = "material-icons:cast", DefaultSearchField = "Title", DefaultSearchType = "Contains", DefaultSearchText = "ServiceStack")]
     public class StackOverflowQuery : QueryBase<Question>
     {
         public int? ScoreGreaterThan { get; set; }

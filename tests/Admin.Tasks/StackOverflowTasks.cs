@@ -14,13 +14,12 @@ namespace Admin.Tasks
     [TestFixture]
     public class StackOverflowTasks
     {
-        static readonly string FilePath = "~/../../../src/ServiceStack.Admin.WebHost/App_Data/db.sqlite".MapHostAbsolutePath();
         private IDbConnectionFactory dbFactory;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            dbFactory = new OrmLiteConnectionFactory(FilePath, SqliteDialect.Provider);
+            dbFactory = new OrmLiteConnectionFactory(Config.ConnectionString, SqliteDialect.Provider);
         }
 
         public void RecreateDatabase()

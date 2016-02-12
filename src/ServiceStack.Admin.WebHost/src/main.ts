@@ -2,7 +2,10 @@
 
 import * as React from 'react';
 import { render } from 'react-dom';
+import 'jquery';
 
 import App from './App';
 
-render(React.createElement(App), document.getElementById('app'));
+$.getJSON("autoquery/metadata", r => 
+    render(React.createElement(App, { metadata:r }), document.getElementById('app')));
+

@@ -103,9 +103,11 @@
     <Content Include="img\iconfont\MaterialIcons-Regular.woff" />
     <Content Include="img\iconfont\MaterialIcons-Regular.woff2" />
     <Content Include="img\iconfont\README.md" />
-    <Content Include="fonts\Roboto-Regular.ttf" />
-    <Content Include="fonts\roboto-v15-latin-regular.woff" />
-    <Content Include="fonts\roboto-v15-latin-regular.woff2" />
+    <Content Include="img\roboto\Roboto-Regular.ttf" />
+    <Content Include="img\roboto\roboto-v15-latin-regular.woff" />
+    <Content Include="img\roboto\roboto-v15-latin-regular.woff2" />
+    <Content Include="img\octicon\octicons.ttf" />
+    <Content Include="img\octicon\octicons.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -119,14 +121,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="config.js" />
+    <Content Include="deps.lib.js" />
     <Content Include="Global.asax" />
     <Content Include="img\iconfont\material-icons.css" />
     <Content Include="img\iconfont\MaterialIcons-Regular.svg" />
+    <Content Include="default.css" />
+    <Content Include="img\octicon\octicon.css" />
     <Content Include="index.html" />
     <Content Include="jspm_packages\system.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitHubQuery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
