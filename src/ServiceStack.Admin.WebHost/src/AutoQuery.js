@@ -95,11 +95,13 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                     return {
                         searchField: op.searchField || viewerArgs["DefaultSearchField"],
                         searchType: op.searchType || viewerArgs["DefaultSearchType"],
-                        searchText: op.searchText || viewerArgs["DefaultSearchText"]
+                        searchText: op.searchText != null ? op.searchText : viewerArgs["DefaultSearchText"]
                     };
                 };
                 App.prototype.getSelected = function (name) {
                     var operation = this.state.operations[name];
+                    if (operation == null)
+                        return null;
                     var requestType = this.state.types[name];
                     var fromType = this.state.types[operation.from];
                     var toType = this.state.types[operation.to];
@@ -107,7 +109,7 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                 };
                 App.prototype.onContentChange = function (name, newValues) {
                     var defaults = this.state.defaults;
-                    var op = defaults[name];
+                    var op = defaults[name] || (defaults[name] = {});
                     if (newValues.searchField != null)
                         op.searchField = newValues.searchField;
                     if (newValues.searchType != null)

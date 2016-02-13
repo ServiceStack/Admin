@@ -18,8 +18,8 @@ class App extends React.Component<any, any> {
 render(
     (<Router history={browserHistory}>
         <Redirect from="/" to="/ss-admin/autoquery"/>
+        <Redirect from="/ss-admin" to="/ss-admin/autoquery"/>
         <Route path="/ss-admin" component={App}>
-            <IndexRoute component={AutoQuery} />
             <Route path="/ss-admin/autoquery(/:name)" component={AutoQuery} />
         </Route>
     </Router>), 

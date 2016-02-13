@@ -55,7 +55,7 @@ System.register(['react', 'jquery', 'ss-utils'], function(exports_1) {
                 Content.prototype.render = function () {
                     return (React.createElement("div", {"id": "content", "style": { flex: 1 }}, this.props.selected
                         ? this.renderBody(this.props.selected, this.props.defaults)
-                        : React.createElement("div", null, "No Query Selected")));
+                        : React.createElement("div", {"style": { padding: '15px 0' }}, "No Query Selected")));
                 };
                 return Content;
             })(React.Component);

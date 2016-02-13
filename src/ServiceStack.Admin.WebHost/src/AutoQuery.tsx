@@ -86,12 +86,14 @@ class App extends React.Component<any, any> {
         return {
             searchField: op.searchField || viewerArgs["DefaultSearchField"],
             searchType: op.searchType || viewerArgs["DefaultSearchType"],
-            searchText: op.searchText || viewerArgs["DefaultSearchText"]
+            searchText: op.searchText != null ? op.searchText : viewerArgs["DefaultSearchText"]
         };
     }
 
     getSelected(name) {
         const operation = this.state.operations[name];
+        if (operation == null)
+            return null;
         const requestType = this.state.types[name];
         const fromType = this.state.types[operation.from];
         const toType = this.state.types[operation.to];
@@ -100,7 +102,7 @@ class App extends React.Component<any, any> {
 
     onContentChange(name, newValues) {
         const defaults = this.state.defaults;
-        const op = defaults[name];
+        const op = defaults[name] || (defaults[name] = {});
         if (newValues.searchField != null)
             op.searchField = newValues.searchField;
         if (newValues.searchType != null)

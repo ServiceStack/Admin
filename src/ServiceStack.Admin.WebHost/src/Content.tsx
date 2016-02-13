@@ -73,7 +73,7 @@ export default class Content extends React.Component<any, any> {
             <div id="content" style={{ flex: 1 }}>
                 {this.props.selected
                     ? this.renderBody(this.props.selected, this.props.defaults)
-                    : <div>No Query Selected</div> }
+                    : <div style={{ padding:'15px 0'}}>No Query Selected</div> }
             </div>
         );
     }
