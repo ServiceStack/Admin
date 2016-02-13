@@ -15,7 +15,7 @@ System.config({
     "react-redux": "npm:react-redux@4.4.0",
     "react-router": "npm:react-router@2.0.0",
     "redux": "npm:redux@3.3.1",
-    "ss-utils": "npm:ss-utils@0.0.7",
+    "ss-utils": "npm:ss-utils@0.0.8",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -123,7 +123,7 @@ System.config({
       "loose-envify": "npm:loose-envify@1.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:ss-utils@0.0.7": {
+    "npm:ss-utils@0.0.8": {
       "jquery": "npm:jquery@2.2.0"
     },
     "npm:stream-browserify@1.0.0": {
