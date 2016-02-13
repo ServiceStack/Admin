@@ -1,10 +1,9 @@
-// Compiled using typings@0.6.7
-// Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/97f1f12a68467c7d95dc19915850013cdb688548/ss-utils/ss-utils.d.ts
 // Type definitions for ServiceStack Utils v0.0.1
 // Project: https://servicestack.net/
 // Definitions by: Demis Bellot <https://github.com/mythz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare namespace ssutils {
 
@@ -21,8 +20,10 @@ declare namespace ssutils {
         splitOnFirst: (s: string, delimiter: string) => string[];
         splitOnLast: (s: string, delimiter: string) => string[];
         getSelection: () => string;
+        combinePaths: (...paths: string[]) => string;
         queryString: (url: string) => { [index: string]: string };
-        createUrl: (route: string, args?: any) => string;
+        createPath: (route: string, args: any) => string;
+        createUrl: (route: string, args: any) => string;
         humanize: (s: string) => string;
         parseResponseStatus: (json: string, defaultMsg?: string) => any;
         postJSON: (url: string, data: Object | String, success?: Function, error?: Function) => any;
