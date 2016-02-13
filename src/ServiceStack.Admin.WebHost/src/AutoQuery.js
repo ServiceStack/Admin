@@ -6,7 +6,7 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
     var React, Header_1, Sidebar_1, Content_1;
-    var App;
+    var AutoQuery, App;
     return {
         setters:[
             function (React_1) {
@@ -24,6 +24,24 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
             function (_1) {},
             function (_2) {}],
         execute: function() {
+            AutoQuery = (function (_super) {
+                __extends(AutoQuery, _super);
+                function AutoQuery(props, context) {
+                    var _this = this;
+                    _super.call(this, props, context);
+                    this.state = {};
+                    $.getJSON("/autoquery/metadata", function (metadata) {
+                        return _this.setState({ metadata: metadata, name: _this.props.params.name });
+                    });
+                }
+                AutoQuery.prototype.render = function () {
+                    return this.state.metadata
+                        ? React.createElement(App, {"metadata": this.state.metadata, "name": this.props.params.name})
+                        : null;
+                };
+                return AutoQuery;
+            })(React.Component);
+            exports_1("default", AutoQuery);
             App = (function (_super) {
                 __extends(App, _super);
                 function App(props, context) {
@@ -71,19 +89,21 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                         ? this.getAutoQueryViewerArgValue(this.state.selected.name, 'Title') || this.state.selected.name
                         : null;
                 };
-                App.prototype.selectQuery = function (name) {
+                App.prototype.getDefaults = function (name) {
+                    var viewerArgs = this.state.viewerArgs[name] || {};
+                    var op = this.state.defaults[name] || {};
+                    return {
+                        searchField: op.searchField || viewerArgs["DefaultSearchField"],
+                        searchType: op.searchType || viewerArgs["DefaultSearchType"],
+                        searchText: op.searchText || viewerArgs["DefaultSearchText"]
+                    };
+                };
+                App.prototype.getSelected = function (name) {
                     var operation = this.state.operations[name];
                     var requestType = this.state.types[name];
                     var fromType = this.state.types[operation.from];
                     var toType = this.state.types[operation.to];
-                    var defaults = this.state.defaults;
-                    var viewerArgs = this.state.viewerArgs[name] || {};
-                    var op = defaults[name] || {};
-                    op.searchField = op.searchField || viewerArgs["DefaultSearchField"];
-                    op.searchType = op.searchType || viewerArgs["DefaultSearchType"];
-                    op.searchText = op.searchText || viewerArgs["DefaultSearchText"];
-                    defaults[name] = op;
-                    this.setState({ selected: { name: name, requestType: requestType, fromType: fromType, toType: toType }, defaults: defaults });
+                    return { name: name, operation: operation, requestType: requestType, fromType: fromType, toType: toType };
                 };
                 App.prototype.onContentChange = function (name, newValues) {
                     var defaults = this.state.defaults;
@@ -98,13 +118,13 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                 };
                 App.prototype.render = function () {
                     var _this = this;
-                    var opName = this.state.selected && this.state.selected.name;
-                    return (React.createElement("div", null, React.createElement(Header_1.default, {"title": this.getSelectedTitle(), "onSidebarToggle": this.toggleSidebar}), React.createElement("div", {"id": "body", "style": { position: 'absolute', top: 90, display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations, "onChange": function (op) { return _this.selectQuery(op); }}), React.createElement(Content_1.default, {"baseUrl": this.props.metadata.config.serviceBaseUrl, "selected": this.state.selected, "defaults": this.state.defaults[opName], "implicitConventions": this.props.metadata.config.implicitConventions, "viewerArgs": this.state.viewerArgs, "onChange": function (args) { return _this.onContentChange(opName, args); }}))));
+                    var selected = this.getSelected(this.props.name);
+                    var opName = selected && selected.name;
+                    return (React.createElement("div", null, React.createElement(Header_1.default, {"title": this.getSelectedTitle(), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { position: 'absolute', top: 90, display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"baseUrl": this.props.metadata.config.serviceBaseUrl, "selected": selected, "defaults": this.getDefaults(this.props.name), "implicitConventions": this.props.metadata.config.implicitConventions, "viewerArgs": this.state.viewerArgs, "onChange": function (args) { return _this.onContentChange(opName, args); }}))));
                 };
                 return App;
             })(React.Component);
-            exports_1("default", App);
         }
     }
 });
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=AutoQuery.js.map

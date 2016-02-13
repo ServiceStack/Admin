@@ -6,6 +6,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { connect } from 'react-redux';
+import { Router, Route, Link } from 'react-router';
 import * as ES6 from 'es6-shim';
 
 import 'jquery';
@@ -24,3 +25,4 @@ var DepsRedux = connect((state) => ({}), (dispatch) => ({}))(Deps);
 
 const ignore = () => render(<Deps/>, document.body);
 
+var ignoreRoute = (<Router><Route /></Router>);

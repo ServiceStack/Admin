@@ -6,6 +6,7 @@
       "react": "npm:react@^0.14.7",
       "react-dom": "npm:react-dom@^0.14.7",
       "react-redux": "npm:react-redux@^4.4.0",
+      "react-router": "npm:react-router@^2.0.0",
       "redux": "npm:redux@^3.3.1",
       "ss-utils": "npm:ss-utils@^0.0.7"
     }

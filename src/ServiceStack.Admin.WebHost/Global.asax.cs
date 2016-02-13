@@ -21,8 +21,19 @@ namespace ServiceStack.Admin.WebHost
         }
     }
 
+
+    [FallbackRoute("/{PathInfo*}")]
+    public class FallbackForClientRoutes
+    {
+        public string PathInfo { get; set; }
+    }
+
     public class AutoQueryServices : Service
     {
+        public object Any(FallbackForClientRoutes request)
+        {
+            return new HttpResult(VirtualFileSources.GetFile("index.html"));
+        }
     }
 
     public class Global : System.Web.HttpApplication

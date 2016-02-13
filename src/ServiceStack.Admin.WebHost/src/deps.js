@@ -1,12 +1,12 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', 'react-dom', 'redux', 'react-redux', 'es6-shim', 'jquery', 'ss-utils'], function(exports_1) {
+System.register(['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'es6-shim', 'jquery', 'ss-utils'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var React, react_dom_1, redux_1, react_redux_1, ES6;
-    var a, store, Deps, DepsRedux, ignore;
+    var React, react_dom_1, redux_1, react_redux_1, react_router_1, ES6;
+    var a, store, Deps, DepsRedux, ignore, ignoreRoute;
     return {
         setters:[
             function (React_1) {
@@ -20,6 +20,9 @@ System.register(['react', 'react-dom', 'redux', 'react-redux', 'es6-shim', 'jque
             },
             function (react_redux_1_1) {
                 react_redux_1 = react_redux_1_1;
+            },
+            function (react_router_1_1) {
+                react_router_1 = react_router_1_1;
             },
             function (ES6_1) {
                 ES6 = ES6_1;
@@ -41,6 +44,7 @@ System.register(['react', 'react-dom', 'redux', 'react-redux', 'es6-shim', 'jque
             })(React.Component);
             DepsRedux = react_redux_1.connect(function (state) { return ({}); }, function (dispatch) { return ({}); })(Deps);
             ignore = function () { return react_dom_1.render(React.createElement(Deps, null), document.body); };
+            ignoreRoute = (React.createElement(react_router_1.Router, null, React.createElement(react_router_1.Route, null)));
         }
     }
 });

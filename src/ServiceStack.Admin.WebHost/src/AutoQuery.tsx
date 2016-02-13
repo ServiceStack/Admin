@@ -8,7 +8,23 @@ import Content from './Content';
 import 'jquery';
 import 'ss-utils';
 
-export default class App extends React.Component<any, any> {
+export default class AutoQuery extends React.Component<any, any> {
+    constructor(props?, context?) {
+        super(props, context);
+        this.state = {};
+
+        $.getJSON("/autoquery/metadata", metadata =>
+            this.setState({ metadata, name: this.props.params.name }));
+    }
+
+    render() {
+        return this.state.metadata
+            ? <App metadata={this.state.metadata} name={this.props.params.name} />
+            : null;
+    }
+}
+
+class App extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
 
@@ -64,34 +80,54 @@ export default class App extends React.Component<any, any> {
             : null;
     }
 
-    selectQuery(name) {
-        const operation = this.state.operations[name];
-        const from = this.state.types[operation.from];
-        const defaults = this.state.defaults;
+    getDefaults(name) {
         const viewerArgs = this.state.viewerArgs[name] || {};
-        const op = defaults[name] || {};
-        op.searchField = op.searchField || viewerArgs["DefaultSearchField"];
-        op.searchType = op.searchType || viewerArgs["DefaultSearchType"];
-        op.searchText = op.searchText || viewerArgs["DefaultSearchText"];
-        defaults[name] = op;
+        const op = this.state.defaults[name] || {};
+        return {
+            searchField: op.searchField || viewerArgs["DefaultSearchField"],
+            searchType: op.searchType || viewerArgs["DefaultSearchType"],
+            searchText: op.searchText || viewerArgs["DefaultSearchText"]
+        };
+    }
 
-        this.setState({ selected: { name, operation, from }, defaults });
+    getSelected(name) {
+        const operation = this.state.operations[name];
+        const requestType = this.state.types[name];
+        const fromType = this.state.types[operation.from];
+        const toType = this.state.types[operation.to];
+        return { name, operation, requestType, fromType, toType};
+    }
+
+    onContentChange(name, newValues) {
+        const defaults = this.state.defaults;
+        const op = defaults[name];
+        if (newValues.searchField != null)
+            op.searchField = newValues.searchField;
+        if (newValues.searchType != null)
+            op.searchType = newValues.searchType;
+        if (newValues.searchText != null)
+            op.searchText = newValues.searchText;
+        this.setState({ defaults });
     }
 
     render() {
-        var opName = this.state.selected && this.state.selected.name;
+        var selected = this.getSelected(this.props.name);
+        var opName = selected && selected.name;
         return (
             <div>
-                <Header title={this.getSelectedTitle() } onSidebarToggle={this.toggleSidebar} />
+                <Header title={this.getSelectedTitle()} onSidebarToggle={e => this.toggleSidebar()} />
                 <div id="body" style={{ position: 'absolute', top: 90, display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
                     <Sidebar hide={this.state.sidebarHidden} name={opName}                        
                         viewerArgs={this.state.viewerArgs}
                         operations={this.state.operations}
-                        onChange={op => this.selectQuery(op) }
                         />
-                    <Content selected={this.state.selected} defaults={this.state.defaults[opName]}
+                    <Content
+                        baseUrl={this.props.metadata.config.serviceBaseUrl}
+                        selected={selected}
+                        defaults={this.getDefaults(this.props.name)}
                         implicitConventions={this.props.metadata.config.implicitConventions}
                         viewerArgs={this.state.viewerArgs}
+                        onChange={args => this.onContentChange(opName, args)}
                         />
                 </div>
             </div>

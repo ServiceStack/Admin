@@ -95,7 +95,9 @@ form:focus {
         padding: 4px 14px;
         vertical-align: middle;
     }
-    .aq-item div {
+    .aq-item a {
+        display: block;
+        text-decoration: none;
         color: rgba(0,0,0,0.87);
         line-height: 40px;
         font-size: 14px;

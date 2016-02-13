@@ -6,7 +6,7 @@ export default class Header extends React.Component<any, any> {
     render() {
         return (
             <div id="header" style={{ display: 'flex', flexDirection: 'row', zIndex:1 }}>
-                <i className="material-icons" style={{ cursor: 'pointer' }} onClick={e => this.props.toggleSidebar() }>
+                <i className="material-icons" style={{ cursor: 'pointer' }} onClick={e => this.props.onSidebarToggle() }>
                     menu
                 </i>
                 <h1>AutoQuery</h1>

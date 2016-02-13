@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { render } from 'react-dom';
+import { Link } from 'react-router';
 import 'jquery';
 import 'ss-utils';
 
@@ -38,9 +39,9 @@ export default class Sidebar extends React.Component<any, any> {
                     {Object.keys(this.props.operations)
                         .filter(op => this.state.filter == null || op.toLowerCase().indexOf(this.state.filter) >= 0)
                         .map(op => (
-                        <div className={"aq-item" + (op === this.props.name ? " active" : "")} onClick={e => this.props.onChange(op)}>
+                        <div className={"aq-item" + (op === this.props.name ? " active" : "")}>
                             {this.renderIcon(op)}
-                            <div>{op}</div>
+                            <Link to={"/ss-admin/autoquery/" + op}>{op}</Link>
                         </div>
                     ))}
                 </div>
