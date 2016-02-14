@@ -24,6 +24,16 @@
             Icon for this ServiceStack Instance (shown in Home Services list)
             </summary>
         </member>
+        <member name="P:ServiceStack.AutoQueryViewerConfig.Formats">
+            <summary>
+            The different Content Type formats to display
+            </summary>
+        </member>
+        <member name="P:ServiceStack.AutoQueryViewerConfig.MaxLimit">
+            <summary>
+            The configured MaxLimit
+            </summary>
+        </member>
         <member name="P:ServiceStack.AutoQueryViewerConfig.IsPublic">
             <summary>
             Whether to publish this Service to the public Services registry
