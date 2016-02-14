@@ -40,9 +40,9 @@ System.register(['react', 'react-router', 'jquery', 'ss-utils'], function(export
                 };
                 Sidebar.prototype.render = function () {
                     var _this = this;
-                    return (React.createElement("div", {"id": "sidebar", "className": this.props.hide ? ' hide' : ''}, React.createElement("div", {"id": "aq-filter"}, React.createElement("input", {"type": "text", "placeholder": "filter", "style": { margin: "10px 15px" }, "onChange": function (e) { return _this.handleFilter(e); }, "value": this.state.filter})), React.createElement("div", {"id": "aq-list"}, Object.keys(this.props.operations)
+                    return (React.createElement("div", {"id": "sidebar", "className": this.props.hide ? ' hide' : ''}, React.createElement("div", {"style": { padding: '90px 0 0 0' }}, React.createElement("div", {"id": "aq-filter"}, React.createElement("input", {"type": "text", "placeholder": "filter", "style": { margin: "10px 15px" }, "onChange": function (e) { return _this.handleFilter(e); }, "value": this.state.filter})), React.createElement("div", {"id": "aq-list"}, Object.keys(this.props.operations)
                         .filter(function (op) { return _this.state.filter == null || op.toLowerCase().indexOf(_this.state.filter) >= 0; })
-                        .map(function (op) { return (React.createElement("div", {"className": "aq-item" + (op === _this.props.name ? " active" : "")}, _this.renderIcon(op), React.createElement(react_router_1.Link, {"to": "/ss-admin/autoquery/" + op}, op))); }))));
+                        .map(function (op, i) { return (React.createElement("div", {"key": i, "className": "aq-item" + (op === _this.props.name ? " active" : "")}, _this.renderIcon(op), React.createElement(react_router_1.Link, {"to": "/ss-admin/autoquery/" + op}, op))); })))));
                 };
                 return Sidebar;
             })(React.Component);

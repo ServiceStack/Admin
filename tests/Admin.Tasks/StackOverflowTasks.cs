@@ -22,23 +22,11 @@ namespace Admin.Tasks
             dbFactory = new OrmLiteConnectionFactory(Config.ConnectionString, SqliteDialect.Provider);
         }
 
-        public void RecreateDatabase()
-        {
-            using (var db = dbFactory.OpenDbConnection())
-            {
-                db.DropAndCreateTable<Question>();
-                db.DropAndCreateTable<Answer>();
-                db.DropAndCreateTable<QuestionTag>();
-            }
-        }
-
         [Test]
         public void Import_from_StackOverflow()
         {
-            RecreateDatabase();
-
             var client = new JsonServiceClient();
-            int numberOfPages = 1;
+            int numberOfPages = 10;
             int pageSize = 100;
             var dbQuestions = new List<Question>();
             var dbAnswers = new List<Answer>();
@@ -89,6 +77,10 @@ namespace Admin.Tasks
 
             using (var db = dbFactory.OpenDbConnection())
             {
+                db.DropAndCreateTable<Question>();
+                db.DropAndCreateTable<Answer>();
+                db.DropAndCreateTable<QuestionTag>();
+
                 db.InsertAll(dbQuestions);
                 db.InsertAll(dbAnswers);
                 db.InsertAll(questionTags);

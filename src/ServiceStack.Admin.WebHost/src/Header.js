@@ -20,7 +20,7 @@ System.register(['react'], function(exports_1) {
                 }
                 Header.prototype.render = function () {
                     var _this = this;
-                    return (React.createElement("div", {"id": "header", "style": { display: 'flex', flexDirection: 'row', zIndex: 1 }}, React.createElement("i", {"className": "material-icons", "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onSidebarToggle(); }}, "menu"), React.createElement("h1", null, "AutoQuery"), this.props.title == null ? React.createElement("div", {"style": { flex: 1 }}) : (React.createElement("div", {"id": "header-content", "style": { display: 'flex', flex: 1 }}, React.createElement("div", null, React.createElement("div", {"className": "seperator"})), React.createElement("h2", null, this.props.title), React.createElement("div", {"style": { margin: 'auto', flex: 1 }})))));
+                    return (React.createElement("div", {"id": "header", "style": { margin: 'auto', display: 'flex', flexDirection: 'row' }}, React.createElement("i", {"className": "material-icons", "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onSidebarToggle(); }}, "menu"), React.createElement("h1", null, "AutoQuery"), this.props.title == null ? React.createElement("div", {"style": { flex: 1 }}) : (React.createElement("div", {"id": "header-content", "style": { display: 'flex', flex: 1 }}, React.createElement("div", null, React.createElement("div", {"className": "seperator"})), React.createElement("h2", null, this.props.title), React.createElement("div", {"style": { margin: 'auto', flex: 1 }})))));
                 };
                 return Header;
             })(React.Component);

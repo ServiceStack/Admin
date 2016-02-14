@@ -23,4 +23,4 @@ render(
             <Route path="/ss-admin/autoquery(/:name)" component={AutoQuery} />
         </Route>
     </Router>), 
-document.body);
+    document.getElementById('app'));

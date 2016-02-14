@@ -31,19 +31,21 @@ export default class Sidebar extends React.Component<any, any> {
     render() {
         return (
             <div id="sidebar" className={this.props.hide ? ' hide' : ''}>
-                <div id="aq-filter">
-                    <input type="text" placeholder="filter" style={{ margin: "10px 15px" }}
-                        onChange={e => this.handleFilter(e)} value={this.state.filter} />
-                </div>
-                <div id="aq-list">
-                    {Object.keys(this.props.operations)
-                        .filter(op => this.state.filter == null || op.toLowerCase().indexOf(this.state.filter) >= 0)
-                        .map(op => (
-                        <div className={"aq-item" + (op === this.props.name ? " active" : "")}>
-                            {this.renderIcon(op)}
-                            <Link to={"/ss-admin/autoquery/" + op}>{op}</Link>
-                        </div>
-                    ))}
+                <div style={{ padding: '90px 0 0 0' }}>
+                    <div id="aq-filter">
+                        <input type="text" placeholder="filter" style={{ margin: "10px 15px" }}
+                            onChange={e => this.handleFilter(e)} value={this.state.filter} />
+                    </div>
+                    <div id="aq-list">
+                        {Object.keys(this.props.operations)
+                            .filter(op => this.state.filter == null || op.toLowerCase().indexOf(this.state.filter) >= 0)
+                            .map((op,i) => (
+                            <div key={i} className={"aq-item" + (op === this.props.name ? " active" : "")}>
+                                {this.renderIcon(op)}
+                                <Link to={"/ss-admin/autoquery/" + op}>{op}</Link>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         );

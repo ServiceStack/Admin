@@ -149,8 +149,10 @@
     <TypeScriptCompile Include="src\AutoQuery.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\core.ts" />
     <TypeScriptCompile Include="src\deps.tsx" />
     <TypeScriptCompile Include="src\Content.tsx" />
+    <TypeScriptCompile Include="src\Results.tsx" />
     <TypeScriptCompile Include="src\Sidebar.tsx" />
     <TypeScriptCompile Include="src\Header.tsx" />
     <TypeScriptCompile Include="src\main.tsx">

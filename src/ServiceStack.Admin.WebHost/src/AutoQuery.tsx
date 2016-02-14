@@ -13,8 +13,8 @@ export default class AutoQuery extends React.Component<any, any> {
         super(props, context);
         this.state = {};
 
-        $.getJSON("/autoquery/metadata", metadata =>
-            this.setState({ metadata, name: this.props.params.name }));
+        $.getJSON("/autoquery/metadata", r =>
+            this.setState({ metadata: $.ss.normalize(r, true), name: this.props.params.name }));
     }
 
     render() {
@@ -27,6 +27,8 @@ export default class AutoQuery extends React.Component<any, any> {
 class App extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
+
+        console.log(this.props.metadata);
 
         var operationNames = this.props.metadata.operations.map(op => op.request);
 
@@ -74,20 +76,20 @@ class App extends React.Component<any, any> {
             : null;
     }
 
-    getSelectedTitle() {
-        return this.state.selected
-            ? this.getAutoQueryViewerArgValue(this.state.selected.name, 'Title') || this.state.selected.name
+    getTitle(selected) {
+        return selected
+            ? this.getAutoQueryViewerArgValue(selected.name, 'Title') || selected.name
             : null;
     }
 
     getDefaults(name) {
         const viewerArgs = this.state.viewerArgs[name] || {};
         const op = this.state.defaults[name] || {};
-        return {
-            searchField: op.searchField || viewerArgs["DefaultSearchField"],
-            searchType: op.searchType || viewerArgs["DefaultSearchType"],
-            searchText: op.searchText != null ? op.searchText : viewerArgs["DefaultSearchText"]
-        };
+        return Object.assign({
+            searchField: viewerArgs["DefaultSearchField"] || "",
+            searchType: viewerArgs["DefaultSearchType"] || "",
+            searchText: viewerArgs["DefaultSearchText"]
+        }, op);
     }
 
     getSelected(name) {
@@ -103,12 +105,12 @@ class App extends React.Component<any, any> {
     onContentChange(name, newValues) {
         const defaults = this.state.defaults;
         const op = defaults[name] || (defaults[name] = {});
-        if (newValues.searchField != null)
-            op.searchField = newValues.searchField;
-        if (newValues.searchType != null)
-            op.searchType = newValues.searchType;
-        if (newValues.searchText != null)
-            op.searchText = newValues.searchText;
+
+        Object.keys(newValues).forEach(k => {
+            if (newValues[k] != null)
+                op[k] = newValues[k];
+        });
+
         this.setState({ defaults });
     }
 
@@ -116,21 +118,23 @@ class App extends React.Component<any, any> {
         var selected = this.getSelected(this.props.name);
         var opName = selected && selected.name;
         return (
-            <div>
-                <Header title={this.getSelectedTitle()} onSidebarToggle={e => this.toggleSidebar()} />
-                <div id="body" style={{ position: 'absolute', top: 90, display: 'flex', flexDirection: 'row', width: '100%', height: '100%' }}>
-                    <Sidebar hide={this.state.sidebarHidden} name={opName}                        
-                        viewerArgs={this.state.viewerArgs}
-                        operations={this.state.operations}
-                        />
-                    <Content
-                        baseUrl={this.props.metadata.config.serviceBaseUrl}
-                        selected={selected}
-                        defaults={this.getDefaults(this.props.name)}
-                        implicitConventions={this.props.metadata.config.implicitConventions}
-                        viewerArgs={this.state.viewerArgs}
-                        onChange={args => this.onContentChange(opName, args)}
-                        />
+            <div style={{ height: '100%' }}>
+                <Header title={this.getTitle(selected)} onSidebarToggle={e => this.toggleSidebar() } />
+                <div id="body" style={{ display:'flex', height:'100%' }}>
+                    <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+                        <Sidebar hide={this.state.sidebarHidden} name={opName}                        
+                            viewerArgs={this.state.viewerArgs}
+                            operations={this.state.operations}
+                            />
+                        <Content
+                            config={this.props.metadata.config}
+                            selected={selected}
+                            defaults={this.getDefaults(this.props.name) }
+                            conventions={this.props.metadata.config.implicitconventions}
+                            viewerArgs={this.state.viewerArgs[opName]}
+                            onChange={args => this.onContentChange(opName, args) }
+                            />
+                    </div>
                 </div>
             </div>
         );

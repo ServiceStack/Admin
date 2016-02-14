@@ -5,7 +5,7 @@ import * as React from 'react';
 export default class Header extends React.Component<any, any> {
     render() {
         return (
-            <div id="header" style={{ display: 'flex', flexDirection: 'row', zIndex:1 }}>
+            <div id="header" style={{ margin: 'auto', display: 'flex', flexDirection: 'row' }}>
                 <i className="material-icons" style={{ cursor: 'pointer' }} onClick={e => this.props.onSidebarToggle() }>
                     menu
                 </i>

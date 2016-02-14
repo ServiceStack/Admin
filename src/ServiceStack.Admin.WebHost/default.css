@@ -1,7 +1,11 @@
-﻿body {
+﻿html, body{
+  height:100%;
+}
+body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     background: #eee;
+    overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, form {
@@ -9,20 +13,48 @@ h1, h2, h3, h4, h5, h6, form {
     padding: 0;
 }
 
-input {
-    padding: 2px 5px;
+input, select, button {
+    padding: 4px 8px;
     margin: 0 5px 0 0;
 }
-select {
-    padding: 2px 5px;
-    margin: 0 5px 0 0;
+a {
+    color: #428bca;
 }
-button {
-    padding: 2px 5px;
-    margin: 0 5px 0 0;
+
+table {
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+}
+table.results {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+    background: #fefefe;
+}
+table.results th {
+    text-align: left;
+    color: #757575;
+    font-size: 13px;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;   
+}
+table.results td {
+    color: #212121;
+    font-size: 12px;
+    padding: 5px;
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;   
+    text-overflow: ellipsis;
+}
+
+.results-none {
+    padding: 15px 0;
 }
 
 #header {
+    z-index: 2;
     background: #fff;
     color: #676767;
     box-shadow: 0 1px 8px rgba(0,0,0,.3);
@@ -63,13 +95,17 @@ form:focus {
 }
 
 #sidebar {
+    z-index: 1;
+    background: #eee;
     margin-left: 0;
     transition: .3s;
     width: 250px;
-    padding: 0 50px 0 0;
+    min-width: 250px;
+    padding: 0 30px 0 0;
+    overflow-y: auto;
 }
     #sidebar.hide {
-        margin-left: -200px;
+        margin-left: -280px;
         transition: .3s;
         transition-timing-function: ease-out;
     }
@@ -77,6 +113,9 @@ form:focus {
 .aq-item {
     display: flex;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
     .aq-item i { /*material-icon*/
         color: #757575;
@@ -110,6 +149,42 @@ form:focus {
         color: #272727;
     }
 
+.formats {
+    padding: 0 0 0 10px;
+}
+.formats span {
+    color: #428bca;
+    padding: 0 5px 0 0;
+    font-size: 12px;
+    cursor: pointer;
+}
+.formats span.active {
+    color: #212121;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
 
 /* roboto-regular - latin */
 @font-face {
