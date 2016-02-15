@@ -62,14 +62,14 @@ class App extends React.Component<any, any> {
         return this.props.metadata.types.filter(op => op.name === name)[0];
     }
 
-    getAutoQueryViewer(name: string) {
+    getAutoQueryViewer(name:string) {
         const type = this.getType(name);
         return type != null && type.attributes != null
             ? type.attributes.filter(attr => attr.name === "AutoQueryViewer")[0]
             : null;
     }
 
-    getAutoQueryViewerArgValue(name: string, argName:string) {
+    getAutoQueryViewerArgValue(name:string, argName:string) {
         var aqViewer = this.getAutoQueryViewer(name);
         var arg = aqViewer
             ? aqViewer.args.filter(x => x.name === argName)[0]
@@ -105,7 +105,7 @@ class App extends React.Component<any, any> {
         return { name, operation, requestType, fromType, toType};
     }
 
-    onContentChange(name:string, newValues:any) {
+    onContentChange(name: string, newValues: any) {
         const op = this.getOperationValues(name);
 
         Object.keys(newValues).forEach(k => {

@@ -39,9 +39,21 @@ export default class Results extends React.Component<any, any> {
             var fieldNames = this.props.fieldNames || Object.keys(results[0]);
             var fieldWidths = this.props.fieldWidths || {};
 
+            var orderBy = (this.props.values.orderBy || '');
+            var orderByName = orderBy.startsWith('-') ? orderBy.substr(1) : orderBy;
+
             Results = (
                 <table className="results">
-                    <thead><tr>{ fieldNames.map(f => <th key={f}>{$.ss.humanize(f)}</th>) }</tr></thead>
+                    <thead><tr className="noselect">{ fieldNames.map(f => (
+                        <th key={f} style={{ cursor: 'pointer' }}
+                            onClick={e => this.props.onOrderByChange(f !== orderByName ? '-' + f : !orderBy.startsWith('-') ? '' : orderByName) }>
+
+                            { $.ss.humanize(f) }
+
+                            { f !== orderByName ? null :
+                                <i className="material-icons" style={{fontSize:'18px',verticalAlign:'bottom'}}>{orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"}</i>}
+                        </th>
+                    )) }</tr></thead>
                     <tbody>
                         { results.map((r,i) => (
                             <tr key={i}>

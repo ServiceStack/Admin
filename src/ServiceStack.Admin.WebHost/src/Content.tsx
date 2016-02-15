@@ -41,6 +41,12 @@ export default class Content extends React.Component<any, any> {
         this.getArgs().forEach(arg =>
             url = $.ss.createUrl(url, arg));
 
+        if (this.props.values.offset)
+            url = $.ss.createUrl(url, { skip: this.props.values.offset });
+
+        if (this.props.values.orderBy)
+            url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
+
         url = url.replace("%2C", ",");
 
         return url;
@@ -63,7 +69,7 @@ export default class Content extends React.Component<any, any> {
             const { searchField, searchType, searchText } = condition;
             var convention = this.props.conventions.filter(c => c.name === searchType)[0];
             if (convention) {
-                var field = convention.value.replace("%", searchField);
+                const field = convention.value.replace("%", searchField);
                 args.push({ [field]: searchText });
             }
         });
@@ -87,15 +93,33 @@ export default class Content extends React.Component<any, any> {
             });
         }
 
+        var { offset, results, total } = response, maxLimit = this.props.config.maxlimit;
+
+        const Control = (name, enable, offset) => enable
+            ? <i className="material-icons" style={{ cursor: 'pointer' }} onClick={e => this.props.onChange({ offset })}>{name}</i>
+            : <i className="material-icons" style={{ color: '#ccc' }}>{name}</i>;
+
+        var Paging = (
+            <span className="paging" style={{padding:'0 10px 0 0'}}>
+                {Control("skip_previous", offset > 0, 0) }
+                {Control("chevron_left", offset > 0, Math.max(offset - maxLimit, 0)) }
+                {Control("chevron_right", offset + maxLimit < total, offset + maxLimit) }
+                {Control("skip_next", offset + maxLimit < total, Math.floor((total - 1) / maxLimit) * maxLimit)}
+            </span>
+        );
+
         return response.results.length === 0
             ? <div className="results-none">There were no results</div>
             : (
                 <div>
-                    <div style={{ color: '#757575', padding: '15px' }}>
-                        Showing Results {response.offset + 1} - {response.offset + response.results.length} of {response.total}
+                    <div className="noselect" style={{ color: '#757575', padding: '15px 0' }}>
+                        {Paging}
+                        Showing Results {offset + 1} - {offset + results.length} of {total}
                     </div>
 
-                    <Results results={response.results} fieldNames={fieldNames} fieldWidths={fieldWidths} />
+                    <Results results={response.results} fieldNames={fieldNames} fieldWidths={fieldWidths}
+                        values={this.props.values}
+                        onOrderByChange={orderBy => this.props.onChange({ orderBy })} />
                 </div>
             );
     }

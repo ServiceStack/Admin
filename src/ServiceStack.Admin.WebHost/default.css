@@ -34,6 +34,7 @@ table.results th {
     text-align: left;
     color: #757575;
     font-size: 13px;
+    line-height: 18px;
     border-bottom: 1px solid #e0e0e0;
     padding: 5px;
     overflow: hidden;
@@ -170,6 +171,10 @@ form:focus {
 .conditions .material-icons {
     font-size: 16px;
     vertical-align: text-bottom;
+}
+
+.paging i {
+    vertical-align: bottom;
 }
 
 ::-webkit-scrollbar {

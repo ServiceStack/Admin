@@ -1,4 +1,4 @@
-// Compiled using typings@0.6.7
+// Compiled using typings@0.6.8
 // Source: https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/97f1f12a68467c7d95dc19915850013cdb688548/ss-utils/ss-utils.d.ts
 // Type definitions for ServiceStack Utils v0.0.1
 // Project: https://servicestack.net/

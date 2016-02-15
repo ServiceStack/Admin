@@ -47,7 +47,10 @@ System.register(['react', 'jquery', 'ss-utils'], function(exports_1) {
                     if (results && results.length > 0) {
                         var fieldNames = this.props.fieldNames || Object.keys(results[0]);
                         var fieldWidths = this.props.fieldWidths || {};
-                        Results = (React.createElement("table", {"className": "results"}, React.createElement("thead", null, React.createElement("tr", null, fieldNames.map(function (f) { return React.createElement("th", {"key": f}, $.ss.humanize(f)); }))), React.createElement("tbody", null, results.map(function (r, i) { return (React.createElement("tr", {"key": i}, fieldNames.map(function (f, j) { return (React.createElement("td", {"key": j, "title": _this.renderValue(r[f]), "style": fieldWidths[f.toLowerCase()] ? { maxWidth: fieldWidths[f.toLowerCase()] } : {}}, _this.formatString(_this.renderValue(r[f])))); }))); }))));
+                        var orderBy = (this.props.values.orderBy || '');
+                        var orderByName = orderBy.startsWith('-') ? orderBy.substr(1) : orderBy;
+                        Results = (React.createElement("table", {"className": "results"}, React.createElement("thead", null, React.createElement("tr", {"className": "noselect"}, fieldNames.map(function (f) { return (React.createElement("th", {"key": f, "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onOrderByChange(f !== orderByName ? '-' + f : !orderBy.startsWith('-') ? '' : orderByName); }}, $.ss.humanize(f), f !== orderByName ? null :
+                            React.createElement("i", {"className": "material-icons", "style": { fontSize: '18px', verticalAlign: 'bottom' }}, orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"))); }))), React.createElement("tbody", null, results.map(function (r, i) { return (React.createElement("tr", {"key": i}, fieldNames.map(function (f, j) { return (React.createElement("td", {"key": j, "title": _this.renderValue(r[f]), "style": fieldWidths[f.toLowerCase()] ? { maxWidth: fieldWidths[f.toLowerCase()] } : {}}, _this.formatString(_this.renderValue(r[f])))); }))); }))));
                     }
                     return Results;
                 };

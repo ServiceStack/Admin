@@ -47,6 +47,10 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     this.getArgs().forEach(function (arg) {
                         return url = $.ss.createUrl(url, arg);
                     });
+                    if (this.props.values.offset)
+                        url = $.ss.createUrl(url, { skip: this.props.values.offset });
+                    if (this.props.values.orderBy)
+                        url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
                     url = url.replace("%2C", ",");
                     return url;
                 };
@@ -74,6 +78,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     return args;
                 };
                 Content.prototype.renderResults = function (response) {
+                    var _this = this;
                     var fieldNames = null, fieldWidths = null;
                     var fieldDefs = (this.props.viewerArgs["SummaryFields"] || "")
                         .split(',')
@@ -87,9 +92,14 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                                 fieldWidths[parts[0].toLowerCase()] = parts[1];
                         });
                     }
+                    var offset = response.offset, results = response.results, total = response.total, maxLimit = this.props.config.maxlimit;
+                    var Control = function (name, enable, offset) { return enable
+                        ? React.createElement("i", {"className": "material-icons", "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onChange({ offset: offset }); }}, name)
+                        : React.createElement("i", {"className": "material-icons", "style": { color: '#ccc' }}, name); };
+                    var Paging = (React.createElement("span", {"className": "paging", "style": { padding: '0 10px 0 0' }}, Control("skip_previous", offset > 0, 0), Control("chevron_left", offset > 0, Math.max(offset - maxLimit, 0)), Control("chevron_right", offset + maxLimit < total, offset + maxLimit), Control("skip_next", offset + maxLimit < total, Math.floor((total - 1) / maxLimit) * maxLimit)));
                     return response.results.length === 0
                         ? React.createElement("div", {"className": "results-none"}, "There were no results")
-                        : (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', padding: '15px' }}, "Showing Results ", response.offset + 1, " - ", response.offset + response.results.length, " of ", response.total), React.createElement(Results_1.default, {"results": response.results, "fieldNames": fieldNames, "fieldWidths": fieldWidths})));
+                        : (React.createElement("div", null, React.createElement("div", {"className": "noselect", "style": { color: '#757575', padding: '15px 0' }}, Paging, "Showing Results ", offset + 1, " - ", offset + results.length, " of ", total), React.createElement(Results_1.default, {"results": response.results, "fieldNames": fieldNames, "fieldWidths": fieldWidths, "values": this.props.values, "onOrderByChange": function (orderBy) { return _this.props.onChange({ orderBy: orderBy }); }})));
                 };
                 Content.prototype.renderBody = function (op, values) {
                     var _this = this;
