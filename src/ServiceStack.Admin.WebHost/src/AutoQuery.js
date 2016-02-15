@@ -90,14 +90,14 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                         ? this.getAutoQueryViewerArgValue(selected.name, 'Title') || selected.name
                         : null;
                 };
-                App.prototype.getDefaults = function (name) {
+                App.prototype.getOperationValues = function (name) {
                     var viewerArgs = this.state.viewerArgs[name] || {};
-                    var op = this.state.defaults[name] || {};
                     return Object.assign({
                         searchField: viewerArgs["DefaultSearchField"] || "",
                         searchType: viewerArgs["DefaultSearchType"] || "",
-                        searchText: viewerArgs["DefaultSearchText"]
-                    }, op);
+                        searchText: viewerArgs["DefaultSearchText"],
+                        conditions: []
+                    }, this.state.defaults[name] || {});
                 };
                 App.prototype.getSelected = function (name) {
                     var operation = this.state.operations[name];
@@ -109,19 +109,42 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                     return { name: name, operation: operation, requestType: requestType, fromType: fromType, toType: toType };
                 };
                 App.prototype.onContentChange = function (name, newValues) {
-                    var defaults = this.state.defaults;
-                    var op = defaults[name] || (defaults[name] = {});
+                    var op = this.getOperationValues(name);
                     Object.keys(newValues).forEach(function (k) {
                         if (newValues[k] != null)
                             op[k] = newValues[k];
                     });
+                    this.setOperationValues(name, op);
+                };
+                App.prototype.addCondition = function (name) {
+                    var op = this.getOperationValues(name);
+                    var condition = {
+                        id: op.searchField + "|" + op.searchType + "|" + op.searchText,
+                        searchField: op.searchField,
+                        searchType: op.searchType,
+                        searchText: op.searchText
+                    };
+                    if (op.conditions.some(function (x) { return x.id === condition.id; }))
+                        return;
+                    op.searchText = "";
+                    op.conditions.push(condition);
+                    this.setOperationValues(name, op);
+                };
+                App.prototype.removeCondition = function (name, condition) {
+                    var op = this.getOperationValues(name);
+                    op.conditions = op.conditions.filter(function (x) { return x.id !== condition.id; });
+                    this.setOperationValues(name, op);
+                };
+                App.prototype.setOperationValues = function (name, op) {
+                    var defaults = Object.assign({}, this.state.defaults);
+                    defaults[name] = op;
                     this.setState({ defaults: defaults });
                 };
                 App.prototype.render = function () {
                     var _this = this;
                     var selected = this.getSelected(this.props.name);
                     var opName = selected && selected.name;
-                    return (React.createElement("div", {"style": { height: '100%' }}, React.createElement(Header_1.default, {"title": this.getTitle(selected), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { display: 'flex', height: '100%' }}, React.createElement("div", {"style": { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"config": this.props.metadata.config, "selected": selected, "defaults": this.getDefaults(this.props.name), "conventions": this.props.metadata.config.implicitconventions, "viewerArgs": this.state.viewerArgs[opName], "onChange": function (args) { return _this.onContentChange(opName, args); }})))));
+                    return (React.createElement("div", {"style": { height: '100%' }}, React.createElement(Header_1.default, {"title": this.getTitle(selected), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { display: 'flex', height: '100%' }}, React.createElement("div", {"style": { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"config": this.props.metadata.config, "selected": selected, "values": this.getOperationValues(this.props.name), "conventions": this.props.metadata.config.implicitconventions, "viewerArgs": this.state.viewerArgs[opName], "onChange": function (args) { return _this.onContentChange(opName, args); }, "onAddCondition": function (e) { return _this.addCondition(opName); }, "onRemoveCondition": function (c) { return _this.removeCondition(opName, c); }})))));
                 };
                 return App;
             })(React.Component);

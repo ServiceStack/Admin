@@ -161,6 +161,16 @@ form:focus {
 .formats span.active {
     color: #212121;
 }
+.conditions {
+    color: #757575;
+    font-size: 13px;
+    padding: 15px;
+    line-height: 18px;
+}
+.conditions .material-icons {
+    font-size: 16px;
+    vertical-align: text-bottom;
+}
 
 ::-webkit-scrollbar {
     width: 5px;

@@ -82,17 +82,17 @@ class App extends React.Component<any, any> {
             : null;
     }
 
-    getDefaults(name) {
+    getOperationValues(name: string) {
         const viewerArgs = this.state.viewerArgs[name] || {};
-        const op = this.state.defaults[name] || {};
         return Object.assign({
             searchField: viewerArgs["DefaultSearchField"] || "",
             searchType: viewerArgs["DefaultSearchType"] || "",
-            searchText: viewerArgs["DefaultSearchText"]
-        }, op);
+            searchText: viewerArgs["DefaultSearchText"],
+            conditions: []
+        }, this.state.defaults[name] || {});
     }
 
-    getSelected(name) {
+    getSelected(name: string) {
         const operation = this.state.operations[name];
         if (operation == null)
             return null;
@@ -102,15 +102,44 @@ class App extends React.Component<any, any> {
         return { name, operation, requestType, fromType, toType};
     }
 
-    onContentChange(name, newValues) {
-        const defaults = this.state.defaults;
-        const op = defaults[name] || (defaults[name] = {});
+    onContentChange(name:string, newValues:any) {
+        const op = this.getOperationValues(name);
 
         Object.keys(newValues).forEach(k => {
             if (newValues[k] != null)
                 op[k] = newValues[k];
         });
 
+        this.setOperationValues(name, op);
+    }
+
+    addCondition(name:string) {
+        const op = this.getOperationValues(name);
+        const condition = {
+            id: `${op.searchField}|${op.searchType}|${op.searchText}`,
+            searchField: op.searchField,
+            searchType: op.searchType,
+            searchText: op.searchText
+        };
+
+        if (op.conditions.some(x => x.id === condition.id))
+            return;
+
+        op.searchText = "";
+        op.conditions.push(condition);
+
+        this.setOperationValues(name, op);
+    }
+
+    removeCondition(name: string, condition:any) {
+        const op = this.getOperationValues(name);
+        op.conditions = op.conditions.filter(x => x.id !== condition.id);
+        this.setOperationValues(name, op);
+    }
+
+    setOperationValues(name, op) {
+        var defaults = Object.assign({}, this.state.defaults);
+        defaults[name] = op;
         this.setState({ defaults });
     }
 
@@ -129,10 +158,12 @@ class App extends React.Component<any, any> {
                         <Content
                             config={this.props.metadata.config}
                             selected={selected}
-                            defaults={this.getDefaults(this.props.name) }
+                            values={this.getOperationValues(this.props.name)}
                             conventions={this.props.metadata.config.implicitconventions}
                             viewerArgs={this.state.viewerArgs[opName]}
-                            onChange={args => this.onContentChange(opName, args) }
+                            onChange={args => this.onContentChange(opName, args)}
+                            onAddCondition={e => this.addCondition(opName)}
+                            onRemoveCondition={c => this.removeCondition(opName, c) }
                             />
                     </div>
                 </div>

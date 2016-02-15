@@ -24,7 +24,7 @@ export default class Content extends React.Component<any, any> {
     }
 
     selectFormat(format) {
-        if (format === this.props.defaults.format)
+        if (format === this.props.values.format) //toggle
             format = "";
 
         this.props.onChange({ format });
@@ -32,26 +32,42 @@ export default class Content extends React.Component<any, any> {
 
     getAutoQueryUrl() {
         const firstRoute = (this.props.selected.requestType.routes || []).filter(x => x.path.indexOf('{') === -1)[0];
-        const path = firstRoute ? firstRoute.path : '/json/reply/' + this.props.selected.requestType.name;
-        var requestPath = $.ss.combinePaths(this.props.config.servicebaseurl, path);
+        const path = firstRoute ? firstRoute.path : '/json/reply/' + this.props.selected.requestType.name;        
+        var url = $.ss.combinePaths(this.props.config.servicebaseurl, path);
 
-        if (this.props.defaults.format)
-            requestPath += "." + this.props.defaults.format;
+        if (this.props.values.format)
+            url += "." + this.props.values.format;
 
-        var url = $.ss.createUrl(requestPath, this.getArgs());
-        return url.replace("%2C",",");
+        this.getArgs().forEach(arg =>
+            url = $.ss.createUrl(url, arg));
+
+        url = url.replace("%2C", ",");
+
+        return url;
+    }
+
+    isValidCondition() {
+        const { searchField, searchType, searchText } = this.props.values;
+        return searchField && searchType && searchText
+            && (searchType.toLowerCase() !== 'between' || (searchText.indexOf(',') > 0 && searchText.indexOf(',') < searchText.length -1));
     }
 
     getArgs() {
-        var defaults = this.props.defaults;
-        var args = {};
-        if (defaults && defaults.searchField && defaults.searchType && defaults.searchText) {
-            var convention = this.props.conventions.filter(c => c.name === defaults.searchType)[0];
-            if (convention) {
-                var field = convention.value.replace("%", defaults.searchField);
-                args[field] = defaults.searchText;
-            }
+        var args = [];
+        var conditions = (this.props.values.conditions || []).slice(0);
+        if (this.isValidCondition()) {
+            conditions.push(this.props.values);
         }
+
+        conditions.forEach(condition => {
+            const { searchField, searchType, searchText } = condition;
+            var convention = this.props.conventions.filter(c => c.name === searchType)[0];
+            if (convention) {
+                var field = convention.value.replace("%", searchField);
+                args.push({ [field]: searchText });
+            }
+        });
+
         return args;
     }
 
@@ -84,7 +100,7 @@ export default class Content extends React.Component<any, any> {
             );
     }
 
-    renderBody(op, defaults) {
+    renderBody(op, values) {
         const url = this.getAutoQueryUrl();
         if (!this.state.response || this.state.response.url !== url) {
             $.getJSON(url, { jsconfig: "DateHandler:ISO8601DateOnly"}, r => {
@@ -102,25 +118,43 @@ export default class Content extends React.Component<any, any> {
                 <div id="url" style={{ padding: '0 0 10px 0' }}>
                     <a href={url} target="_blank">{url}</a>
                 </div>
-                <form style={{ padding: '0' }}>
-                    <select value={defaults.searchField} onChange={e => this.selectField(e) }>
-                        <option></option>
-                        {op.fromType.properties.map(
-                            p => <option key={p.name}>{p.name}</option>) }
-                    </select>
-                    <select value={defaults.searchType} onChange={e => this.selectOperand(e) }>
-                        <option></option>
-                        {this.props.conventions.map(
-                            c => <option key={c.name}>{c.name}</option>) }
-                    </select>
-                    <input type="text" id="txtSearch" value={defaults.searchText} onChange={e => this.changeText(e)} />
-                    <button>+</button>
-                    {!this.props.config.formats || this.props.config.formats.length === 0 ? null : (
-                        <span className="formats noselect">
-                            {this.props.config.formats.map(f =>
-                                <span className={defaults.format === f ? 'active' : ''} onClick={e => this.selectFormat(f)}>{f}</span>) }
-                        </span>)}
-                </form>
+
+                <select value={values.searchField} onChange={e => this.selectField(e) }>
+                    <option></option>
+                    {op.fromType.properties.map(
+                        p => <option key={p.name}>{p.name}</option>) }
+                </select>
+                <select value={values.searchType} onChange={e => this.selectOperand(e) }>
+                    <option></option>
+                    {this.props.conventions.map(
+                        c => <option key={c.name}>{c.name}</option>) }
+                </select>
+                <input type="text" id="txtSearch" value={values.searchText}
+                    onChange={e => this.changeText(e) }
+                    onKeyDown={e => e.keyCode === 13 ? this.props.onAddCondition() : null} />
+
+                {this.isValidCondition()
+                    ? (<i className="material-icons" style={{ fontSize: '30px', verticalAlign: 'bottom', color: '#00C853', cursor: 'pointer' }}
+                        onClick={e => this.props.onAddCondition() } title="Add condition">add_circle</i>)
+                    : (<i className="material-icons" style={{ fontSize: '30px', verticalAlign: 'bottom', color: '#ccc' }}
+                        title="Incomplete condition">add_circle</i>)}
+
+                {!this.props.config.formats || this.props.config.formats.length === 0 ? null : (
+                    <span className="formats noselect">
+                        {this.props.config.formats.map(f =>
+                            <span className={values.format === f ? 'active' : ''} onClick={e => this.selectFormat(f)}>{f}</span>) }
+                    </span>)}
+
+                <div className="conditions">
+                    {this.props.values.conditions.map(c => (
+                        <div>
+                            <i className="material-icons" style={{ color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }}
+                                title="remove condition"
+                                onClick={e => this.props.onRemoveCondition(c) }>remove_circle</i>
+                            {c.searchField} {c.searchType} {c.searchText}
+                        </div>
+                    ))}
+                </div>
 
                 { this.state.response ? this.renderResults(this.state.response) : null }
 
@@ -136,8 +170,8 @@ export default class Content extends React.Component<any, any> {
                         <tr>
                             <td>
                                 {this.props.selected
-                                    ? this.renderBody(this.props.selected, this.props.defaults)
-                                    : <div style={{ padding: '15px 0' }}>No Query Selected</div> }
+                                    ? this.renderBody(this.props.selected, this.props.values)
+                                    : <div style={{ padding: '15px 0' }}>Please Select a Query</div> }
                             </td>
                             <td style={{minWidth:'290px'}}></td>
                         </tr>
