@@ -22,7 +22,7 @@ System.register(['react', 'react-router', 'jquery', 'ss-utils'], function(export
                 __extends(Sidebar, _super);
                 function Sidebar(props, context) {
                     _super.call(this, props, context);
-                    this.state = { filter: null, defaults: {} };
+                    this.state = { filter: null };
                 }
                 Sidebar.prototype.handleFilter = function (e) {
                     this.setState({ filter: e.target.value.toLowerCase() });

@@ -28,8 +28,6 @@ class App extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
 
-        console.log(this.props.metadata);
-
         var operationNames = this.props.metadata.operations.map(op => op.request);
 
         var viewerArgs = {}, operations = {}, types = {};
@@ -45,9 +43,14 @@ class App extends React.Component<any, any> {
 
         this.props.metadata.types.forEach(t => types[t.name] = t);
 
+        var operationState = {};
+        var json = localStorage.getItem("v1/operationState");
+        if (json)
+            operationState = JSON.parse(json);
+
         this.state = {
-            sidebarHidden: false, selected: null, defaults: {},
-            operationNames, viewerArgs, operations, types            
+            sidebarHidden: false, selected: null, 
+            operationState, operationNames, viewerArgs, operations, types            
         };
     }
 
@@ -89,7 +92,7 @@ class App extends React.Component<any, any> {
             searchType: viewerArgs["DefaultSearchType"] || "",
             searchText: viewerArgs["DefaultSearchText"],
             conditions: []
-        }, this.state.defaults[name] || {});
+        }, this.state.operationState[name] || {});
     }
 
     getSelected(name: string) {
@@ -138,9 +141,10 @@ class App extends React.Component<any, any> {
     }
 
     setOperationValues(name, op) {
-        var defaults = Object.assign({}, this.state.defaults);
-        defaults[name] = op;
-        this.setState({ defaults });
+        var operationState = Object.assign({}, this.state.operationState);
+        operationState[name] = op;
+        this.setState({ operationState });
+        localStorage.setItem("v1/operationState", JSON.stringify(operationState));
     }
 
     render() {

@@ -9,7 +9,7 @@ import 'ss-utils';
 export default class Sidebar extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
-        this.state = { filter: null, defaults: {} };
+        this.state = { filter: null };
     }
 
     handleFilter(e) {

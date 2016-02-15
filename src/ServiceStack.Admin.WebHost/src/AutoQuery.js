@@ -47,7 +47,6 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                 function App(props, context) {
                     var _this = this;
                     _super.call(this, props, context);
-                    console.log(this.props.metadata);
                     var operationNames = this.props.metadata.operations.map(function (op) { return op.request; });
                     var viewerArgs = {}, operations = {}, types = {};
                     operationNames.forEach(function (name) {
@@ -59,9 +58,13 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                         operations[name] = _this.props.metadata.operations.filter(function (op) { return op.request === name; })[0];
                     });
                     this.props.metadata.types.forEach(function (t) { return types[t.name] = t; });
+                    var operationState = {};
+                    var json = localStorage.getItem("v1/operationState");
+                    if (json)
+                        operationState = JSON.parse(json);
                     this.state = {
-                        sidebarHidden: false, selected: null, defaults: {},
-                        operationNames: operationNames, viewerArgs: viewerArgs, operations: operations, types: types
+                        sidebarHidden: false, selected: null,
+                        operationState: operationState, operationNames: operationNames, viewerArgs: viewerArgs, operations: operations, types: types
                     };
                 }
                 App.prototype.toggleSidebar = function () {
@@ -97,7 +100,7 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                         searchType: viewerArgs["DefaultSearchType"] || "",
                         searchText: viewerArgs["DefaultSearchText"],
                         conditions: []
-                    }, this.state.defaults[name] || {});
+                    }, this.state.operationState[name] || {});
                 };
                 App.prototype.getSelected = function (name) {
                     var operation = this.state.operations[name];
@@ -136,9 +139,10 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                     this.setOperationValues(name, op);
                 };
                 App.prototype.setOperationValues = function (name, op) {
-                    var defaults = Object.assign({}, this.state.defaults);
-                    defaults[name] = op;
-                    this.setState({ defaults: defaults });
+                    var operationState = Object.assign({}, this.state.operationState);
+                    operationState[name] = op;
+                    this.setState({ operationState: operationState });
+                    localStorage.setItem("v1/operationState", JSON.stringify(operationState));
                 };
                 App.prototype.render = function () {
                     var _this = this;
