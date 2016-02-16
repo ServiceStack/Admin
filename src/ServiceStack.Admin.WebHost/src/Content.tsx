@@ -184,7 +184,7 @@ export default class Content extends React.Component<any, any> {
                     {this.props.conventions.map(
                         c => <option key={c.name}>{c.name}</option>) }
                 </select>
-                <input type="text" id="txtSearch" value={values.searchText} autoComplete="false"
+                <input type="text" id="txtSearch" value={values.searchText} autoComplete="off"
                     onChange={e => this.changeText(e) }
                     onKeyDown={e => e.keyCode === 13 ? this.props.onAddCondition() : null} />
 
