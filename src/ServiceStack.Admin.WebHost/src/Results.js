@@ -34,9 +34,9 @@ System.register(['react', 'jquery', 'ss-utils'], function(exports_1) {
                         if (s.startsWith("http"))
                             return React.createElement("a", {"href": s, "target": "_blank"}, s.substring(s.indexOf('://') + 3));
                         if (s.toLowerCase() === "false")
-                            return React.createElement("i", {"className": "material-icons", "style": { color: '#FF8A80', fontSize: '14px' }}, "remove_circle");
+                            return React.createElement("i", {"className": "material-icons", "style": { color: '#757575', fontSize: '14px' }}, "check_box_outline_blank");
                         if (s.toLowerCase() === "true")
-                            return React.createElement("i", {"className": "material-icons", "style": { color: '#66BB6A', fontSize: '14px' }}, "check_circle");
+                            return React.createElement("i", {"className": "material-icons", "style": { color: '#66BB6A', fontSize: '14px' }}, "check_box");
                     }
                     return React.createElement("span", null, s);
                 };

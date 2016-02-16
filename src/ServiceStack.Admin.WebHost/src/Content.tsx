@@ -25,7 +25,7 @@ export default class Content extends React.Component<any, any> {
 
     clear() {
         this.props.onChange({
-             searchField: null, searchType: null, searchText: '', format: '', offset: 0, conditions: []
+             searchField: null, searchType: null, searchText: '', format: '', orderBy: '', offset: 0, conditions: []
         });
     }
 
@@ -68,6 +68,7 @@ export default class Content extends React.Component<any, any> {
         return this.isValidCondition()
             || this.props.values.format
             || this.props.values.offset
+            || this.props.values.orderBy
             || (this.props.values.conditions || []).length > 0;
     }
 
@@ -127,7 +128,13 @@ export default class Content extends React.Component<any, any> {
                 <div>
                     <div className="noselect" style={{ color: '#757575', padding: '15px 0' }}>
                         {Paging}
-                        Showing Results {offset + 1} - {offset + results.length} of {total}
+                        <span>
+                            Showing Results {offset + 1} - {offset + results.length} of {total}
+                        </span>
+
+                        <i className="material-icons" title="show/hide columns" style={{
+                            verticalAlign: 'text-bottom', margin: '0 0 0 10px', cursor: 'pointer', fontSize:'20px'
+                        }}>view_list</i>
                     </div>
 
                     <Results results={response.results} fieldNames={fieldNames} fieldWidths={fieldWidths}

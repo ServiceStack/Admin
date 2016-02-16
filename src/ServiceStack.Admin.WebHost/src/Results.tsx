@@ -23,9 +23,9 @@ export default class Results extends React.Component<any, any> {
                 return <a href={s} target="_blank">{s.substring(s.indexOf('://') + 3) }</a>;
 
             if (s.toLowerCase() === "false")
-                return <i className="material-icons" style={{ color:'#FF8A80', fontSize:'14px' }}>remove_circle</i>;
+                return <i className="material-icons" style={{ color: '#757575', fontSize: '14px' }}>check_box_outline_blank</i>;
             if (s.toLowerCase() === "true")
-                return <i className="material-icons" style={{ color:'#66BB6A', fontSize:'14px' }}>check_circle</i>;
+                return <i className="material-icons" style={{ color: '#66BB6A', fontSize: '14px' }}>check_box</i>;
         }
 
         return <span>{s}</span>;
