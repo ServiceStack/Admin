@@ -23,6 +23,12 @@ export default class Content extends React.Component<any, any> {
         this.props.onChange({ searchText: e.target.value});
     }
 
+    clear() {
+        this.props.onChange({
+             searchField: null, searchType: null, searchText: '', format: '', offset: 0, conditions: []
+        });
+    }
+
     selectFormat(format) {
         if (format === this.props.values.format) //toggle
             format = "";
@@ -56,6 +62,13 @@ export default class Content extends React.Component<any, any> {
         const { searchField, searchType, searchText } = this.props.values;
         return searchField && searchType && searchText
             && (searchType.toLowerCase() !== 'between' || (searchText.indexOf(',') > 0 && searchText.indexOf(',') < searchText.length -1));
+    }
+
+    isDirty() {
+        return this.isValidCondition()
+            || this.props.values.format
+            || this.props.values.offset
+            || (this.props.values.conditions || []).length > 0;
     }
 
     getArgs() {
@@ -141,6 +154,11 @@ export default class Content extends React.Component<any, any> {
                 </div>
                 <div id="url" style={{ padding: '0 0 10px 0' }}>
                     <a href={url} target="_blank">{url}</a>
+                    {!  this.isDirty() ? null : (
+                        <i className="material-icons noselect" title="reset query" onClick={e => this.clear() } style={{
+                            padding: '0 0 0 5px', color: '#757575', fontSize: '16px', verticalAlign: 'bottom', cursor: 'pointer'
+                        }}>clear</i>
+                    )}
                 </div>
 
                 <select value={values.searchField} onChange={e => this.selectField(e) }>
@@ -153,7 +171,7 @@ export default class Content extends React.Component<any, any> {
                     {this.props.conventions.map(
                         c => <option key={c.name}>{c.name}</option>) }
                 </select>
-                <input type="text" id="txtSearch" value={values.searchText}
+                <input type="text" id="txtSearch" value={values.searchText} autoComplete="false"
                     onChange={e => this.changeText(e) }
                     onKeyDown={e => e.keyCode === 13 ? this.props.onAddCondition() : null} />
 

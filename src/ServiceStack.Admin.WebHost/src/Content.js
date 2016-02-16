@@ -33,6 +33,11 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                 Content.prototype.changeText = function (e) {
                     this.props.onChange({ searchText: e.target.value });
                 };
+                Content.prototype.clear = function () {
+                    this.props.onChange({
+                        searchField: null, searchType: null, searchText: '', format: '', offset: 0, conditions: []
+                    });
+                };
                 Content.prototype.selectFormat = function (format) {
                     if (format === this.props.values.format)
                         format = "";
@@ -58,6 +63,12 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     var _a = this.props.values, searchField = _a.searchField, searchType = _a.searchType, searchText = _a.searchText;
                     return searchField && searchType && searchText
                         && (searchType.toLowerCase() !== 'between' || (searchText.indexOf(',') > 0 && searchText.indexOf(',') < searchText.length - 1));
+                };
+                Content.prototype.isDirty = function () {
+                    return this.isValidCondition()
+                        || this.props.values.format
+                        || this.props.values.offset
+                        || (this.props.values.conditions || []).length > 0;
                 };
                 Content.prototype.getArgs = function () {
                     var _this = this;
@@ -111,7 +122,9 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                             _this.setState({ response: response });
                         });
                     }
-                    return (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', position: 'absolute', right: '300px', background: '#eee' }}, this.props.viewerArgs["Description"]), React.createElement("div", {"id": "url", "style": { padding: '0 0 10px 0' }}, React.createElement("a", {"href": url, "target": "_blank"}, url)), React.createElement("select", {"value": values.searchField, "onChange": function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromType.properties.map(function (p) { return React.createElement("option", {"key": p.name}, p.name); })), React.createElement("select", {"value": values.searchType, "onChange": function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.props.conventions.map(function (c) { return React.createElement("option", {"key": c.name}, c.name); })), React.createElement("input", {"type": "text", "id": "txtSearch", "value": values.searchText, "onChange": function (e) { return _this.changeText(e); }, "onKeyDown": function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
+                    return (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', position: 'absolute', right: '300px', background: '#eee' }}, this.props.viewerArgs["Description"]), React.createElement("div", {"id": "url", "style": { padding: '0 0 10px 0' }}, React.createElement("a", {"href": url, "target": "_blank"}, url), !this.isDirty() ? null : (React.createElement("i", {"className": "material-icons noselect", "title": "reset query", "onClick": function (e) { return _this.clear(); }, "style": {
+                        padding: '0 0 0 5px', color: '#757575', fontSize: '16px', verticalAlign: 'bottom', cursor: 'pointer'
+                    }}, "clear"))), React.createElement("select", {"value": values.searchField, "onChange": function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromType.properties.map(function (p) { return React.createElement("option", {"key": p.name}, p.name); })), React.createElement("select", {"value": values.searchType, "onChange": function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.props.conventions.map(function (c) { return React.createElement("option", {"key": c.name}, c.name); })), React.createElement("input", {"type": "text", "id": "txtSearch", "value": values.searchText, "autoComplete": "false", "onChange": function (e) { return _this.changeText(e); }, "onKeyDown": function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
                         ? (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#00C853', cursor: 'pointer' }, "onClick": function (e) { return _this.props.onAddCondition(); }, "title": "Add condition"}, "add_circle"))
                         : (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#ccc' }, "title": "Incomplete condition"}, "add_circle")), !this.props.config.formats || this.props.config.formats.length === 0 ? null : (React.createElement("span", {"className": "formats noselect"}, this.props.config.formats.map(function (f) {
                         return React.createElement("span", {"className": values.format === f ? 'active' : '', "onClick": function (e) { return _this.selectFormat(f); }}, f);
