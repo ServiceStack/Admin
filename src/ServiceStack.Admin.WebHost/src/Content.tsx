@@ -23,17 +23,18 @@ export default class Content extends React.Component<any, any> {
         this.props.onChange({ searchText: e.target.value});
     }
 
-    clear() {
-        this.props.onChange({
-             searchField: null, searchType: null, searchText: '', format: '', orderBy: '', offset: 0, conditions: []
-        });
-    }
-
     selectFormat(format) {
         if (format === this.props.values.format) //toggle
             format = "";
 
         this.props.onChange({ format });
+    }
+
+    clear() {
+        this.props.onChange({
+            searchField: null, searchType: null, searchText: '', format: '', orderBy: '', offset: 0,
+            fields: [], conditions: []
+        });
     }
 
     getAutoQueryUrl() {
@@ -50,10 +51,13 @@ export default class Content extends React.Component<any, any> {
         if (this.props.values.offset)
             url = $.ss.createUrl(url, { skip: this.props.values.offset });
 
+        if ((this.props.values.fields || []).length > 0)
+            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
+
         if (this.props.values.orderBy)
             url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
 
-        url = url.replace("%2C", ",");
+        url = url.replace(/%2C/g, ",");
 
         return url;
     }
@@ -68,6 +72,7 @@ export default class Content extends React.Component<any, any> {
         return this.isValidCondition()
             || this.props.values.format
             || this.props.values.offset
+            || (this.props.values.fields || []).length > 0
             || this.props.values.orderBy
             || (this.props.values.conditions || []).length > 0;
     }
@@ -103,7 +108,7 @@ export default class Content extends React.Component<any, any> {
                 var parts = $.ss.splitOnFirst(x, ':');
                 fieldNames.push(parts[0]);
                 if (parts.length > 1)
-                    fieldWidths[parts[0].toLowerCase()] = parts[1];
+                    fieldWidths[parts[0]] = parts[1];
             });
         }
 
@@ -132,12 +137,13 @@ export default class Content extends React.Component<any, any> {
                             Showing Results {offset + 1} - {offset + results.length} of {total}
                         </span>
 
-                        <i className="material-icons" title="show/hide columns" style={{
+                        <i className="material-icons" title="show/hide columns" onClick={e => this.props.onShowDialog('column-prefs-dialog')} style={{
                             verticalAlign: 'text-bottom', margin: '0 0 0 10px', cursor: 'pointer', fontSize:'20px'
                         }}>view_list</i>
                     </div>
 
                     <Results results={response.results} fieldNames={fieldNames} fieldWidths={fieldWidths}
+                        selected={this.props.selected}
                         values={this.props.values}
                         onOrderByChange={orderBy => this.props.onChange({ orderBy })} />
                 </div>
@@ -156,7 +162,7 @@ export default class Content extends React.Component<any, any> {
 
         return (
             <div>
-                <div style={{ color: '#757575', position: 'absolute', right: '300px', background:'#eee' }}>
+                <div style={{ color: '#757575', background: '#eee', position: 'absolute', top:'125px', right: '320px', maxWidth:'700px' }}>
                     {this.props.viewerArgs["Description"] }
                 </div>
                 <div id="url" style={{ padding: '0 0 10px 0' }}>

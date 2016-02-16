@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router';
+import { getField } from './core';
 import 'jquery';
 import 'ss-utils';
 
@@ -36,7 +37,12 @@ export default class Results extends React.Component<any, any> {
 
         var results = this.props.results;
         if (results && results.length > 0) {
-            var fieldNames = this.props.fieldNames || Object.keys(results[0]);
+            var fieldNames = this.props.values.fields || [];
+            if (fieldNames.length === 0) {
+                fieldNames = this.props.fieldNames ||
+                    this.props.selected.toType.properties.map(x => x.name);
+            }
+
             var fieldWidths = this.props.fieldWidths || {};
 
             var orderBy = (this.props.values.orderBy || '');
@@ -53,13 +59,13 @@ export default class Results extends React.Component<any, any> {
                             { f !== orderByName ? null :
                                 <i className="material-icons" style={{fontSize:'18px',verticalAlign:'bottom'}}>{orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"}</i>}
                         </th>
-                    )) }</tr></thead>
+                    ))}</tr></thead>
                     <tbody>
                         { results.map((r,i) => (
                             <tr key={i}>
                                 {fieldNames.map((f, j) => (
-                                    <td key={j} title={this.renderValue(r[f]) } style={fieldWidths[f.toLowerCase()] ? { maxWidth: fieldWidths[f.toLowerCase()] } : {}}>
-                                        { this.formatString(this.renderValue(r[f])) }
+                                    <td key={j} title={this.renderValue(getField(r,f)) } style={getField(fieldWidths,f) ? { maxWidth: getField(fieldWidths,f) } : {}}>
+                                        { this.formatString(this.renderValue(getField(r,f))) }
                                     </td>
                                 )) }
                             </tr>)

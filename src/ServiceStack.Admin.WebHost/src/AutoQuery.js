@@ -1,11 +1,11 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-utils'], function(exports_1) {
+System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDialog', 'jquery', 'ss-utils'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var React, Header_1, Sidebar_1, Content_1;
+    var React, Header_1, Sidebar_1, Content_1, ColumnPrefsDialog_1;
     var AutoQuery, App;
     return {
         setters:[
@@ -20,6 +20,9 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
             },
             function (Content_1_1) {
                 Content_1 = Content_1_1;
+            },
+            function (ColumnPrefsDialog_1_1) {
+                ColumnPrefsDialog_1 = ColumnPrefsDialog_1_1;
             },
             function (_1) {},
             function (_2) {}],
@@ -111,7 +114,7 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                     var toType = this.state.types[operation.to];
                     return { name: name, operation: operation, requestType: requestType, fromType: fromType, toType: toType };
                 };
-                App.prototype.onContentChange = function (name, newValues) {
+                App.prototype.onOperationChange = function (name, newValues) {
                     var op = this.getOperationValues(name);
                     Object.keys(newValues).forEach(function (k) {
                         if (newValues[k] != null)
@@ -144,11 +147,18 @@ System.register(['react', './Header', './Sidebar', './Content', 'jquery', 'ss-ut
                     this.setState({ operationState: operationState });
                     localStorage.setItem("v1/operationState", JSON.stringify(operationState));
                 };
+                App.prototype.showDialog = function (dialog) {
+                    this.setState({ dialog: dialog });
+                    setTimeout(function () { return document.getElementById(dialog).classList.toggle('active'); }, 0);
+                };
+                App.prototype.hideDialog = function () {
+                    this.setState({ dialog: null });
+                };
                 App.prototype.render = function () {
                     var _this = this;
                     var selected = this.getSelected(this.props.name);
                     var opName = selected && selected.name;
-                    return (React.createElement("div", {"style": { height: '100%' }}, React.createElement(Header_1.default, {"title": this.getTitle(selected), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { display: 'flex', height: '100%' }}, React.createElement("div", {"style": { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"config": this.props.metadata.config, "selected": selected, "values": this.getOperationValues(this.props.name), "conventions": this.props.metadata.config.implicitconventions, "viewerArgs": this.state.viewerArgs[opName], "onChange": function (args) { return _this.onContentChange(opName, args); }, "onAddCondition": function (e) { return _this.addCondition(opName); }, "onRemoveCondition": function (c) { return _this.removeCondition(opName, c); }})))));
+                    return (React.createElement("div", {"style": { height: '100%' }}, React.createElement(Header_1.default, {"title": this.getTitle(selected), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { display: 'flex', height: '100%' }}, React.createElement("div", {"style": { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"config": this.props.metadata.config, "selected": selected, "values": this.getOperationValues(this.props.name), "conventions": this.props.metadata.config.implicitconventions, "viewerArgs": this.state.viewerArgs[opName], "onChange": function (args) { return _this.onOperationChange(opName, args); }, "onAddCondition": function (e) { return _this.addCondition(opName); }, "onRemoveCondition": function (c) { return _this.removeCondition(opName, c); }, "onShowDialog": function (id) { return _this.showDialog(id); }}))), this.state.dialog !== "column-prefs-dialog" ? null : (React.createElement(ColumnPrefsDialog_1.default, {"onClose": function (e) { return _this.hideDialog(); }, "type": selected.toType, "values": this.getOperationValues(this.props.name), "onChange": function (args) { return _this.onOperationChange(opName, args); }}))));
                 };
                 return App;
             })(React.Component);

@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Content from './Content';
+import ColumnPrefsDialog from './ColumnPrefsDialog';
 import 'jquery';
 import 'ss-utils';
 
@@ -105,7 +106,7 @@ class App extends React.Component<any, any> {
         return { name, operation, requestType, fromType, toType};
     }
 
-    onContentChange(name: string, newValues: any) {
+    onOperationChange(name: string, newValues: any) {
         const op = this.getOperationValues(name);
 
         Object.keys(newValues).forEach(k => {
@@ -147,6 +148,15 @@ class App extends React.Component<any, any> {
         localStorage.setItem("v1/operationState", JSON.stringify(operationState));
     }
 
+    showDialog(dialog) {
+        this.setState({ dialog });
+        setTimeout(() => document.getElementById(dialog).classList.toggle('active'), 0);
+    }
+
+    hideDialog() {
+        this.setState({ dialog: null });
+    }
+
     render() {
         var selected = this.getSelected(this.props.name);
         var opName = selected && selected.name;
@@ -165,12 +175,21 @@ class App extends React.Component<any, any> {
                             values={this.getOperationValues(this.props.name)}
                             conventions={this.props.metadata.config.implicitconventions}
                             viewerArgs={this.state.viewerArgs[opName]}
-                            onChange={args => this.onContentChange(opName, args)}
+                            onChange={args => this.onOperationChange(opName, args)}
                             onAddCondition={e => this.addCondition(opName)}
                             onRemoveCondition={c => this.removeCondition(opName, c) }
+                            onShowDialog={id => this.showDialog(id)}
                             />
                     </div>
                 </div>
+
+                {this.state.dialog !== "column-prefs-dialog" ? null : (
+                    <ColumnPrefsDialog onClose={e => this.hideDialog() }
+                        type={selected.toType}
+                        values={this.getOperationValues(this.props.name)}
+                        onChange={args => this.onOperationChange(opName, args) }
+                        />
+                )}
             </div>
         );
     }

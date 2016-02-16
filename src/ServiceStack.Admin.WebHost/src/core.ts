@@ -14,3 +14,11 @@ export const normalize = (dto: any, into?: any, deep?: boolean) =>
             return o;
           }, into || {})
         : dto;
+
+export const getField = (o: any, name: string) =>
+    o == null || name == null ? null :
+        o[name] ||
+        o[name[0].toUpperCase() + name.substring(1)] ||
+        o[name[0].toLowerCase() + name.substring(1)] ||
+        o[name.toLowerCase()] ||
+        o[name.replace(/_/g, '')];

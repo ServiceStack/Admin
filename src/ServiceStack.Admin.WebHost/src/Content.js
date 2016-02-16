@@ -33,15 +33,16 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                 Content.prototype.changeText = function (e) {
                     this.props.onChange({ searchText: e.target.value });
                 };
-                Content.prototype.clear = function () {
-                    this.props.onChange({
-                        searchField: null, searchType: null, searchText: '', format: '', orderBy: '', offset: 0, conditions: []
-                    });
-                };
                 Content.prototype.selectFormat = function (format) {
                     if (format === this.props.values.format)
                         format = "";
                     this.props.onChange({ format: format });
+                };
+                Content.prototype.clear = function () {
+                    this.props.onChange({
+                        searchField: null, searchType: null, searchText: '', format: '', orderBy: '', offset: 0,
+                        fields: [], conditions: []
+                    });
                 };
                 Content.prototype.getAutoQueryUrl = function () {
                     var firstRoute = (this.props.selected.requestType.routes || []).filter(function (x) { return x.path.indexOf('{') === -1; })[0];
@@ -54,9 +55,11 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     });
                     if (this.props.values.offset)
                         url = $.ss.createUrl(url, { skip: this.props.values.offset });
+                    if ((this.props.values.fields || []).length > 0)
+                        url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
                     if (this.props.values.orderBy)
                         url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
-                    url = url.replace("%2C", ",");
+                    url = url.replace(/%2C/g, ",");
                     return url;
                 };
                 Content.prototype.isValidCondition = function () {
@@ -68,6 +71,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     return this.isValidCondition()
                         || this.props.values.format
                         || this.props.values.offset
+                        || (this.props.values.fields || []).length > 0
                         || this.props.values.orderBy
                         || (this.props.values.conditions || []).length > 0;
                 };
@@ -101,7 +105,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                             var parts = $.ss.splitOnFirst(x, ':');
                             fieldNames.push(parts[0]);
                             if (parts.length > 1)
-                                fieldWidths[parts[0].toLowerCase()] = parts[1];
+                                fieldWidths[parts[0]] = parts[1];
                         });
                     }
                     var offset = response.offset, results = response.results, total = response.total, maxLimit = this.props.config.maxlimit;
@@ -111,9 +115,9 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     var Paging = (React.createElement("span", {"className": "paging", "style": { padding: '0 10px 0 0' }}, Control("skip_previous", offset > 0, 0), Control("chevron_left", offset > 0, Math.max(offset - maxLimit, 0)), Control("chevron_right", offset + maxLimit < total, offset + maxLimit), Control("skip_next", offset + maxLimit < total, Math.floor((total - 1) / maxLimit) * maxLimit)));
                     return response.results.length === 0
                         ? React.createElement("div", {"className": "results-none"}, "There were no results")
-                        : (React.createElement("div", null, React.createElement("div", {"className": "noselect", "style": { color: '#757575', padding: '15px 0' }}, Paging, React.createElement("span", null, "Showing Results ", offset + 1, " - ", offset + results.length, " of ", total), React.createElement("i", {"className": "material-icons", "title": "show/hide columns", "style": {
+                        : (React.createElement("div", null, React.createElement("div", {"className": "noselect", "style": { color: '#757575', padding: '15px 0' }}, Paging, React.createElement("span", null, "Showing Results ", offset + 1, " - ", offset + results.length, " of ", total), React.createElement("i", {"className": "material-icons", "title": "show/hide columns", "onClick": function (e) { return _this.props.onShowDialog('column-prefs-dialog'); }, "style": {
                             verticalAlign: 'text-bottom', margin: '0 0 0 10px', cursor: 'pointer', fontSize: '20px'
-                        }}, "view_list")), React.createElement(Results_1.default, {"results": response.results, "fieldNames": fieldNames, "fieldWidths": fieldWidths, "values": this.props.values, "onOrderByChange": function (orderBy) { return _this.props.onChange({ orderBy: orderBy }); }})));
+                        }}, "view_list")), React.createElement(Results_1.default, {"results": response.results, "fieldNames": fieldNames, "fieldWidths": fieldWidths, "selected": this.props.selected, "values": this.props.values, "onOrderByChange": function (orderBy) { return _this.props.onChange({ orderBy: orderBy }); }})));
                 };
                 Content.prototype.renderBody = function (op, values) {
                     var _this = this;
@@ -125,7 +129,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                             _this.setState({ response: response });
                         });
                     }
-                    return (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', position: 'absolute', right: '300px', background: '#eee' }}, this.props.viewerArgs["Description"]), React.createElement("div", {"id": "url", "style": { padding: '0 0 10px 0' }}, React.createElement("a", {"href": url, "target": "_blank"}, url), !this.isDirty() ? null : (React.createElement("i", {"className": "material-icons noselect", "title": "reset query", "onClick": function (e) { return _this.clear(); }, "style": {
+                    return (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', background: '#eee', position: 'absolute', top: '125px', right: '320px', maxWidth: '700px' }}, this.props.viewerArgs["Description"]), React.createElement("div", {"id": "url", "style": { padding: '0 0 10px 0' }}, React.createElement("a", {"href": url, "target": "_blank"}, url), !this.isDirty() ? null : (React.createElement("i", {"className": "material-icons noselect", "title": "reset query", "onClick": function (e) { return _this.clear(); }, "style": {
                         padding: '0 0 0 5px', color: '#757575', fontSize: '16px', verticalAlign: 'bottom', cursor: 'pointer'
                     }}, "clear"))), React.createElement("select", {"value": values.searchField, "onChange": function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromType.properties.map(function (p) { return React.createElement("option", {"key": p.name}, p.name); })), React.createElement("select", {"value": values.searchType, "onChange": function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.props.conventions.map(function (c) { return React.createElement("option", {"key": c.name}, c.name); })), React.createElement("input", {"type": "text", "id": "txtSearch", "value": values.searchText, "autoComplete": "false", "onChange": function (e) { return _this.changeText(e); }, "onKeyDown": function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
                         ? (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#00C853', cursor: 'pointer' }, "onClick": function (e) { return _this.props.onAddCondition(); }, "title": "Add condition"}, "add_circle"))

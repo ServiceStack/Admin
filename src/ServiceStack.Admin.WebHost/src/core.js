@@ -1,5 +1,5 @@
 System.register([], function(exports_1) {
-    var normalizeKey, isArray, log, normalize;
+    var normalizeKey, isArray, log, normalize, getField;
     return {
         setters:[],
         execute: function() {
@@ -15,6 +15,14 @@ System.register([], function(exports_1) {
                             return o;
                         }, into || {})
                         : dto;
+            });
+            exports_1("getField", getField = function (o, name) {
+                return o == null || name == null ? null :
+                    o[name] ||
+                        o[name[0].toUpperCase() + name.substring(1)] ||
+                        o[name[0].toLowerCase() + name.substring(1)] ||
+                        o[name.toLowerCase()] ||
+                        o[name.replace(/_/g, '')];
             });
         }
     }

@@ -1,16 +1,19 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', 'jquery', 'ss-utils'], function(exports_1) {
+System.register(['react', './core', 'jquery', 'ss-utils'], function(exports_1) {
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var React;
+    var React, core_1;
     var Results;
     return {
         setters:[
             function (React_1) {
                 React = React_1;
+            },
+            function (core_1_1) {
+                core_1 = core_1_1;
             },
             function (_1) {},
             function (_2) {}],
@@ -45,12 +48,16 @@ System.register(['react', 'jquery', 'ss-utils'], function(exports_1) {
                     var Results = React.createElement("div", {"className": "results-none"}, "There were no results");
                     var results = this.props.results;
                     if (results && results.length > 0) {
-                        var fieldNames = this.props.fieldNames || Object.keys(results[0]);
+                        var fieldNames = this.props.values.fields || [];
+                        if (fieldNames.length === 0) {
+                            fieldNames = this.props.fieldNames ||
+                                this.props.selected.toType.properties.map(function (x) { return x.name; });
+                        }
                         var fieldWidths = this.props.fieldWidths || {};
                         var orderBy = (this.props.values.orderBy || '');
                         var orderByName = orderBy.startsWith('-') ? orderBy.substr(1) : orderBy;
                         Results = (React.createElement("table", {"className": "results"}, React.createElement("thead", null, React.createElement("tr", {"className": "noselect"}, fieldNames.map(function (f) { return (React.createElement("th", {"key": f, "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onOrderByChange(f !== orderByName ? '-' + f : !orderBy.startsWith('-') ? '' : orderByName); }}, $.ss.humanize(f), f !== orderByName ? null :
-                            React.createElement("i", {"className": "material-icons", "style": { fontSize: '18px', verticalAlign: 'bottom' }}, orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"))); }))), React.createElement("tbody", null, results.map(function (r, i) { return (React.createElement("tr", {"key": i}, fieldNames.map(function (f, j) { return (React.createElement("td", {"key": j, "title": _this.renderValue(r[f]), "style": fieldWidths[f.toLowerCase()] ? { maxWidth: fieldWidths[f.toLowerCase()] } : {}}, _this.formatString(_this.renderValue(r[f])))); }))); }))));
+                            React.createElement("i", {"className": "material-icons", "style": { fontSize: '18px', verticalAlign: 'bottom' }}, orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"))); }))), React.createElement("tbody", null, results.map(function (r, i) { return (React.createElement("tr", {"key": i}, fieldNames.map(function (f, j) { return (React.createElement("td", {"key": j, "title": _this.renderValue(core_1.getField(r, f)), "style": core_1.getField(fieldWidths, f) ? { maxWidth: core_1.getField(fieldWidths, f) } : {}}, _this.formatString(_this.renderValue(core_1.getField(r, f))))); }))); }))));
                     }
                     return Results;
                 };
