@@ -55,10 +55,10 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     });
                     if (this.props.values.offset)
                         url = $.ss.createUrl(url, { skip: this.props.values.offset });
-                    if ((this.props.values.fields || []).length > 0)
-                        url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
                     if (this.props.values.orderBy)
                         url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
+                    if ((this.props.values.fields || []).length > 0)
+                        url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
                     url = url.replace(/%2C/g, ",");
                     return url;
                 };
@@ -138,7 +138,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     }))), React.createElement("div", {"className": "conditions"}, this.props.values.conditions.map(function (c) { return (React.createElement("div", null, React.createElement("i", {"className": "material-icons", "style": { color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }, "title": "remove condition", "onClick": function (e) { return _this.props.onRemoveCondition(c); }}, "remove_circle"), c.searchField, " ", c.searchType, " ", c.searchText)); })), this.state.response ? this.renderResults(this.state.response) : null));
                 };
                 Content.prototype.render = function () {
-                    return (React.createElement("div", {"id": "content", "style": { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {"style": { padding: '90px 0 0 20px' }}, React.createElement("table", null, React.createElement("tr", null, React.createElement("td", null, this.props.selected
+                    return (React.createElement("div", {"id": "content", "style": { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {"style": { padding: '90px 0 20px 20px' }}, React.createElement("table", null, React.createElement("tr", null, React.createElement("td", null, this.props.selected
                         ? this.renderBody(this.props.selected, this.props.values)
                         : React.createElement("div", {"style": { padding: '15px 0' }}, "Please Select a Query")), React.createElement("td", {"style": { minWidth: '290px' }}))))));
                 };

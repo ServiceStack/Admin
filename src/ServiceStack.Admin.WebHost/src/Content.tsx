@@ -51,11 +51,11 @@ export default class Content extends React.Component<any, any> {
         if (this.props.values.offset)
             url = $.ss.createUrl(url, { skip: this.props.values.offset });
 
-        if ((this.props.values.fields || []).length > 0)
-            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
-
         if (this.props.values.orderBy)
             url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
+
+        if ((this.props.values.fields || []).length > 0)
+            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
 
         url = url.replace(/%2C/g, ",");
 
@@ -220,7 +220,7 @@ export default class Content extends React.Component<any, any> {
     render() {
         return (
             <div id="content" style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}>
-                <div style={{ padding: '90px 0 0 20px' }}>
+                <div style={{ padding: '90px 0 20px 20px' }}>
                     <table>
                         <tr>
                             <td>

@@ -19,10 +19,7 @@ System.register([], function(exports_1) {
             exports_1("getField", getField = function (o, name) {
                 return o == null || name == null ? null :
                     o[name] ||
-                        o[name[0].toUpperCase() + name.substring(1)] ||
-                        o[name[0].toLowerCase() + name.substring(1)] ||
-                        o[name.toLowerCase()] ||
-                        o[name.replace(/_/g, '')];
+                        o[Object.keys(o).filter(function (k) { return normalizeKey(k) === normalizeKey(name); })[0] || ''];
             });
         }
     }
