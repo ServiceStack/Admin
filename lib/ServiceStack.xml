@@ -4969,6 +4969,16 @@
                                                     info
                      * 
         </member>
+        <member name="M:ServiceStack.HttpRequestExtensions.GetRequestParams(ServiceStack.Web.IRequest)">
+            <summary>
+            Duplicate Params are given a unique key by appending a #1 suffix
+            </summary>
+        </member>
+        <member name="M:ServiceStack.HttpRequestExtensions.GetFlattenedRequestParams(ServiceStack.Web.IRequest)">
+            <summary>
+            Duplicate params have their values joined together in a comma-delimited string
+            </summary>
+        </member>
         <member name="M:ServiceStack.HttpRequestExtensions.ResolveItem(ServiceStack.Web.IRequest,System.String,System.Func{ServiceStack.Web.IRequest,System.Object})">
             <summary>
             Use this to treat Request.Items[] as a cache by returning pre-computed items to save 
