@@ -17,10 +17,10 @@ class App extends React.Component<any, any> {
 
 render(
     (<Router history={browserHistory}>
-        <Redirect from="/" to="/ss-admin/autoquery"/>
-        <Redirect from="/ss-admin" to="/ss-admin/autoquery"/>
-        <Route path="/ss-admin" component={App}>
-            <Route path="/ss-admin/autoquery(/:name)" component={AutoQuery} />
+        <Redirect from="/" to="/ss_admin/autoquery"/>
+        <Redirect from="/ss_admin" to="/ss_admin/autoquery"/>
+        <Route path="/ss_admin" component={App}>
+            <Route path="/ss_admin/autoquery(/:name)" component={AutoQuery} />
         </Route>
     </Router>), 
     document.getElementById('app'));

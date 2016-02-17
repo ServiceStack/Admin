@@ -33,7 +33,7 @@ System.register(['react', 'react-dom', 'react-router', 'jquery', './AutoQuery'],
                 };
                 return App;
             })(React.Component);
-            react_dom_1.render((React.createElement(react_router_1.Router, {"history": react_router_1.browserHistory}, React.createElement(react_router_1.Redirect, {"from": "/", "to": "/ss-admin/autoquery"}), React.createElement(react_router_1.Redirect, {"from": "/ss-admin", "to": "/ss-admin/autoquery"}), React.createElement(react_router_1.Route, {"path": "/ss-admin", "component": App}, React.createElement(react_router_1.Route, {"path": "/ss-admin/autoquery(/:name)", "component": AutoQuery_1.default})))), document.getElementById('app'));
+            react_dom_1.render((React.createElement(react_router_1.Router, {"history": react_router_1.browserHistory}, React.createElement(react_router_1.Redirect, {"from": "/", "to": "/ss_admin/autoquery"}), React.createElement(react_router_1.Redirect, {"from": "/ss_admin", "to": "/ss_admin/autoquery"}), React.createElement(react_router_1.Route, {"path": "/ss_admin", "component": App}, React.createElement(react_router_1.Route, {"path": "/ss_admin/autoquery(/:name)", "component": AutoQuery_1.default})))), document.getElementById('app'));
         }
     }
 });
