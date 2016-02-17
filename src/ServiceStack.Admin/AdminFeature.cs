@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceStack.Host.Handlers;
 
 namespace ServiceStack.Admin
 {
-    public class AdminFeature
+    public class AdminFeature : IPlugin, IPreInitPlugin
     {
+        public void Configure(IAppHost appHost)
+        {
+            appHost.Config.EmbeddedResourceBaseTypes.Add(typeof(AdminFeature));
+        }
+
+        public void Register(IAppHost appHost)
+        {
+            appHost.CatchAllHandlers.Add((httpMethod, pathInfo, filePath) => pathInfo.StartsWith("/ss_admin") 
+                ? new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)
+                    ?? appHost.VirtualFileSources.GetFile("ss_admin/index.html"))
+                : null);
+        }
     }
 }
