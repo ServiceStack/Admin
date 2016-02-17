@@ -37,13 +37,17 @@ export default class Content extends React.Component<any, any> {
         });
     }
 
-    getAutoQueryUrl() {
+    getAutoQueryUrl(format:string) {
         const firstRoute = (this.props.selected.requestType.routes || []).filter(x => x.path.indexOf('{') === -1)[0];
-        const path = firstRoute ? firstRoute.path : '/json/reply/' + this.props.selected.requestType.name;        
+
+        const path = firstRoute
+            ? firstRoute.path
+            : `/${format || 'html'}/reply/` + this.props.selected.requestType.name;
+
         var url = $.ss.combinePaths(this.props.config.servicebaseurl, path);
 
-        if (this.props.values.format)
-            url += "." + this.props.values.format;
+        if (firstRoute && format)
+            url += "." + format;
 
         this.getArgs().forEach(arg =>
             url = $.ss.createUrl(url, arg));
@@ -151,9 +155,9 @@ export default class Content extends React.Component<any, any> {
     }
 
     renderBody(op, values) {
-        const url = this.getAutoQueryUrl();
+        const url = this.getAutoQueryUrl(this.props.values.format);
         if (!this.state.response || this.state.response.url !== url) {
-            $.getJSON(url, { jsconfig: "DateHandler:ISO8601DateOnly"}, r => {
+            $.getJSON(this.getAutoQueryUrl("json"), { jsconfig: "DateHandler:ISO8601DateOnly"}, r => {
                 var response = $.ss.normalize(r);
                 response.url = url;
                 this.setState({ response });
@@ -197,12 +201,12 @@ export default class Content extends React.Component<any, any> {
                 {!this.props.config.formats || this.props.config.formats.length === 0 ? null : (
                     <span className="formats noselect">
                         {this.props.config.formats.map(f =>
-                            <span className={values.format === f ? 'active' : ''} onClick={e => this.selectFormat(f)}>{f}</span>) }
+                            <span key={f} className={values.format === f ? 'active' : ''} onClick={e => this.selectFormat(f)}>{f}</span>) }
                     </span>)}
 
                 <div className="conditions">
                     {this.props.values.conditions.map(c => (
-                        <div>
+                        <div key={c.id}>
                             <i className="material-icons" style={{ color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }}
                                 title="remove condition"
                                 onClick={e => this.props.onRemoveCondition(c) }>remove_circle</i>
@@ -222,6 +226,7 @@ export default class Content extends React.Component<any, any> {
             <div id="content" style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}>
                 <div style={{ padding: '90px 0 20px 20px' }}>
                     <table>
+                    <tbody>
                         <tr>
                             <td>
                                 {this.props.selected
@@ -230,6 +235,7 @@ export default class Content extends React.Component<any, any> {
                             </td>
                             <td style={{minWidth:'290px'}}></td>
                         </tr>
+                     </tbody>
                      </table>
                 </div>
             </div>
