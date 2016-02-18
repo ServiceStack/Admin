@@ -1,14 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADC92EAC-0D95-4D44-AE0A-CF0B740D6EF6}</ProjectGuid>
+    <ProjectGuid>{C6EB693E-64D1-4271-BE68-0B78D186003E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Admin.Tasks</RootNamespace>
-    <AssemblyName>Admin.Tasks</AssemblyName>
+    <RootNamespace>ServiceStack.Admin</RootNamespace>
+    <AssemblyName>ServiceStack.Admin</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,51 +28,50 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Signed|AnyCPU'">
     <OutputPath>bin\Signed\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>servicestack-sn.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\..\src\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ServiceStack">
-      <HintPath>..\..\lib\ServiceStack.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Client">
       <HintPath>..\..\lib\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
-      <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
-      <HintPath>..\..\lib\ServiceStack.OrmLite.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite.Sqlite">
-      <HintPath>..\..\lib\ServiceStack.OrmLite.Sqlite.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\lib\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Server">
-      <HintPath>..\..\lib\ServiceStack.Server.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.Server.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -82,25 +80,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="GitHubTasks.cs" />
-    <Compile Include="StackOverflowTasks.cs" />
+    <Compile Include="AdminFeature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\lib\sqlite3.dll">
-      <Link>sqlite3.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="ss_admin\index.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ServiceStack.Admin.WebHost\ServiceStack.Admin.WebHost.csproj">
-      <Project>{0e928576-283f-486a-b6c6-52bfe7cdd0a2}</Project>
-      <Name>ServiceStack.Admin.WebHost</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="ss_admin\app.js.map" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\codepoints" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.eot" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.ijmap" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.ttf" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.woff" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.woff2" />
+    <EmbeddedResource Include="ss_admin\img\octicon\octicons.ttf" />
+    <EmbeddedResource Include="ss_admin\img\octicon\octicons.woff" />
+    <EmbeddedResource Include="ss_admin\img\roboto\Roboto-Regular.ttf" />
+    <EmbeddedResource Include="ss_admin\img\roboto\roboto-v15-latin-regular.woff" />
+    <EmbeddedResource Include="ss_admin\img\roboto\roboto-v15-latin-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <EmbeddedResource Include="ss_admin\app.js" />
+    <EmbeddedResource Include="ss_admin\default.css" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\material-icons.css" />
+    <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.svg" />
+    <EmbeddedResource Include="ss_admin\img\octicon\octicon.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ss_admin\config.js" />
+    <EmbeddedResource Include="ss_admin\system.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
