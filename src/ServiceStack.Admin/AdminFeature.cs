@@ -1,4 +1,5 @@
-﻿using ServiceStack.Host.Handlers;
+﻿using System.Web;
+using ServiceStack.Host.Handlers;
 
 namespace ServiceStack.Admin
 {
@@ -11,10 +12,16 @@ namespace ServiceStack.Admin
 
         public void Register(IAppHost appHost)
         {
-            appHost.CatchAllHandlers.Add((httpMethod, pathInfo, filePath) => pathInfo.StartsWith("/ss_admin") 
-                ? new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)
-                    ?? appHost.VirtualFileSources.GetFile("ss_admin/index.html"))
-                : null);
+            var indexHtml = appHost.VirtualFileSources.GetFile("ss_admin/index.html").ReadAllText();
+            if (appHost.Config.HandlerFactoryPath != null)
+                indexHtml = indexHtml.Replace("/ss_admin", "/{0}/ss_admin".Fmt(appHost.Config.HandlerFactoryPath));
+
+            appHost.CatchAllHandlers.Add((httpMethod, pathInfo, filePath) => 
+                pathInfo.StartsWith("/ss_admin") 
+                    ? (pathInfo == "/ss_admin/index.html" || !appHost.VirtualFileSources.FileExists(pathInfo)
+                        ? new StaticContentHandler(indexHtml, MimeTypes.Html) as IHttpHandler
+                        : new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)))
+                    : null);
 
             appHost.GetPlugin<MetadataFeature>()
                 .AddPluginLink("/ss_admin/autoquery/", "AutoQuery Browser");
