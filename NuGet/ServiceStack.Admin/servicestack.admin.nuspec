@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>ServiceStack.Admin</id> 
+    <version>4.0.0</version>
+    <authors>ServiceStack</authors> 
+    <owners>ServiceStack</owners>
+    <description>
+        ServiceStack Admin UI and AutoQuery Browser
+    </description> 
+    <projectUrl>https://github.com/ServiceStack/Admin</projectUrl>
+    <licenseUrl>https://servicestack.net/terms</licenseUrl>
+    <iconUrl>https://servicestack.net/img/logo-32.png</iconUrl>
+    <tags>ServiceStack Admin AutoQuery WebServices Database Browser</tags>
+    <language>en-US</language> 
+    <copyright>ServiceStack 2016 and Contributors</copyright>
+    <dependencies>
+        <dependency id="ServiceStack.Server" version="4.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+      <file src="lib\**\*.*" target="lib" />
+      <file src="..\..\src\ServiceStack.Admin\**\*.cs" target="src" />
+  </files>
+</package>

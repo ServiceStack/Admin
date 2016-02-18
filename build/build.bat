@@ -1,3 +1,6 @@
+SET MSBUILD=C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
+REM %MSBUILD% build.proj /target:TeamCityBuild;NuGetPack /property:Configuration=Release;RELEASE=true;PatchVersion=0
+
 cd ..\src\ServiceStack.Admin.WebHost
 
 COPY GitHubQuery.cs ..\..\tests\TestSelfHost
