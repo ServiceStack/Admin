@@ -42,17 +42,6 @@ namespace TestSelfHost
 
             Plugins.Add(new AdminFeature());
         }
-
-        public override List<IVirtualPathProvider> GetVirtualFileSources()
-        {
-            var pathProviders = base.GetVirtualFileSources();
-            return pathProviders;
-        }
-
-        public override IVirtualFile ResolveVirtualFile(string virtualPath, IRequest httpReq)
-        {
-            return base.ResolveVirtualFile(virtualPath, httpReq);
-        }
     }
 
     public class AutoQueryServices : Service

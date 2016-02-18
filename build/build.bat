@@ -1,7 +1,11 @@
 cd ..\src\ServiceStack.Admin.WebHost
 
-COPY GitHubQuery.cs ..\..\tests\ServiceStack.Admin\TestSelfHost
-COPY StackOverflowQuery.cs ..\..\tests\ServiceStack.Admin\TestSelfHost
+COPY GitHubQuery.cs ..\..\tests\TestSelfHost
+COPY GitHubQuery.cs ..\..\tests\TestWebHost
+COPY StackOverflowQuery.cs ..\..\tests\TestSelfHost
+COPY StackOverflowQuery.cs ..\..\tests\TestWebHost
+COPY App_Data\db.sqlite ..\..\tests\TestSelfHost
+COPY App_Data\db.sqlite ..\..\tests\TestWebHost\App_Data
 
 COPY default.css ..\ServiceStack.Admin\ss_admin
 COPY config.js ..\ServiceStack.Admin\ss_admin
