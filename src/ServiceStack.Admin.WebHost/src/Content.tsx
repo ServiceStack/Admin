@@ -59,7 +59,7 @@ export default class Content extends React.Component<any, any> {
             url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
 
         if ((this.props.values.fields || []).length > 0)
-            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
+            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(','), jsconfig: 'edv' });
 
         url = url.replace(/%2C/g, ",");
 
@@ -231,7 +231,9 @@ export default class Content extends React.Component<any, any> {
                             <td>
                                 {this.props.selected
                                     ? this.renderBody(this.props.selected, this.props.values)
-                                    : <div style={{ padding: '15px 0' }}>Please Select a Query</div> }
+                                    : (<div style={{ padding: '15px 0', fontSize:'20px', color:'#757575' }}>
+                                        <i className="material-icons" style={{ verticalAlign: 'bottom', margin:'0 10px 0 0'}}>arrow_back</i>
+                                        Please Select a Query</div>) }
                             </td>
                             <td style={{minWidth:'290px'}}></td>
                         </tr>

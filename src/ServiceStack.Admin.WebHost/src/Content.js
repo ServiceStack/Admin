@@ -60,7 +60,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     if (this.props.values.orderBy)
                         url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
                     if ((this.props.values.fields || []).length > 0)
-                        url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
+                        url = $.ss.createUrl(url, { fields: this.props.values.fields.join(','), jsconfig: 'edv' });
                     url = url.replace(/%2C/g, ",");
                     return url;
                 };
@@ -142,7 +142,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                 Content.prototype.render = function () {
                     return (React.createElement("div", {"id": "content", "style": { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {"style": { padding: '90px 0 20px 20px' }}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, this.props.selected
                         ? this.renderBody(this.props.selected, this.props.values)
-                        : React.createElement("div", {"style": { padding: '15px 0' }}, "Please Select a Query")), React.createElement("td", {"style": { minWidth: '290px' }})))))));
+                        : (React.createElement("div", {"style": { padding: '15px 0', fontSize: '20px', color: '#757575' }}, React.createElement("i", {"className": "material-icons", "style": { verticalAlign: 'bottom', margin: '0 10px 0 0' }}, "arrow_back"), "Please Select a Query"))), React.createElement("td", {"style": { minWidth: '290px' }})))))));
                 };
                 return Content;
             })(React.Component);
