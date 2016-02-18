@@ -15,6 +15,9 @@ namespace ServiceStack.Admin
                 ? new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)
                     ?? appHost.VirtualFileSources.GetFile("ss_admin/index.html"))
                 : null);
+
+            appHost.GetPlugin<MetadataFeature>()
+                .AddPluginLink("/ss_admin/autoquery/", "AutoQuery Browser");
         }
     }
 }
