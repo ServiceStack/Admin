@@ -62,7 +62,7 @@ export default class Content extends React.Component<any, any> {
             url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
 
             if (!format || format === 'html')
-                url = $.ss.createUrl(url, { jsconifg: 'edv' });
+                url = $.ss.createUrl(url, { jsconfig: 'edv' });
         }
 
         url = url.replace(/%2C/g, ",");

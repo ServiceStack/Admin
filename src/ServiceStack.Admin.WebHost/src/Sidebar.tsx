@@ -42,7 +42,7 @@ export default class Sidebar extends React.Component<any, any> {
                             .map((op,i) => (
                             <div key={i} className={"aq-item" + (op === this.props.name ? " active" : "")}>
                                 {this.renderIcon(op)}
-                                <Link to={"/ss_admin/autoquery/" + op}>{op}</Link>
+                                <Link to={this.props.basePath + "ss_admin/autoquery/" + op}>{op}</Link>
                             </div>
                         ))}
                     </div>

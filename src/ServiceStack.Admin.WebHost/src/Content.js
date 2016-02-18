@@ -62,7 +62,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     if ((this.props.values.fields || []).length > 0) {
                         url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
                         if (!format || format === 'html')
-                            url = $.ss.createUrl(url, { jsconifg: 'edv' });
+                            url = $.ss.createUrl(url, { jsconfig: 'edv' });
                     }
                     url = url.replace(/%2C/g, ",");
                     return url;

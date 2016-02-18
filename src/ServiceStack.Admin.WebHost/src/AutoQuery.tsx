@@ -12,15 +12,17 @@ import 'ss-utils';
 export default class AutoQuery extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
-        this.state = {};
+        this.state = {
+            basePath: location.pathname.substring(0, location.pathname.indexOf("/ss_admin") + 1)
+        };
 
-        $.getJSON("/autoquery/metadata", r =>
+        $.getJSON(this.state.basePath + "autoquery/metadata", r =>
             this.setState({ metadata: $.ss.normalize(r, true), name: this.props.params.name }));
     }
 
     render() {
         return this.state.metadata
-            ? <App metadata={this.state.metadata} name={this.props.params.name} />
+            ? <App basePath={this.state.basePath} metadata={this.state.metadata} name={this.props.params.name} />
             : null;
     }
 }
@@ -165,7 +167,8 @@ class App extends React.Component<any, any> {
                 <Header title={this.getTitle(selected)} onSidebarToggle={e => this.toggleSidebar() } />
                 <div id="body" style={{ display:'flex', height:'100%' }}>
                     <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
-                        <Sidebar hide={this.state.sidebarHidden} name={opName}                        
+                        <Sidebar basePath={this.props.basePath}
+                            hide={this.state.sidebarHidden} name={opName}                        
                             viewerArgs={this.state.viewerArgs}
                             operations={this.state.operations}
                             />

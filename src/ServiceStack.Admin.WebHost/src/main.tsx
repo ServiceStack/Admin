@@ -15,12 +15,16 @@ class App extends React.Component<any, any> {
     }
 }
 
+var BasePath = location.pathname.substring(0, location.pathname.indexOf("/ss_admin") + 1);
+var AppPath = BasePath + "ss_admin";
+const AutoQueryPath = AppPath + "/autoquery";
+
 render(
     (<Router history={browserHistory}>
-        <Redirect from="/" to="/ss_admin/autoquery"/>
-        <Redirect from="/ss_admin" to="/ss_admin/autoquery"/>
-        <Route path="/ss_admin" component={App}>
-            <Route path="/ss_admin/autoquery(/:name)" component={AutoQuery} />
+        <Redirect from="/" to={AutoQueryPath}/>
+        <Redirect from={AppPath} to={AutoQueryPath}/>
+        <Route path={AppPath} component={App}>
+            <Route path={AutoQueryPath + "(/:name)"} component={AutoQuery} />
         </Route>
     </Router>), 
     document.getElementById('app'));

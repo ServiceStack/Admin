@@ -6,7 +6,7 @@ System.register(['react', 'react-dom', 'react-router', 'jquery', './AutoQuery'],
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
     var React, react_dom_1, react_router_1, AutoQuery_1;
-    var App;
+    var App, BasePath, AppPath, AutoQueryPath;
     return {
         setters:[
             function (React_1) {
@@ -33,7 +33,10 @@ System.register(['react', 'react-dom', 'react-router', 'jquery', './AutoQuery'],
                 };
                 return App;
             })(React.Component);
-            react_dom_1.render((React.createElement(react_router_1.Router, {"history": react_router_1.browserHistory}, React.createElement(react_router_1.Redirect, {"from": "/", "to": "/ss_admin/autoquery"}), React.createElement(react_router_1.Redirect, {"from": "/ss_admin", "to": "/ss_admin/autoquery"}), React.createElement(react_router_1.Route, {"path": "/ss_admin", "component": App}, React.createElement(react_router_1.Route, {"path": "/ss_admin/autoquery(/:name)", "component": AutoQuery_1.default})))), document.getElementById('app'));
+            BasePath = location.pathname.substring(0, location.pathname.indexOf("/ss_admin") + 1);
+            AppPath = BasePath + "ss_admin";
+            AutoQueryPath = AppPath + "/autoquery";
+            react_dom_1.render((React.createElement(react_router_1.Router, {"history": react_router_1.browserHistory}, React.createElement(react_router_1.Redirect, {"from": "/", "to": AutoQueryPath}), React.createElement(react_router_1.Redirect, {"from": AppPath, "to": AutoQueryPath}), React.createElement(react_router_1.Route, {"path": AppPath, "component": App}, React.createElement(react_router_1.Route, {"path": AutoQueryPath + "(/:name)", "component": AutoQuery_1.default})))), document.getElementById('app'));
         }
     }
 });

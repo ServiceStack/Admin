@@ -32,14 +32,16 @@ System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDi
                 function AutoQuery(props, context) {
                     var _this = this;
                     _super.call(this, props, context);
-                    this.state = {};
-                    $.getJSON("/autoquery/metadata", function (r) {
+                    this.state = {
+                        basePath: location.pathname.substring(0, location.pathname.indexOf("/ss_admin") + 1)
+                    };
+                    $.getJSON(this.state.basePath + "autoquery/metadata", function (r) {
                         return _this.setState({ metadata: $.ss.normalize(r, true), name: _this.props.params.name });
                     });
                 }
                 AutoQuery.prototype.render = function () {
                     return this.state.metadata
-                        ? React.createElement(App, {"metadata": this.state.metadata, "name": this.props.params.name})
+                        ? React.createElement(App, {"basePath": this.state.basePath, "metadata": this.state.metadata, "name": this.props.params.name})
                         : null;
                 };
                 return AutoQuery;
@@ -158,7 +160,7 @@ System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDi
                     var _this = this;
                     var selected = this.getSelected(this.props.name);
                     var opName = selected && selected.name;
-                    return (React.createElement("div", {"style": { height: '100%' }}, React.createElement(Header_1.default, {"title": this.getTitle(selected), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { display: 'flex', height: '100%' }}, React.createElement("div", {"style": { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {"hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"config": this.props.metadata.config, "selected": selected, "values": this.getOperationValues(this.props.name), "conventions": this.props.metadata.config.implicitconventions, "viewerArgs": this.state.viewerArgs[opName], "onChange": function (args) { return _this.onOperationChange(opName, args); }, "onAddCondition": function (e) { return _this.addCondition(opName); }, "onRemoveCondition": function (c) { return _this.removeCondition(opName, c); }, "onShowDialog": function (id) { return _this.showDialog(id); }}))), this.state.dialog !== "column-prefs-dialog" ? null : (React.createElement(ColumnPrefsDialog_1.default, {"onClose": function (e) { return _this.hideDialog(); }, "type": selected.toType, "values": this.getOperationValues(this.props.name), "onChange": function (args) { return _this.onOperationChange(opName, args); }}))));
+                    return (React.createElement("div", {"style": { height: '100%' }}, React.createElement(Header_1.default, {"title": this.getTitle(selected), "onSidebarToggle": function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {"id": "body", "style": { display: 'flex', height: '100%' }}, React.createElement("div", {"style": { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {"basePath": this.props.basePath, "hide": this.state.sidebarHidden, "name": opName, "viewerArgs": this.state.viewerArgs, "operations": this.state.operations}), React.createElement(Content_1.default, {"config": this.props.metadata.config, "selected": selected, "values": this.getOperationValues(this.props.name), "conventions": this.props.metadata.config.implicitconventions, "viewerArgs": this.state.viewerArgs[opName], "onChange": function (args) { return _this.onOperationChange(opName, args); }, "onAddCondition": function (e) { return _this.addCondition(opName); }, "onRemoveCondition": function (c) { return _this.removeCondition(opName, c); }, "onShowDialog": function (id) { return _this.showDialog(id); }}))), this.state.dialog !== "column-prefs-dialog" ? null : (React.createElement(ColumnPrefsDialog_1.default, {"onClose": function (e) { return _this.hideDialog(); }, "type": selected.toType, "values": this.getOperationValues(this.props.name), "onChange": function (args) { return _this.onOperationChange(opName, args); }}))));
                 };
                 return App;
             })(React.Component);
