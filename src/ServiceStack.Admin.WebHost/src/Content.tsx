@@ -58,8 +58,12 @@ export default class Content extends React.Component<any, any> {
         if (this.props.values.orderBy)
             url = $.ss.createUrl(url, { orderBy: this.props.values.orderBy });
 
-        if ((this.props.values.fields || []).length > 0)
-            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(','), jsconfig: 'edv' });
+        if ((this.props.values.fields || []).length > 0) {
+            url = $.ss.createUrl(url, { fields: this.props.values.fields.join(',') });
+
+            if (!format || format === 'html')
+                url = $.ss.createUrl(url, { jsconifg: 'edv' });
+        }
 
         url = url.replace(/%2C/g, ",");
 
