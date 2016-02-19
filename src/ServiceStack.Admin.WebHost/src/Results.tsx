@@ -40,7 +40,7 @@ export default class Results extends React.Component<any, any> {
             var fieldNames = this.props.values.fields || [];
             if (fieldNames.length === 0) {
                 fieldNames = this.props.fieldNames ||
-                    this.props.selected.toType.properties.map(x => x.name);
+                    this.props.selected.toTypeFields.map(x => x.name);
             }
 
             var fieldWidths = this.props.fieldWidths || {};

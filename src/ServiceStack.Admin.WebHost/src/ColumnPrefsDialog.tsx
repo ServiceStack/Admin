@@ -51,12 +51,12 @@ export default class ColumnPrefsDialog extends React.Component<any, any> {
                                 <span>Show all columns</span>
                             </div>
 
-                            {this.props.type.properties.map(p => (
-                                <div onClick={e => this.selectField(p.name)} style={{ margin: '0 0 5px 0', cursor: 'pointer' }}>
+                            {this.props.fields.map(f => (
+                                <div onClick={e => this.selectField(f.name)} style={{ margin: '0 0 5px 0', cursor: 'pointer' }}>
                                     <i className="material-icons"  style={CheckboxStyle}>
-                                        {fields.indexOf(p.name) >= 0 ? 'check_box' : 'check_box_outline_blank'}
+                                        {fields.indexOf(f.name) >= 0 ? 'check_box' : 'check_box_outline_blank'}
                                         </i>
-                                    <span>{p.name}</span>
+                                    <span>{f.name}</span>
                                 </div>
                             ))}
                         </div>

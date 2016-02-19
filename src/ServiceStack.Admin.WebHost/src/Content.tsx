@@ -184,8 +184,8 @@ export default class Content extends React.Component<any, any> {
 
                 <select value={values.searchField} onChange={e => this.selectField(e) }>
                     <option></option>
-                    {op.fromType.properties.map(
-                        p => <option key={p.name}>{p.name}</option>) }
+                    {op.fromTypeFields.map(
+                        f => <option key={f.name}>{f.name}</option>) }
                 </select>
                 <select value={values.searchType} onChange={e => this.selectOperand(e) }>
                     <option></option>

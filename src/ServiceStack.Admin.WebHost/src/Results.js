@@ -51,7 +51,7 @@ System.register(['react', './core', 'jquery', 'ss-utils'], function(exports_1) {
                         var fieldNames = this.props.values.fields || [];
                         if (fieldNames.length === 0) {
                             fieldNames = this.props.fieldNames ||
-                                this.props.selected.toType.properties.map(function (x) { return x.name; });
+                                this.props.selected.toTypeFields.map(function (x) { return x.name; });
                         }
                         var fieldWidths = this.props.fieldWidths || {};
                         var orderBy = (this.props.values.orderBy || '');

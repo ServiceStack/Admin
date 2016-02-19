@@ -57,6 +57,20 @@ class App extends React.Component<any, any> {
         };
     }
 
+    resolveProperties(type) {
+        var props = (type.properties || []).slice(0);
+
+        let inherits = type.inherits;
+        while (inherits) {
+            const t = this.state.types[inherits.name];
+            if (!t && !t.properties) continue;
+            t.properties.forEach(p => props.push(p));
+            inherits = t.inherits;
+        }
+
+        return props;
+    }
+
     toggleSidebar() {
         this.setState({ sidebarHidden: !this.state.sidebarHidden });
     }
@@ -105,7 +119,11 @@ class App extends React.Component<any, any> {
         const requestType = this.state.types[name];
         const fromType = this.state.types[operation.from];
         const toType = this.state.types[operation.to];
-        return { name, operation, requestType, fromType, toType};
+        return {
+            name, operation, requestType,
+            fromType, fromTypeFields: this.resolveProperties(toType),
+            toType, toTypeFields: this.resolveProperties(toType)
+        };
     }
 
     onOperationChange(name: string, newValues: any) {
@@ -188,7 +206,7 @@ class App extends React.Component<any, any> {
 
                 {this.state.dialog !== "column-prefs-dialog" ? null : (
                     <ColumnPrefsDialog onClose={e => this.hideDialog() }
-                        type={selected.toType}
+                        fields={selected.toTypeFields}
                         values={this.getOperationValues(this.props.name)}
                         onChange={args => this.onOperationChange(opName, args) }
                         />
