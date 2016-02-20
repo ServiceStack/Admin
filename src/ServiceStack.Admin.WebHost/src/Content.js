@@ -190,9 +190,10 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                             : null));
                 };
                 Content.prototype.render = function () {
-                    return (React.createElement("div", {"id": "content", "style": { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {"style": { padding: '90px 0 20px 20px' }}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, React.createElement("td", null, this.props.selected
+                    var isMsEdge = /Edge/.test(navigator.userAgent);
+                    return (React.createElement("div", {"id": "content", "style": { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {"style": { padding: '90px 0 20px 20px' }}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, isMsEdge ? React.createElement("td", {"style": { minWidth: '290px' }}) : null, React.createElement("td", null, this.props.selected
                         ? this.renderBody(this.props.selected, this.props.values)
-                        : (React.createElement("div", {"style": { padding: '15px 0', fontSize: '20px', color: '#757575' }}, React.createElement("i", {"className": "material-icons", "style": { verticalAlign: 'bottom', margin: '0 10px 0 0' }}, "arrow_back"), "Please Select a Query"))), React.createElement("td", {"style": { minWidth: '290px' }})))))));
+                        : (React.createElement("div", {"style": { padding: '15px 0', fontSize: '20px', color: '#757575' }}, React.createElement("i", {"className": "material-icons", "style": { verticalAlign: 'bottom', margin: '0 10px 0 0' }}, "arrow_back"), "Please Select a Query"))), !isMsEdge ? React.createElement("td", {"style": { minWidth: '290px' }}) : null))))));
                 };
                 return Content;
             })(React.Component);

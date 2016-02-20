@@ -283,12 +283,15 @@ export default class Content extends React.Component<any, any> {
     }
 
     render() {
+        const isMsEdge = /Edge/.test(navigator.userAgent);
+
         return (
             <div id="content" style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}>
                 <div style={{ padding: '90px 0 20px 20px' }}>
                     <table>
                     <tbody>
                         <tr>
+                            {isMsEdge ? <td style={{ minWidth: '290px' }}></td> : null}
                             <td>
                                 {this.props.selected
                                     ? this.renderBody(this.props.selected, this.props.values)
@@ -296,7 +299,7 @@ export default class Content extends React.Component<any, any> {
                                         <i className="material-icons" style={{ verticalAlign: 'bottom', margin:'0 10px 0 0'}}>arrow_back</i>
                                         Please Select a Query</div>) }
                             </td>
-                            <td style={{minWidth:'290px'}}></td>
+                            {!isMsEdge ? <td style={{ minWidth: '290px' }}></td> : null}
                         </tr>
                      </tbody>
                      </table>
