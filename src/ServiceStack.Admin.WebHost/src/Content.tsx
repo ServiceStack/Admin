@@ -12,7 +12,20 @@ export default class Content extends React.Component<any, any> {
     }
 
     selectField(e) {
-        this.props.onChange({ searchField: e.target.options[e.target.selectedIndex].value });
+        var searchField = e.target.options[e.target.selectedIndex].value,
+            searchType = this.props.values.searchType,
+            searchText = this.props.values.searchText;
+
+        const f = this.getSearchField(searchField);
+        if (this.isIntField(f)) {
+            if (isNaN(searchText))
+                searchText = '';
+            const convention = this.props.conventions.filter(c => c.name === searchType)[0];
+            if (!this.matchesConvention(convention, f.type))
+                searchType = '';
+        }
+
+        this.props.onChange({ searchField, searchType, searchText });
     }
 
     selectOperand(e) {
@@ -102,6 +115,30 @@ export default class Content extends React.Component<any, any> {
         });
 
         return args;
+    }
+
+    getSearchField(name: string) {
+        return this.props.selected.fromTypeFields.filter(f => f.name === name)[0];
+    }
+
+    isIntField(f) {
+        return f && (f.type || '').toLowerCase().startsWith('int');
+    }
+
+    matchesConvention(convention, fieldType) {
+        return !convention || !convention.types || !fieldType ||
+            convention.types.replace(/ /g, '').toLowerCase().split(',').indexOf(fieldType.toLowerCase()) >= 0;
+    }
+
+    getConventions() {
+        const values = this.props.values;
+        if (values && values.searchField) {
+            const f = this.getSearchField(values.searchField);
+            if (f) {
+                return this.props.conventions.filter(c => this.matchesConvention(c, f.type));
+            }
+        }
+        return this.props.conventions;
     }
 
     renderResults(response) {
@@ -199,7 +236,7 @@ export default class Content extends React.Component<any, any> {
                 </select>
                 <select value={values.searchType} onChange={e => this.selectOperand(e) }>
                     <option></option>
-                    {this.props.conventions.map(
+                    {this.getConventions().map(
                         c => <option key={c.name}>{c.name}</option>) }
                 </select>
                 <input type="text" id="txtSearch" value={values.searchText} autoComplete="off"
@@ -232,7 +269,7 @@ export default class Content extends React.Component<any, any> {
                 { this.state.response
                     ? (!loadingNewQuery
                         ? this.renderResults(this.state.response)
-                        : (<div style={{ color: '#757575' }}>
+                        : (<div style={{ color: '#757575', padding:'20px 0 0 0' }}>
                                 <i className="material-icons spin" style={{ fontSize:'20px', verticalAlign: 'text-bottom' }}>cached</i>
                                 <span style={{ padding:'0 0 0 5px'}}>loading results...</span>
                            </div>))

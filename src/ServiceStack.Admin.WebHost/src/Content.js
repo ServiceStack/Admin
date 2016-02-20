@@ -25,7 +25,16 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     this.state = { results: null };
                 }
                 Content.prototype.selectField = function (e) {
-                    this.props.onChange({ searchField: e.target.options[e.target.selectedIndex].value });
+                    var searchField = e.target.options[e.target.selectedIndex].value, searchType = this.props.values.searchType, searchText = this.props.values.searchText;
+                    var f = this.getSearchField(searchField);
+                    if (this.isIntField(f)) {
+                        if (isNaN(searchText))
+                            searchText = '';
+                        var convention = this.props.conventions.filter(function (c) { return c.name === searchType; })[0];
+                        if (!this.matchesConvention(convention, f.type))
+                            searchType = '';
+                    }
+                    this.props.onChange({ searchField: searchField, searchType: searchType, searchText: searchText });
                 };
                 Content.prototype.selectOperand = function (e) {
                     this.props.onChange({ searchType: e.target.options[e.target.selectedIndex].value });
@@ -98,6 +107,27 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     });
                     return args;
                 };
+                Content.prototype.getSearchField = function (name) {
+                    return this.props.selected.fromTypeFields.filter(function (f) { return f.name === name; })[0];
+                };
+                Content.prototype.isIntField = function (f) {
+                    return f && (f.type || '').toLowerCase().startsWith('int');
+                };
+                Content.prototype.matchesConvention = function (convention, fieldType) {
+                    return !convention || !convention.types || !fieldType ||
+                        convention.types.replace(/ /g, '').toLowerCase().split(',').indexOf(fieldType.toLowerCase()) >= 0;
+                };
+                Content.prototype.getConventions = function () {
+                    var _this = this;
+                    var values = this.props.values;
+                    if (values && values.searchField) {
+                        var f = this.getSearchField(values.searchField);
+                        if (f) {
+                            return this.props.conventions.filter(function (c) { return _this.matchesConvention(c, f.type); });
+                        }
+                    }
+                    return this.props.conventions;
+                };
                 Content.prototype.renderResults = function (response) {
                     var _this = this;
                     var fieldNames = null, fieldWidths = null;
@@ -146,14 +176,14 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     }
                     return (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', background: '#eee', position: 'absolute', top: '125px', right: '320px', maxWidth: '700px' }}, this.props.viewerArgs["Description"]), React.createElement("div", {"id": "url", "style": { padding: '0 0 10px 0' }}, React.createElement("a", {"href": url, "target": "_blank"}, url), !this.isDirty() ? null : (React.createElement("i", {"className": "material-icons noselect", "title": "reset query", "onClick": function (e) { return _this.clear(); }, "style": {
                         padding: '0 0 0 5px', color: '#757575', fontSize: '16px', verticalAlign: 'bottom', cursor: 'pointer'
-                    }}, "clear"))), React.createElement("select", {"value": values.searchField, "onChange": function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromTypeFields.map(function (f) { return React.createElement("option", {"key": f.name}, f.name); })), React.createElement("select", {"value": values.searchType, "onChange": function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.props.conventions.map(function (c) { return React.createElement("option", {"key": c.name}, c.name); })), React.createElement("input", {"type": "text", "id": "txtSearch", "value": values.searchText, "autoComplete": "off", "onChange": function (e) { return _this.changeText(e); }, "onKeyDown": function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
+                    }}, "clear"))), React.createElement("select", {"value": values.searchField, "onChange": function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromTypeFields.map(function (f) { return React.createElement("option", {"key": f.name}, f.name); })), React.createElement("select", {"value": values.searchType, "onChange": function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.getConventions().map(function (c) { return React.createElement("option", {"key": c.name}, c.name); })), React.createElement("input", {"type": "text", "id": "txtSearch", "value": values.searchText, "autoComplete": "off", "onChange": function (e) { return _this.changeText(e); }, "onKeyDown": function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
                         ? (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#00C853', cursor: 'pointer' }, "onClick": function (e) { return _this.props.onAddCondition(); }, "title": "Add condition"}, "add_circle"))
                         : (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#ccc' }, "title": "Incomplete condition"}, "add_circle")), !this.props.config.formats || this.props.config.formats.length === 0 ? null : (React.createElement("span", {"className": "formats noselect"}, this.props.config.formats.map(function (f) {
                         return React.createElement("span", {"key": f, "className": values.format === f ? 'active' : '', "onClick": function (e) { return _this.selectFormat(f); }}, f);
                     }))), React.createElement("div", {"className": "conditions"}, this.props.values.conditions.map(function (c) { return (React.createElement("div", {"key": c.id}, React.createElement("i", {"className": "material-icons", "style": { color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }, "title": "remove condition", "onClick": function (e) { return _this.props.onRemoveCondition(c); }}, "remove_circle"), c.searchField, " ", c.searchType, " ", c.searchText)); })), this.state.response
                         ? (!loadingNewQuery
                             ? this.renderResults(this.state.response)
-                            : (React.createElement("div", {"style": { color: '#757575' }}, React.createElement("i", {"className": "material-icons spin", "style": { fontSize: '20px', verticalAlign: 'text-bottom' }}, "cached"), React.createElement("span", {"style": { padding: '0 0 0 5px' }}, "loading results..."))))
+                            : (React.createElement("div", {"style": { color: '#757575', padding: '20px 0 0 0' }}, React.createElement("i", {"className": "material-icons spin", "style": { fontSize: '20px', verticalAlign: 'text-bottom' }}, "cached"), React.createElement("span", {"style": { padding: '0 0 0 5px' }}, "loading results..."))))
                         : this.state.error
                             ? React.createElement("div", {"style": { color: '#db4437' }}, this.state.error)
                             : null));
