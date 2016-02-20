@@ -157,6 +157,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                 Content.prototype.renderBody = function (op, values) {
                     var _this = this;
                     var url = this.getAutoQueryUrl(this.props.values.format);
+                    var name = this.props.selected.name;
                     var loadingNewQuery = this.state.url !== url;
                     if (loadingNewQuery) {
                         $.ajax({
@@ -166,11 +167,11 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                             success: function (r) {
                                 var response = $.ss.normalize(r);
                                 response.url = url;
-                                _this.setState({ url: url, response: response, error: null });
+                                _this.setState({ url: url, name: name, response: response, error: null });
                             },
                             error: function (r) {
                                 var status = $.ss.parseResponseStatus(r.responseText);
-                                _this.setState({ url: url, response: null, error: status.errorCode + ": " + status.message });
+                                _this.setState({ url: url, name: name, response: null, error: status.errorCode + ": " + status.message });
                             }
                         });
                     }
@@ -181,7 +182,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                         : (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#ccc' }, "title": "Incomplete condition"}, "add_circle")), !this.props.config.formats || this.props.config.formats.length === 0 ? null : (React.createElement("span", {"className": "formats noselect"}, this.props.config.formats.map(function (f) {
                         return React.createElement("span", {"key": f, "className": values.format === f ? 'active' : '', "onClick": function (e) { return _this.selectFormat(f); }}, f);
                     }))), React.createElement("div", {"className": "conditions"}, this.props.values.conditions.map(function (c) { return (React.createElement("div", {"key": c.id}, React.createElement("i", {"className": "material-icons", "style": { color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }, "title": "remove condition", "onClick": function (e) { return _this.props.onRemoveCondition(c); }}, "remove_circle"), c.searchField, " ", c.searchType, " ", c.searchText)); })), this.state.response
-                        ? (!loadingNewQuery
+                        ? (!loadingNewQuery || name === this.state.name
                             ? this.renderResults(this.state.response)
                             : (React.createElement("div", {"style": { color: '#757575', padding: '20px 0 0 0' }}, React.createElement("i", {"className": "material-icons spin", "style": { fontSize: '20px', verticalAlign: 'text-bottom' }}, "cached"), React.createElement("span", {"style": { padding: '0 0 0 5px' }}, "loading results..."))))
                         : this.state.error

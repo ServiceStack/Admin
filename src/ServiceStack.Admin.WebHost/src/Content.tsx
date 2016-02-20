@@ -197,6 +197,7 @@ export default class Content extends React.Component<any, any> {
 
     renderBody(op, values) {
         const url = this.getAutoQueryUrl(this.props.values.format);
+        const name = this.props.selected.name;
         const loadingNewQuery = this.state.url !== url;
         if (loadingNewQuery) {
             $.ajax({
@@ -206,11 +207,11 @@ export default class Content extends React.Component<any, any> {
                 success: r => {
                     var response = $.ss.normalize(r);
                     response.url = url;
-                    this.setState({ url, response, error:null });
+                    this.setState({ url, name, response, error:null });
                 },
                 error: r => {
                     var status = $.ss.parseResponseStatus(r.responseText);
-                    this.setState({ url, response:null, error: `${status.errorCode}: ${status.message}` });
+                    this.setState({ url, name, response:null, error: `${status.errorCode}: ${status.message}` });
                 }
             });
         }
@@ -267,7 +268,7 @@ export default class Content extends React.Component<any, any> {
                 </div>
 
                 { this.state.response
-                    ? (!loadingNewQuery
+                    ? (!loadingNewQuery || name === this.state.name
                         ? this.renderResults(this.state.response)
                         : (<div style={{ color: '#757575', padding:'20px 0 0 0' }}>
                                 <i className="material-icons spin" style={{ fontSize:'20px', verticalAlign: 'text-bottom' }}>cached</i>
