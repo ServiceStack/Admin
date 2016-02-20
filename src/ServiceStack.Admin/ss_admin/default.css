@@ -244,6 +244,15 @@ form:focus {
     transition-timing-function: ease-out;
 }
 
+.spin {
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    -webkit-animation:spin 1s linear infinite;
+    animation: spin 1s linear infinite
+}
+
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 ::-webkit-scrollbar {
     width: 5px;

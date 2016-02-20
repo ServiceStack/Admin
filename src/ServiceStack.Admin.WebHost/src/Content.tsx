@@ -160,11 +160,21 @@ export default class Content extends React.Component<any, any> {
 
     renderBody(op, values) {
         const url = this.getAutoQueryUrl(this.props.values.format);
-        if (!this.state.response || this.state.response.url !== url) {
-            $.getJSON(this.getAutoQueryUrl("json"), { jsconfig: "DateHandler:ISO8601DateOnly"}, r => {
-                var response = $.ss.normalize(r);
-                response.url = url;
-                this.setState({ response });
+        const loadingNewQuery = this.state.url !== url;
+        if (loadingNewQuery) {
+            $.ajax({
+                url: this.getAutoQueryUrl("json"),
+                data: { jsconfig: "DateHandler:ISO8601DateOnly" },
+                dataType: 'json',
+                success: r => {
+                    var response = $.ss.normalize(r);
+                    response.url = url;
+                    this.setState({ url, response, error:null });
+                },
+                error: r => {
+                    var status = $.ss.parseResponseStatus(r.responseText);
+                    this.setState({ url, response:null, error: `${status.errorCode}: ${status.message}` });
+                }
             });
         }
 
@@ -219,7 +229,16 @@ export default class Content extends React.Component<any, any> {
                     ))}
                 </div>
 
-                { this.state.response ? this.renderResults(this.state.response) : null }
+                { this.state.response
+                    ? (!loadingNewQuery
+                        ? this.renderResults(this.state.response)
+                        : (<div style={{ color: '#757575' }}>
+                                <i className="material-icons spin" style={{ fontSize:'20px', verticalAlign: 'text-bottom' }}>cached</i>
+                                <span style={{ padding:'0 0 0 5px'}}>loading results...</span>
+                           </div>))
+                    : this.state.error
+                        ? <div style={{ color:'#db4437'}}>{this.state.error}</div>
+                        : null }
 
             </div>
         );
