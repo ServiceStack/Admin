@@ -221,7 +221,7 @@ export default class Content extends React.Component<any, any> {
                 <div style={{ color: '#757575', background: '#eee', position: 'absolute', top:'125px', right: '320px', maxWidth:'700px' }}>
                     {this.props.viewerArgs["Description"] }
                 </div>
-                <div id="url" style={{ padding: '0 0 10px 0' }}>
+                <div id="url" style={{ padding: '0 0 10px 0', wordWrap:'nowrap' }}>
                     <a href={url} target="_blank">{url}</a>
                     {!  this.isDirty() ? null : (
                         <i className="material-icons noselect" title="reset query" onClick={e => this.clear() } style={{
@@ -284,7 +284,6 @@ export default class Content extends React.Component<any, any> {
 
     render() {
         const isMsEdge = /Edge/.test(navigator.userAgent);
-
         return (
             <div id="content" style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}>
                 <div style={{ padding: '90px 0 20px 20px' }}>
@@ -297,7 +296,11 @@ export default class Content extends React.Component<any, any> {
                                     ? this.renderBody(this.props.selected, this.props.values)
                                     : (<div style={{ padding: '15px 0', fontSize:'20px', color:'#757575' }}>
                                         <i className="material-icons" style={{ verticalAlign: 'bottom', margin:'0 10px 0 0'}}>arrow_back</i>
-                                        Please Select a Query</div>) }
+                                        {this.props.userinfo.querycount > 0
+                                            ? "Please Select a Query"
+                                                : this.props.userinfo.isauthenticated
+                                                    ? "There are no queries available"
+                                                    : "Please Sign In to see your available queries"}</div>) }
                             </td>
                             {!isMsEdge ? <td style={{ minWidth: '290px' }}></td> : null}
                         </tr>

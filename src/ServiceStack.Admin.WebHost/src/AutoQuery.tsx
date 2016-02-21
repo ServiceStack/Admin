@@ -192,6 +192,7 @@ class App extends React.Component<any, any> {
                             />
                         <Content
                             config={this.props.metadata.config}
+                            userinfo={this.props.metadata.userinfo}
                             selected={selected}
                             values={this.getOperationValues(this.props.name)}
                             conventions={this.props.metadata.config.implicitconventions}
