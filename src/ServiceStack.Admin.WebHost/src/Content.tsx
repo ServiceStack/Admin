@@ -221,7 +221,7 @@ export default class Content extends React.Component<any, any> {
                 <div style={{ color: '#757575', background: '#eee', position: 'absolute', top:'125px', right: '320px', maxWidth:'700px' }}>
                     {this.props.viewerArgs["Description"] }
                 </div>
-                <div id="url" style={{ padding: '0 0 10px 0', wordWrap:'nowrap' }}>
+                <div id="url" style={{ padding: '0 0 10px 0', whiteSpace:'nowrap' }}>
                     <a href={url} target="_blank">{url}</a>
                     {!  this.isDirty() ? null : (
                         <i className="material-icons noselect" title="reset query" onClick={e => this.clear() } style={{
