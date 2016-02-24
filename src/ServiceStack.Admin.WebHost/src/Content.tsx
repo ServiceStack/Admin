@@ -143,7 +143,7 @@ export default class Content extends React.Component<any, any> {
 
     renderResults(response) {
         var fieldNames = null, fieldWidths = null;
-        var fieldDefs = (this.props.viewerArgs["SummaryFields"] || "")
+        var fieldDefs = (this.props.viewerArgs["DefaultFields"] || "")
             .split(',')
             .filter(x => x.trim().length > 0);
 

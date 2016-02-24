@@ -1,5 +1,7 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1) {
+System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -121,9 +123,9 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     var _this = this;
                     var values = this.props.values;
                     if (values && values.searchField) {
-                        var f = this.getSearchField(values.searchField);
-                        if (f) {
-                            return this.props.conventions.filter(function (c) { return _this.matchesConvention(c, f.type); });
+                        var f_1 = this.getSearchField(values.searchField);
+                        if (f_1) {
+                            return this.props.conventions.filter(function (c) { return _this.matchesConvention(c, f_1.type); });
                         }
                     }
                     return this.props.conventions;
@@ -131,7 +133,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                 Content.prototype.renderResults = function (response) {
                     var _this = this;
                     var fieldNames = null, fieldWidths = null;
-                    var fieldDefs = (this.props.viewerArgs["SummaryFields"] || "")
+                    var fieldDefs = (this.props.viewerArgs["DefaultFields"] || "")
                         .split(',')
                         .filter(function (x) { return x.trim().length > 0; });
                     if (fieldDefs.length > 0) {
@@ -145,14 +147,14 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     }
                     var offset = response.offset, results = response.results, total = response.total, maxLimit = this.props.config.maxlimit;
                     var Control = function (name, enable, offset) { return enable
-                        ? React.createElement("i", {"className": "material-icons", "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onChange({ offset: offset }); }}, name)
-                        : React.createElement("i", {"className": "material-icons", "style": { color: '#ccc' }}, name); };
-                    var Paging = (React.createElement("span", {"className": "paging", "style": { padding: '0 10px 0 0' }}, Control("skip_previous", offset > 0, 0), Control("chevron_left", offset > 0, Math.max(offset - maxLimit, 0)), Control("chevron_right", offset + maxLimit < total, offset + maxLimit), Control("skip_next", offset + maxLimit < total, Math.floor((total - 1) / maxLimit) * maxLimit)));
+                        ? React.createElement("i", {className: "material-icons", style: { cursor: 'pointer' }, onClick: function (e) { return _this.props.onChange({ offset: offset }); }}, name)
+                        : React.createElement("i", {className: "material-icons", style: { color: '#ccc' }}, name); };
+                    var Paging = (React.createElement("span", {className: "paging", style: { padding: '0 10px 0 0' }}, Control("skip_previous", offset > 0, 0), Control("chevron_left", offset > 0, Math.max(offset - maxLimit, 0)), Control("chevron_right", offset + maxLimit < total, offset + maxLimit), Control("skip_next", offset + maxLimit < total, Math.floor((total - 1) / maxLimit) * maxLimit)));
                     return response.results.length === 0
-                        ? React.createElement("div", {"className": "results-none"}, "There were no results")
-                        : (React.createElement("div", null, React.createElement("div", {"className": "noselect", "style": { color: '#757575', padding: '15px 0' }}, Paging, React.createElement("span", null, "Showing Results ", offset + 1, " - ", offset + results.length, " of ", total), React.createElement("i", {"className": "material-icons", "title": "show/hide columns", "onClick": function (e) { return _this.props.onShowDialog('column-prefs-dialog'); }, "style": {
+                        ? React.createElement("div", {className: "results-none"}, "There were no results")
+                        : (React.createElement("div", null, React.createElement("div", {className: "noselect", style: { color: '#757575', padding: '15px 0' }}, Paging, React.createElement("span", null, "Showing Results ", offset + 1, " - ", offset + results.length, " of ", total), React.createElement("i", {className: "material-icons", title: "show/hide columns", onClick: function (e) { return _this.props.onShowDialog('column-prefs-dialog'); }, style: {
                             verticalAlign: 'text-bottom', margin: '0 0 0 10px', cursor: 'pointer', fontSize: '20px'
-                        }}, "view_list")), React.createElement(Results_1.default, {"results": response.results, "fieldNames": fieldNames, "fieldWidths": fieldWidths, "selected": this.props.selected, "values": this.props.values, "onOrderByChange": function (orderBy) { return _this.props.onChange({ orderBy: orderBy }); }})));
+                        }}, "view_list")), React.createElement(Results_1.default, {results: response.results, fieldNames: fieldNames, fieldWidths: fieldWidths, selected: this.props.selected, values: this.props.values, onOrderByChange: function (orderBy) { return _this.props.onChange({ orderBy: orderBy }); }})));
                 };
                 Content.prototype.renderBody = function (op, values) {
                     var _this = this;
@@ -175,32 +177,32 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                             }
                         });
                     }
-                    return (React.createElement("div", null, React.createElement("div", {"style": { color: '#757575', background: '#eee', position: 'absolute', top: '125px', right: '320px', maxWidth: '700px' }}, this.props.viewerArgs["Description"]), React.createElement("div", {"id": "url", "style": { padding: '0 0 10px 0', whiteSpace: 'nowrap' }}, React.createElement("a", {"href": url, "target": "_blank"}, url), !this.isDirty() ? null : (React.createElement("i", {"className": "material-icons noselect", "title": "reset query", "onClick": function (e) { return _this.clear(); }, "style": {
+                    return (React.createElement("div", null, React.createElement("div", {style: { color: '#757575', background: '#eee', position: 'absolute', top: '125px', right: '320px', maxWidth: '700px' }}, this.props.viewerArgs["Description"]), React.createElement("div", {id: "url", style: { padding: '0 0 10px 0', whiteSpace: 'nowrap' }}, React.createElement("a", {href: url, target: "_blank"}, url), !this.isDirty() ? null : (React.createElement("i", {className: "material-icons noselect", title: "reset query", onClick: function (e) { return _this.clear(); }, style: {
                         padding: '0 0 0 5px', color: '#757575', fontSize: '16px', verticalAlign: 'bottom', cursor: 'pointer'
-                    }}, "clear"))), React.createElement("select", {"value": values.searchField, "onChange": function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromTypeFields.map(function (f) { return React.createElement("option", {"key": f.name}, f.name); })), React.createElement("select", {"value": values.searchType, "onChange": function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.getConventions().map(function (c) { return React.createElement("option", {"key": c.name}, c.name); })), React.createElement("input", {"type": "text", "id": "txtSearch", "value": values.searchText, "autoComplete": "off", "onChange": function (e) { return _this.changeText(e); }, "onKeyDown": function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
-                        ? (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#00C853', cursor: 'pointer' }, "onClick": function (e) { return _this.props.onAddCondition(); }, "title": "Add condition"}, "add_circle"))
-                        : (React.createElement("i", {"className": "material-icons", "style": { fontSize: '30px', verticalAlign: 'bottom', color: '#ccc' }, "title": "Incomplete condition"}, "add_circle")), !this.props.config.formats || this.props.config.formats.length === 0 ? null : (React.createElement("span", {"className": "formats noselect"}, this.props.config.formats.map(function (f) {
-                        return React.createElement("span", {"key": f, "className": values.format === f ? 'active' : '', "onClick": function (e) { return _this.selectFormat(f); }}, f);
-                    }))), React.createElement("div", {"className": "conditions"}, this.props.values.conditions.map(function (c) { return (React.createElement("div", {"key": c.id}, React.createElement("i", {"className": "material-icons", "style": { color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }, "title": "remove condition", "onClick": function (e) { return _this.props.onRemoveCondition(c); }}, "remove_circle"), c.searchField, " ", c.searchType, " ", c.searchText)); })), this.state.response
+                    }}, "clear"))), React.createElement("select", {value: values.searchField, onChange: function (e) { return _this.selectField(e); }}, React.createElement("option", null), op.fromTypeFields.map(function (f) { return React.createElement("option", {key: f.name}, f.name); })), React.createElement("select", {value: values.searchType, onChange: function (e) { return _this.selectOperand(e); }}, React.createElement("option", null), this.getConventions().map(function (c) { return React.createElement("option", {key: c.name}, c.name); })), React.createElement("input", {type: "text", id: "txtSearch", value: values.searchText, autoComplete: "off", onChange: function (e) { return _this.changeText(e); }, onKeyDown: function (e) { return e.keyCode === 13 ? _this.props.onAddCondition() : null; }}), this.isValidCondition()
+                        ? (React.createElement("i", {className: "material-icons", style: { fontSize: '30px', verticalAlign: 'bottom', color: '#00C853', cursor: 'pointer' }, onClick: function (e) { return _this.props.onAddCondition(); }, title: "Add condition"}, "add_circle"))
+                        : (React.createElement("i", {className: "material-icons", style: { fontSize: '30px', verticalAlign: 'bottom', color: '#ccc' }, title: "Incomplete condition"}, "add_circle")), !this.props.config.formats || this.props.config.formats.length === 0 ? null : (React.createElement("span", {className: "formats noselect"}, this.props.config.formats.map(function (f) {
+                        return React.createElement("span", {key: f, className: values.format === f ? 'active' : '', onClick: function (e) { return _this.selectFormat(f); }}, f);
+                    }))), React.createElement("div", {className: "conditions"}, this.props.values.conditions.map(function (c) { return (React.createElement("div", {key: c.id}, React.createElement("i", {className: "material-icons", style: { color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }, title: "remove condition", onClick: function (e) { return _this.props.onRemoveCondition(c); }}, "remove_circle"), c.searchField, " ", c.searchType, " ", c.searchText)); })), this.state.response
                         ? (!loadingNewQuery || name === this.state.name
                             ? this.renderResults(this.state.response)
-                            : (React.createElement("div", {"style": { color: '#757575', padding: '20px 0 0 0' }}, React.createElement("i", {"className": "material-icons spin", "style": { fontSize: '20px', verticalAlign: 'text-bottom' }}, "cached"), React.createElement("span", {"style": { padding: '0 0 0 5px' }}, "loading results..."))))
+                            : (React.createElement("div", {style: { color: '#757575', padding: '20px 0 0 0' }}, React.createElement("i", {className: "material-icons spin", style: { fontSize: '20px', verticalAlign: 'text-bottom' }}, "cached"), React.createElement("span", {style: { padding: '0 0 0 5px' }}, "loading results..."))))
                         : this.state.error
-                            ? React.createElement("div", {"style": { color: '#db4437' }}, this.state.error)
+                            ? React.createElement("div", {style: { color: '#db4437' }}, this.state.error)
                             : null));
                 };
                 Content.prototype.render = function () {
                     var isMsEdge = /Edge/.test(navigator.userAgent);
-                    return (React.createElement("div", {"id": "content", "style": { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {"style": { padding: '90px 0 20px 20px' }}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, isMsEdge ? React.createElement("td", {"style": { minWidth: '290px' }}) : null, React.createElement("td", null, this.props.selected
+                    return (React.createElement("div", {id: "content", style: { position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}, React.createElement("div", {style: { padding: '90px 0 20px 20px' }}, React.createElement("table", null, React.createElement("tbody", null, React.createElement("tr", null, isMsEdge ? React.createElement("td", {style: { minWidth: '290px' }}) : null, React.createElement("td", null, this.props.selected
                         ? this.renderBody(this.props.selected, this.props.values)
-                        : (React.createElement("div", {"style": { padding: '15px 0', fontSize: '20px', color: '#757575' }}, React.createElement("i", {"className": "material-icons", "style": { verticalAlign: 'bottom', margin: '0 10px 0 0' }}, "arrow_back"), this.props.userinfo.querycount > 0
+                        : (React.createElement("div", {style: { padding: '15px 0', fontSize: '20px', color: '#757575' }}, React.createElement("i", {className: "material-icons", style: { verticalAlign: 'bottom', margin: '0 10px 0 0' }}, "arrow_back"), this.props.userinfo.querycount > 0
                             ? "Please Select a Query"
                             : this.props.userinfo.isauthenticated
                                 ? "There are no queries available"
-                                : "Please Sign In to see your available queries"))), !isMsEdge ? React.createElement("td", {"style": { minWidth: '290px' }}) : null))))));
+                                : "Please Sign In to see your available queries"))), !isMsEdge ? React.createElement("td", {style: { minWidth: '290px' }}) : null))))));
                 };
                 return Content;
-            })(React.Component);
+            }(React.Component));
             exports_1("default", Content);
         }
     }
