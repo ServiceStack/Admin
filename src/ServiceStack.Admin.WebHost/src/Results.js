@@ -1,5 +1,7 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', './core', 'jquery', 'ss-utils'], function(exports_1) {
+System.register(['react', './core', 'jquery', 'ss-utils'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -35,17 +37,17 @@ System.register(['react', './core', 'jquery', 'ss-utils'], function(exports_1) {
                 Results.prototype.formatString = function (s) {
                     if (s) {
                         if (s.startsWith("http"))
-                            return React.createElement("a", {"href": s, "target": "_blank"}, s.substring(s.indexOf('://') + 3));
+                            return React.createElement("a", {href: s, target: "_blank"}, s.substring(s.indexOf('://') + 3));
                         if (s.toLowerCase() === "false")
-                            return React.createElement("i", {"className": "material-icons", "style": { color: '#757575', fontSize: '14px' }}, "check_box_outline_blank");
+                            return React.createElement("i", {className: "material-icons", style: { color: '#757575', fontSize: '14px' }}, "check_box_outline_blank");
                         if (s.toLowerCase() === "true")
-                            return React.createElement("i", {"className": "material-icons", "style": { color: '#66BB6A', fontSize: '14px' }}, "check_box");
+                            return React.createElement("i", {className: "material-icons", style: { color: '#66BB6A', fontSize: '14px' }}, "check_box");
                     }
                     return React.createElement("span", null, s);
                 };
                 Results.prototype.render = function () {
                     var _this = this;
-                    var Results = React.createElement("div", {"className": "results-none"}, "There were no results");
+                    var Results = React.createElement("div", {className: "results-none"}, "There were no results");
                     var results = this.props.results;
                     if (results && results.length > 0) {
                         var fieldNames = this.props.values.fields || [];
@@ -56,13 +58,13 @@ System.register(['react', './core', 'jquery', 'ss-utils'], function(exports_1) {
                         var fieldWidths = this.props.fieldWidths || {};
                         var orderBy = (this.props.values.orderBy || '');
                         var orderByName = orderBy.startsWith('-') ? orderBy.substr(1) : orderBy;
-                        Results = (React.createElement("table", {"className": "results"}, React.createElement("thead", null, React.createElement("tr", {"className": "noselect"}, fieldNames.map(function (f) { return (React.createElement("th", {"key": f, "style": { cursor: 'pointer' }, "onClick": function (e) { return _this.props.onOrderByChange(f !== orderByName ? '-' + f : !orderBy.startsWith('-') ? '' : orderByName); }}, $.ss.humanize(f), f !== orderByName ? null :
-                            React.createElement("i", {"className": "material-icons", "style": { fontSize: '18px', verticalAlign: 'bottom' }}, orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"))); }))), React.createElement("tbody", null, results.map(function (r, i) { return (React.createElement("tr", {"key": i}, fieldNames.map(function (f, j) { return (React.createElement("td", {"key": j, "title": _this.renderValue(core_1.getField(r, f)), "style": core_1.getField(fieldWidths, f) ? { maxWidth: core_1.getField(fieldWidths, f) } : {}}, _this.formatString(_this.renderValue(core_1.getField(r, f))))); }))); }))));
+                        Results = (React.createElement("table", {className: "results"}, React.createElement("thead", null, React.createElement("tr", {className: "noselect"}, fieldNames.map(function (f) { return (React.createElement("th", {key: f, style: { cursor: 'pointer' }, onClick: function (e) { return _this.props.onOrderByChange(f !== orderByName ? '-' + f : !orderBy.startsWith('-') ? '' : orderByName); }}, $.ss.humanize(f), f !== orderByName ? null :
+                            React.createElement("i", {className: "material-icons", style: { fontSize: '18px', verticalAlign: 'bottom' }}, orderBy.startsWith('-') ? "arrow_drop_down" : "arrow_drop_up"))); }))), React.createElement("tbody", null, results.map(function (r, i) { return (React.createElement("tr", {key: i}, fieldNames.map(function (f, j) { return (React.createElement("td", {key: j, title: _this.renderValue(core_1.getField(r, f)), style: core_1.getField(fieldWidths, f) ? { maxWidth: core_1.getField(fieldWidths, f) } : {}}, _this.formatString(_this.renderValue(core_1.getField(r, f))))); }))); }))));
                     }
                     return Results;
                 };
                 return Results;
-            })(React.Component);
+            }(React.Component));
             exports_1("default", Results);
         }
     }

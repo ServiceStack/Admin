@@ -1,5 +1,7 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'es6-shim', 'jquery', 'ss-utils'], function(exports_1) {
+System.register(['react', 'react-dom', 'redux', 'react-redux', 'react-router', 'es6-shim', 'jquery', 'ss-utils'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -41,7 +43,7 @@ System.register(['react', 'react-dom', 'redux', 'react-redux', 'react-router', '
                     return React.createElement("div", null, "Hello, World!");
                 };
                 return Deps;
-            })(React.Component);
+            }(React.Component));
             DepsRedux = react_redux_1.connect(function (state) { return ({}); }, function (dispatch) { return ({}); })(Deps);
             ignore = function () { return react_dom_1.render(React.createElement(Deps, null), document.body); };
             ignoreRoute = (React.createElement(react_router_1.Router, null, React.createElement(react_router_1.Route, null)));

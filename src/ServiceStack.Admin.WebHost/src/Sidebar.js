@@ -1,5 +1,7 @@
 /// <reference path='../typings/main.d.ts'/>
-System.register(['react', 'react-router', 'jquery', 'ss-utils'], function(exports_1) {
+System.register(['react', 'react-router', 'jquery', 'ss-utils'], function(exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
         for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
         function __() { this.constructor = d; }
@@ -31,21 +33,21 @@ System.register(['react', 'react-router', 'jquery', 'ss-utils'], function(export
                     var iconUrl = this.props.viewerArgs[name]["IconUrl"];
                     if (iconUrl) {
                         if (iconUrl.startsWith('material-icons:'))
-                            return (React.createElement("i", {"className": "material-icons"}, $.ss.splitOnFirst(iconUrl, ':')[1]));
+                            return (React.createElement("i", {className: "material-icons"}, $.ss.splitOnFirst(iconUrl, ':')[1]));
                         if (iconUrl.startsWith('octicon:'))
-                            return (React.createElement("span", {"className": "mega-octicon octicon-" + $.ss.splitOnFirst(iconUrl, ':')[1]}));
-                        return (React.createElement("img", {"src": iconUrl}));
+                            return (React.createElement("span", {className: "mega-octicon octicon-" + $.ss.splitOnFirst(iconUrl, ':')[1]}));
+                        return (React.createElement("img", {src: iconUrl}));
                     }
-                    return (React.createElement("i", {"className": "material-icons"}, "search"));
+                    return (React.createElement("i", {className: "material-icons"}, "search"));
                 };
                 Sidebar.prototype.render = function () {
                     var _this = this;
-                    return (React.createElement("div", {"id": "sidebar", "className": this.props.hide ? ' hide' : ''}, React.createElement("div", {"style": { padding: '90px 0 0 0' }}, React.createElement("div", {"id": "aq-filter"}, React.createElement("input", {"type": "text", "placeholder": "filter", "style": { margin: "10px 15px" }, "onChange": function (e) { return _this.handleFilter(e); }, "value": this.state.filter})), React.createElement("div", {"id": "aq-list"}, Object.keys(this.props.operations)
+                    return (React.createElement("div", {id: "sidebar", className: this.props.hide ? ' hide' : ''}, React.createElement("div", {style: { padding: '90px 0 0 0' }}, React.createElement("div", {id: "aq-filter"}, React.createElement("input", {type: "text", placeholder: "filter", style: { margin: "10px 15px" }, onChange: function (e) { return _this.handleFilter(e); }, value: this.state.filter})), React.createElement("div", {id: "aq-list"}, Object.keys(this.props.operations)
                         .filter(function (op) { return _this.state.filter == null || op.toLowerCase().indexOf(_this.state.filter) >= 0; })
-                        .map(function (op, i) { return (React.createElement("div", {"key": i, "className": "aq-item" + (op === _this.props.name ? " active" : "")}, _this.renderIcon(op), React.createElement(react_router_1.Link, {"to": _this.props.basePath + "ss_admin/autoquery/" + op}, op))); })))));
+                        .map(function (op, i) { return (React.createElement("div", {key: i, className: "aq-item" + (op === _this.props.name ? " active" : "")}, _this.renderIcon(op), React.createElement(react_router_1.Link, {to: _this.props.basePath + "ss_admin/autoquery/" + op}, op))); })))));
                 };
                 return Sidebar;
-            })(React.Component);
+            }(React.Component));
             exports_1("default", Sidebar);
         }
     }
