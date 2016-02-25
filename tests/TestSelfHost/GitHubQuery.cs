@@ -4,10 +4,10 @@ using ServiceStack.DataAnnotations;
 namespace ServiceStack.Admin.WebHost
 {
     [Route("/repos")]
-    [AutoQueryViewer(Title = "ServiceStack Repositories", Description = "Browse list of different ServiceStack repositories",
+    [AutoQueryViewer(Title = "ServiceStack Repositories", Description = "Browse different ServiceStack repos",
         DefaultSearchField = "Language", DefaultSearchType = "=", DefaultSearchText = "C#",
         IconUrl = "octicon:repo",
-        DefaultFields = "Id,Name,Description:500,Homepage,Language,Watchers_Count,Stargazes_Count,Forks_Count,Open_Issues_Count,Size,Full_Name,Created_At,Updated_At,Has_Issues,Has_Downloads,Has_Wiki,Has_Pages,Fork,Private")]
+        DefaultFields = "Id,Name,Language,Description:500,Homepage,Has_Wiki")]
     public class QueryRepos : QueryBase<GithubRepo> { }
 
     [Route("/commits")]
