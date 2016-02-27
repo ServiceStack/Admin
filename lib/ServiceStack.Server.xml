@@ -99,6 +99,16 @@
             The default icon for each of your AutoQuery Services
             </summary>
         </member>
+        <member name="P:ServiceStack.AutoQueryViewerUserInfo.IsAuthenticated">
+            <summary>
+            Returns true if the User Is Authenticated
+            </summary>
+        </member>
+        <member name="P:ServiceStack.AutoQueryViewerUserInfo.QueryCount">
+            <summary>
+            How many queries are available to this user
+            </summary>
+        </member>
         <member name="T:ServiceStack.Messaging.Redis.RedisMqServer">
             <summary>
             Creates a Redis MQ Server that processes each message on its own background thread.
