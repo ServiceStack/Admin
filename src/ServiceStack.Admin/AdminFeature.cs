@@ -24,7 +24,7 @@ namespace ServiceStack.Admin
                     : null);
 
             appHost.GetPlugin<MetadataFeature>()
-                .AddPluginLink("/ss_admin/autoquery/", "AutoQuery Browser");
+                .AddPluginLink("/ss_admin/autoquery/", "AutoQuery Viewer");
         }
     }
 }
