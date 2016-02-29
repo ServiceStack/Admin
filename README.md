@@ -13,8 +13,8 @@ AutoQuery Viewer - an instant UI for constructing and browsing your
 - http://stackapis.servicestack.net/ss_admin/
 - http://techstacks.io/ss_admin/
 
-The ServiceStack.Admin UI is a Single Page React App that's encapsulated in a single `ServiceStack.Admin.dll` 
-that's available from NuGet:
+The ServiceStack.Admin UI is a Single Page React App encapsulated in a single `ServiceStack.Admin.dll` 
+that's available from NuGet at:
 
 ### Install ServiceStack.Admin
 
@@ -45,7 +45,7 @@ Once enabled a link to the AutoQuery Viewer will appear under **Plugin Links** i
 
 The AutoQuery Viewer provides an instant automatic UI to quickly browse and query all your AutoQuery Services.
 
-By default AutoQuery Services start with a Blank UI and uses the Request DTO name to identify the Query.
+By default AutoQuery Services start with a minimal UI that uses the Request DTO name to identify the Query.
 An example of this can be seen with the 
 [Northwind AutoQuery Services](http://northwind.servicestack.net/ss_admin/autoquery/QueryCustomers) below:
 
@@ -69,9 +69,10 @@ with the `[AutoQueryViewer]` attribute, as seen in
 
 ```csharp
 [Route("/repos")]
-[AutoQueryViewer(Title = "ServiceStack Repositories", Description = "Browse different ServiceStack repos",
+[AutoQueryViewer(IconUrl = "octicon:repo",    
+    Title = "ServiceStack Repositories", 
+    Description = "Browse different ServiceStack repos",
     DefaultSearchField = "Language", DefaultSearchType = "=", DefaultSearchText = "C#",
-    IconUrl = "octicon:repo",
     DefaultFields = "Id,Name,Language,Description:500,Homepage,Has_Wiki")]
 public class QueryRepos : QueryBase<GithubRepo> {}
 ```
@@ -85,10 +86,11 @@ straight forward placeholder replacement.
 
 #### IconUrl
 
-Can either be an url to a **24x24** icon or preferably to avoid relying on any external resources, Admin UI embeds both
+Can either be an url to a **24x24** icon or preferably to avoid relying on any external resources, 
+Admin UI embeds both
 [Google's Material Design Icons](https://design.google.com/icons/) and 
 [GitHub's Octicon](https://octicons.github.com/) fonts which can be referenced using the custom
-`octicon` and `material-icons` schemes, e.g:
+`octicon:` and `material-icons:` schemes, e.g:
 
  - octicon:icon
  - material-icons:cast
@@ -98,8 +100,8 @@ Can either be an url to a **24x24** icon or preferably to avoid relying on any e
 Can hold a subset list of fields from the AutoQuery **Response Type** in the order you want them displayed.
 By default fields have a max-width of **300px** but we can override this default with a `:` suffix as seen
 with `Description:500` which changes the Description column width to **500px**. Any text longer than its width
-is automatically clipped, but you can see the contents in its **title** text by hovering over the field or by
-clicking the AutoQuery generated link which will execute the AutoQuery Service and display the entire results.
+is automatically clipped, but you can see the full-text by hovering over the field or by clicking the 
+AutoQuery generated link to call the AutoQuery Service and view the entire results.
 
 > For more see [Advanced Customizations](#Advanced-Customizations)
 
@@ -121,7 +123,7 @@ public class QueryOrders : QueryBase<Order> {}
 ```
 
 Since the Auth attributes are Request Filter Attributes with a server dependency to **ServiceStack.dll**, if
-you want to maintain and share a dependency-free **ServiceModel.dll** you should instead define a custom 
+you want to maintain and share a dependency-free **ServiceModel.dll** you can instead define a custom 
 AutoQuery in your Service implementations which will inherit any Service or Action filter attributes as normal:
 
 ```csharp
@@ -141,9 +143,9 @@ public class SalesServices : Service
 
 ### Updated in Real-time
 
-To enable a productive and faster UX, the generated AutoQuery link and query results are refreshed as-you-type 
-and any change to a any query immediately saves the App's state to **localStorage** so users queries are kept 
-across page refreshes or browser restarts.
+To enable a productive and faster UX, the generated AutoQuery link and query results are refreshed as-you-type, 
+in addition any change to a any query immediately saves the App's state to **localStorage** so users queries 
+are kept across page refreshes or browser restarts.
 
 ![](https://raw.githubusercontent.com/ServiceStack/Admin/master/img/search-as-type.png)
 
@@ -180,7 +182,7 @@ Results can be sorted in descending or ascending order by clicking on the column
 
 ![](https://raw.githubusercontent.com/ServiceStack/Admin/master/img/paging-queries.png)
 
-Clicking the back/forward navigation items on the left will page through the results in the order specified.
+Clicking the back/forward navigation icons on the left will page through the results in the order specified.
 
 ## Advanced Customizations
 
