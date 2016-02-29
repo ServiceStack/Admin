@@ -103,7 +103,7 @@ with `Description:500` which changes the Description column width to **500px**. 
 is automatically clipped, but you can see the full-text by hovering over the field or by clicking the 
 AutoQuery generated link to call the AutoQuery Service and view the entire results.
 
-> For more see [Advanced Customizations](#Advanced-Customizations)
+> For more, see [Advanced Customizations](#advanced-customizations)
 
 ### Filter AutoQuery Services
 
