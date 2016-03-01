@@ -6,6 +6,8 @@ AutoQuery Viewer - an instant UI for constructing and browsing your
 
 [![](https://raw.githubusercontent.com/ServiceStack/Admin/master/img/query-default-values.png)](http://github.servicestack.net/ss_admin/autoquery)
 
+> [YouTube Demo](https://youtu.be/YejYkCvKsuQ)
+
 ### Live AutoQuery Viewer Examples
 
 - http://github.servicestack.net/ss_admin/
