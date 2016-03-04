@@ -224,6 +224,14 @@ Plugins.Add(new AutoQueryFeature
  - The `Types="string"` will limit the convention to only appear for **string** fields
  - The `MetadataFilter` lets you programmatically modify the returned metadata response
 
+
+## [AutoQuery Viewer for iPad](https://github.com/ServiceStackApps/AutoQueryViewer)
+
+AutoQuery Viewer for iPad is a native iOS App that provides an automatic UI for browsing, inspecting and querying any publicly accessible 
+[ServiceStack AutoQuery Service](https://github.com/ServiceStack/ServiceStack/wiki/Auto-Query) from an iPad. 
+
+[![AutoQuery Viewer on AppStore](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/wikis/autoquery/autoqueryviewer-appstore.png)](https://itunes.apple.com/us/app/autoquery-viewer/id968625288?ls=1&mt=8)
+
 ## Feedback
 
 We'd love to hear your feedback! Please send us any suggestions or improvements on
