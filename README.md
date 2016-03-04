@@ -224,6 +224,11 @@ Plugins.Add(new AutoQueryFeature
  - The `Types="string"` will limit the convention to only appear for **string** fields
  - The `MetadataFilter` lets you programmatically modify the returned metadata response
 
+## Feedback
+
+We'd love to hear your feedback! Please send us any suggestions or improvements on
+[our UserVoice](http://servicestack.uservoice.com/forums/176786-feature-requests) or any issues to the
+[Issues List](https://github.com/ServiceStack/Issues).
 
 ## [AutoQuery Viewer for iPad](https://github.com/ServiceStackApps/AutoQueryViewer)
 
@@ -232,9 +237,69 @@ AutoQuery Viewer for iPad is a native iOS App that provides an automatic UI for 
 
 [![AutoQuery Viewer on AppStore](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/wikis/autoquery/autoqueryviewer-appstore.png)](https://itunes.apple.com/us/app/autoquery-viewer/id968625288?ls=1&mt=8)
 
-## Feedback
+## AdminFeature Rich UI Implementation
 
-We'd love to hear your feedback! Please send us any suggestions or improvements on
-[our UserVoice](http://servicestack.uservoice.com/forums/176786-feature-requests) or any issues to the
-[Issues List](https://github.com/ServiceStack/Issues).
+We'd like to detail how we developed `AdminFeature` as ServiceStack makes it really easy to package and 
+deploy rich plugins with complex UI and behavior encapsulated within a single plugin - 
+which we hope spurs the creation of even richer community [Plugins](github.com/ServiceStack/ServiceStack/wiki/Plugins)!
 
+Development of `AdminFeature` is maintained in a TypeScript 1.8 + JSPM + React
+[ServiceStack.Admin.WebHost](https://github.com/ServiceStack/Admin/tree/master/src/ServiceStack.Admin.WebHost) 
+project where it's structured to provide an optimal iterative development experience. 
+To re-package the App we just call on JSPM to create our app.js bundle by pointing it to the React App's 
+`main` entry point:
+ 
+    jspm bundle -m src\main ..\ServiceStack.Admin\ss_admin\app.js
+
+Then each of the static resources are copied into the Plugins 
+[ServiceStack.Admin](https://github.com/ServiceStack/Admin/tree/master/src/ServiceStack.Admin) 
+project with their **Build Action** set to **Embedded Resource** so they're embedded in the 
+**ServiceStack.Admin.dll**.
+
+To add the Embedded Resources to the 
+[Virtual File System](https://github.com/ServiceStack/ServiceStack/wiki/Virtual-file-system)
+the `AdminFeature` just adds it to `Config.EmbeddedResourceBaseTypes` (also making it safe to ILMerge).
+
+The entire server implementation for the `AdminFeature` is contained below, most of which is dedicated to 
+supporting when ServiceStack is mounted at both root `/` or a custom path (e.g. `/api`) - which it supports 
+by rewriting the embedded `index.html` with the `HandlerFactoryPath` before returning it:
+
+```csharp
+public class AdminFeature : IPlugin, IPreInitPlugin
+{
+    public void Configure(IAppHost appHost)
+    {
+        //Register ServiceStack.Admin.dll as an Embedded Resource to VirtualFiles
+        appHost.Config.EmbeddedResourceBaseTypes.Add(typeof(AdminFeature));
+    }
+
+    public void Register(IAppHost appHost)
+    {
+        var indexHtml = appHost.VirtualFileSources.GetFile("ss_admin/index.html").ReadAllText();
+        if (appHost.Config.HandlerFactoryPath != null) //Inject HandlerFactoryPath if mounted at /custom path
+            indexHtml = indexHtml.Replace("/ss_admin", "/{0}/ss_admin".Fmt(appHost.Config.HandlerFactoryPath));
+
+        appHost.CatchAllHandlers.Add((httpMethod, pathInfo, filePath) => 
+            pathInfo.StartsWith("/ss_admin") 
+                ? (pathInfo == "/ss_admin/index.html" || !appHost.VirtualFileSources.FileExists(pathInfo)
+                    ? new StaticContentHandler(indexHtml, MimeTypes.Html) as IHttpHandler
+                    : new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)))
+                : null);
+
+        appHost.GetPlugin<MetadataFeature>()
+            .AddPluginLink("/ss_admin/autoquery/", "AutoQuery Viewer"); //Add link to /metadata page
+    }
+}
+```
+
+To power most of its UI, AutoQuery Viewer makes use of the 
+[existing Metadata service in AutoQuery](https://github.com/ServiceStack/Admin#advanced-customizations).
+
+#### Code-first POCO Simplicity
+
+Other classes worth reviewing is the 
+[GitHubTasks.cs](https://github.com/ServiceStack/Admin/blob/master/tests/Admin.Tasks/GitHubTasks.cs) and
+[StackOverflowTasks.cs](https://github.com/ServiceStack/Admin/blob/master/tests/Admin.Tasks/StackOverflowTasks.cs)
+containing the NUnit tests used to create the test sqlite database on-the-fly, directly from the GitHub and 
+StackOverflow JSON APIs, the ease of which speaks to the simplicity of 
+[ServiceStack's code-first POCO approach](http://stackoverflow.com/a/32940275/85785).
