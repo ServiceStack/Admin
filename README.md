@@ -237,7 +237,7 @@ AutoQuery Viewer for iPad is a native iOS App that provides an automatic UI for 
 
 [![AutoQuery Viewer on AppStore](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/wikis/autoquery/autoqueryviewer-appstore.png)](https://itunes.apple.com/us/app/autoquery-viewer/id968625288?ls=1&mt=8)
 
-## AdminFeature Rich UI Implementation
+## AdminFeature Plugin Implementation
 
 We'd like to detail how we developed `AdminFeature` as ServiceStack makes it really easy to package and 
 deploy rich plugins with complex UI and behavior encapsulated within a single plugin - 
