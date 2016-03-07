@@ -15,7 +15,7 @@
     <language>en-US</language> 
     <copyright>ServiceStack 2016 and Contributors</copyright>
     <dependencies>
-        <dependency id="ServiceStack.Server" version="4.0.0" />
+        <dependency id="ServiceStack.Server.Signed" version="4.0.0" />
     </dependencies>
   </metadata>
   <files>
