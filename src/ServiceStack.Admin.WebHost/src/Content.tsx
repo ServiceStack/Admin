@@ -202,7 +202,7 @@ export default class Content extends React.Component<any, any> {
         if (loadingNewQuery) {
             $.ajax({
                 url: this.getAutoQueryUrl("json"),
-                data: { jsconfig: "DateHandler:ISO8601DateOnly" },
+                data: { jsconfig: "DateHandler:ISO8601DateOnly,TimeSpanHandler:StandardFormat" },
                 dataType: 'json',
                 success: r => {
                     var response = $.ss.normalize(r);

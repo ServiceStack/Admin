@@ -164,7 +164,7 @@ System.register(['react', 'jquery', 'ss-utils', './Results'], function(exports_1
                     if (loadingNewQuery) {
                         $.ajax({
                             url: this.getAutoQueryUrl("json"),
-                            data: { jsconfig: "DateHandler:ISO8601DateOnly" },
+                            data: { jsconfig: "DateHandler:ISO8601DateOnly,TimeSpanHandler:StandardFormat" },
                             dataType: 'json',
                             success: function (r) {
                                 var response = $.ss.normalize(r);
