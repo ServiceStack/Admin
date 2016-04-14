@@ -8,7 +8,7 @@ namespace ServiceStack.Admin.WebHost
         DefaultSearchField = "Language", DefaultSearchType = "=", DefaultSearchText = "C#",
         IconUrl = "octicon:repo",
         DefaultFields = "Id,Name,Language,Description:500,Homepage,Has_Wiki")]
-    public class QueryRepos : QueryBase<GithubRepo> { }
+    public class QueryRepos : QueryDb<GithubRepo> { }
 
     [Route("/commits")]
     [AutoQueryViewer(Title = "ServiceStack Commits", Description = "Browse latest 1000 commits",
@@ -16,37 +16,37 @@ namespace ServiceStack.Admin.WebHost
         //IconUrl = "octicon:history"
         IconUrl = "https://raw.githubusercontent.com/ServiceStackApps/GitHubAutoQuery/master/src/GitHubAutoQuery/GitHubAutoQuery/img/app/commits-75.png"
         )]
-    public class QueryRepoCommits : QueryBase<GithubCommit> { }
+    public class QueryRepoCommits : QueryDb<GithubCommit> { }
 
     [Route("/contents")]
     [AutoQueryViewer(Title = "ServiceStack Files", Description = "Browse ServiceStack top-level files and folders",
         DefaultSearchField = "Type", DefaultSearchType = "=", DefaultSearchText = "file",
         IconUrl = "octicon:file-directory")]
-    public class QueryRepoContent : QueryBase<GithubContent> { }
+    public class QueryRepoContent : QueryDb<GithubContent> { }
 
     [Route("/contributors")]
     [AutoQueryViewer(Title = "ServiceStack Contributors", Description = "Browse ServiceStack Contributors",
         DefaultSearchField = "Contributions", DefaultSearchType = ">=", DefaultSearchText = "5",
         IconUrl = "octicon:organization")]
-    public class QueryRepoContributors : QueryBase<GithubContributor> { }
+    public class QueryRepoContributors : QueryDb<GithubContributor> { }
 
     [Route("/subscribers")]
     [AutoQueryViewer(Title = "ServiceStack Subscribers", Description = "Browse ServiceStack Subscribers",
         DefaultSearchField = "Type", DefaultSearchType = "=", DefaultSearchText = "User",
         IconUrl = "octicon:eye")]
-    public class QueryRepoSubscribers : QueryBase<GithubSubscriber> { }
+    public class QueryRepoSubscribers : QueryDb<GithubSubscriber> { }
 
     //[Route("/comments")]
     //[AutoQueryViewer(Title = "ServiceStack Comments", Description = "Browse ServiceStack Subscribers",
     //    DefaultSearchField = "Id", DefaultSearchType = ">", DefaultSearchText = "0",
     //    IconUrl = "octicon:comments")]
-    public class QueryRepoComments : QueryBase<GithubComment> { }
+    public class QueryRepoComments : QueryDb<GithubComment> { }
 
     [Route("/releases")]
     [AutoQueryViewer(Title = "ServiceStack Releases", Description = "Browse ServiceStack Releases",
         DefaultSearchField = "Name", DefaultSearchType = "Starts With", DefaultSearchText = "v4",
         IconUrl = "octicon:tag")]
-    public class QueryRepoReleases : QueryBase<GithubRelease> { }
+    public class QueryRepoReleases : QueryDb<GithubRelease> { }
 
     public class GithubRepo
     {
