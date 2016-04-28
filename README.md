@@ -53,10 +53,10 @@ An example of this can be seen with the
 
 ```csharp
 [Route("/query/customers")]
-public class QueryCustomers : QueryBase<Customer> {}
+public class QueryCustomers : QueryDb<Customer> {}
 
 [Route("/query/orders")]
-public class QueryOrders : QueryBase<Order> {}
+public class QueryOrders : QueryDb<Order> {}
 ```
 
 Which renders a UI with the default query and initial fields unpopulated:
@@ -76,7 +76,7 @@ with the `[AutoQueryViewer]` attribute, as seen in
     Description = "Browse different ServiceStack repos",
     DefaultSearchField = "Language", DefaultSearchType = "=", DefaultSearchText = "C#",
     DefaultFields = "Id,Name,Language,Description:500,Homepage,Has_Wiki")]
-public class QueryRepos : QueryBase<GithubRepo> {}
+public class QueryRepos : QueryDb<GithubRepo> {}
 ```
 
 The additional metadata is then used to customize the UI at the following places:
@@ -121,7 +121,7 @@ e.g.
 
 ```csharp
 [RequiredRole("Sales")]
-public class QueryOrders : QueryBase<Order> {}
+public class QueryOrders : QueryDb<Order> {}
 ```
 
 Since the Auth attributes are Request Filter Attributes with a server dependency to **ServiceStack.dll**, if
@@ -129,12 +129,12 @@ you want to maintain and share a dependency-free **ServiceModel.dll** you can in
 AutoQuery in your Service implementations which will inherit any Service or Action filter attributes as normal:
 
 ```csharp
-public class QueryOrders : QueryBase<Order> {}
+public class QueryOrders : QueryDb<Order> {}
 
 [RequiredRole("Sales")]
 public class SalesServices : Service
 {
-    public IAutoQuery AutoQuery { get; set; }
+    public IAutoQueryDb AutoQuery { get; set; }
 
     public object Any(QueryOrders query)
     {
@@ -188,11 +188,12 @@ Clicking the back/forward navigation icons on the left will page through the res
 
 ## Advanced Customizations
 
-Most of the AutoQuery Viewer UI is metadata driven and can be overridden when registering the `AutoQueryFeature`
+Most of the AutoQuery Viewer UI is metadata driven and can be overridden when registering the `AutoQueryMetadataFeature`
 plugin. The configuration below shows the defaults:
 
 ```csharp
-Plugins.Add(new AutoQueryFeature 
+//Needs to be registered before AutoQueryFeature Plugin
+Plugins.Add(new AutoQueryMetadataFeature 
 {
     AutoQueryViewerConfig = new AutoQueryViewerConfig
     {
