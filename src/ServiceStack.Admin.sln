@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Admin", "ServiceStack.Admin\ServiceStack.Admin.csproj", "{C6EB693E-64D1-4271-BE68-0B78D186003E}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSelfHost", "..\tests\TestSelfHost\TestSelfHost.csproj", "{50CBC7E3-0C5F-4600-A364-49D38CEEF89D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebHost", "..\tests\TestWebHost\TestWebHost.csproj", "{B50C37B4-CBAC-443A-A06C-3FA04673259C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestVirtualWebHost", "..\tests\TestVirtualWebHost\TestVirtualWebHost.csproj", "{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,12 @@ Global
 		{B50C37B4-CBAC-443A-A06C-3FA04673259C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B50C37B4-CBAC-443A-A06C-3FA04673259C}.Signed|Any CPU.ActiveCfg = Signed|Any CPU
 		{B50C37B4-CBAC-443A-A06C-3FA04673259C}.Signed|Any CPU.Build.0 = Signed|Any CPU
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}.Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B}.Signed|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,5 +78,6 @@ Global
 		{ADC92EAC-0D95-4D44-AE0A-CF0B740D6EF6} = {BC1E449B-0360-4DF6-9FA4-049CCD434301}
 		{50CBC7E3-0C5F-4600-A364-49D38CEEF89D} = {BC1E449B-0360-4DF6-9FA4-049CCD434301}
 		{B50C37B4-CBAC-443A-A06C-3FA04673259C} = {BC1E449B-0360-4DF6-9FA4-049CCD434301}
+		{F5FC4C28-F62B-41D2-B351-8FDC298AFA5B} = {BC1E449B-0360-4DF6-9FA4-049CCD434301}
 	EndGlobalSection
 EndGlobal
