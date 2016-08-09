@@ -49,7 +49,7 @@
       <HintPath>..\..\lib\signed\ServiceStack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Client">
-      <HintPath>..\..\lib\ServiceStack.Client.dll</HintPath>
+      <HintPath>..\..\lib\signed\ServiceStack.Client.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common">
       <HintPath>..\..\lib\signed\ServiceStack.Common.dll</HintPath>
