@@ -216,9 +216,11 @@ export default class Content extends React.Component<any, any> {
             });
         }
 
+        const queries = (this.props.values.queries || []);
+
         return (
             <div>
-                <div style={{ color: '#757575', background: '#eee', position: 'absolute', top:'125px', right: '320px', maxWidth:'700px' }}>
+                <div style={{ zIndex:2, color: '#757575', position: 'absolute', top:'25px', right: '25px', maxWidth:'700px' }}>
                     {this.props.viewerArgs["Description"] }
                 </div>
                 <div id="url" style={{ padding: '0 0 10px 0', whiteSpace:'nowrap' }}>
@@ -254,18 +256,42 @@ export default class Content extends React.Component<any, any> {
                     <span className="formats noselect">
                         {this.props.config.formats.map(f =>
                             <span key={f} className={values.format === f ? 'active' : ''} onClick={e => this.selectFormat(f)}>{f}</span>) }
-                    </span>)}
+                    </span>) }
 
-                <div className="conditions">
-                    {this.props.values.conditions.map(c => (
-                        <div key={c.id}>
-                            <i className="material-icons" style={{ color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }}
-                                title="remove condition"
-                                onClick={e => this.props.onRemoveCondition(c) }>remove_circle</i>
-                            {c.searchField} {c.searchType} {c.searchText}
+                {this.props.values.conditions.length + queries.length > 0 ?
+                    (<div>
+                        <div className="conditions">
+                            {this.props.values.conditions.map(c => (
+                                <div key={c.id}>
+                                    <i className="material-icons" style={{ color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }}
+                                        title="remove condition"
+                                        onClick={e => this.props.onRemoveCondition(c) }>remove_circle</i>
+                                    {c.searchField} {c.searchType} {c.searchText}
+                                </div>
+                            )) }
                         </div>
-                    ))}
-                </div>
+
+                        {this.props.values.conditions.length > 0
+                            ? (<div style={{ display: 'inline-block', verticalAlign: 'top', padding: 10 }}>
+                                   <i title="Save Query" className="material-icons" style={{ fontSize: '24px', color: '#444', cursor: 'pointer' }}
+                                      onClick={e => this.props.onSaveQuery() }>save</i>
+                               </div>)
+                            : null}
+                        
+                        <div className="queries">
+                            {queries.map(x => (
+                                <div>
+                                    <i className="material-icons" style={{ color: '#db4437', cursor: 'pointer', padding: '0 5px 0 0' }}
+                                        title="remove query"
+                                        onClick={e => this.props.onRemoveQuery(x) }>remove_circle</i>
+
+                                    <span className="lnk" title="load query"
+                                        onClick={e => this.props.onLoadQuery(x) }>{x.name}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>)
+                    : null}
 
                 { this.state.response
                     ? (!loadingNewQuery || name === this.state.name
@@ -285,7 +311,7 @@ export default class Content extends React.Component<any, any> {
     render() {
         const isMsEdge = /Edge/.test(navigator.userAgent);
         return (
-            <div id="content" style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}>
+            <div id="content" style={{ width: '100%', height: '100%', overflow: 'auto' }}>
                 <div style={{ padding: '90px 0 20px 20px' }}>
                     <table>
                     <tbody>

@@ -118,7 +118,8 @@ System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDi
                         searchField: viewerArgs["DefaultSearchField"] || "",
                         searchType: viewerArgs["DefaultSearchType"] || "",
                         searchText: viewerArgs["DefaultSearchText"],
-                        conditions: []
+                        conditions: [],
+                        queries: []
                     }, this.state.operationState[name] || {});
                 };
                 App.prototype.getSelected = function (name) {
@@ -134,16 +135,16 @@ System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDi
                         toType: toType, toTypeFields: this.resolveProperties(toType)
                     };
                 };
-                App.prototype.onOperationChange = function (name, newValues) {
-                    var op = this.getOperationValues(name);
+                App.prototype.onOperationChange = function (opName, newValues) {
+                    var op = this.getOperationValues(opName);
                     Object.keys(newValues).forEach(function (k) {
                         if (newValues[k] != null)
                             op[k] = newValues[k];
                     });
-                    this.setOperationValues(name, op);
+                    this.setOperationValues(opName, op);
                 };
-                App.prototype.addCondition = function (name) {
-                    var op = this.getOperationValues(name);
+                App.prototype.addCondition = function (opName) {
+                    var op = this.getOperationValues(opName);
                     var condition = {
                         id: op.searchField + "|" + op.searchType + "|" + op.searchText,
                         searchField: op.searchField,
@@ -154,16 +155,16 @@ System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDi
                         return;
                     op.searchText = "";
                     op.conditions.push(condition);
-                    this.setOperationValues(name, op);
+                    this.setOperationValues(opName, op);
                 };
-                App.prototype.removeCondition = function (name, condition) {
-                    var op = this.getOperationValues(name);
+                App.prototype.removeCondition = function (opName, condition) {
+                    var op = this.getOperationValues(opName);
                     op.conditions = op.conditions.filter(function (x) { return x.id !== condition.id; });
-                    this.setOperationValues(name, op);
+                    this.setOperationValues(opName, op);
                 };
-                App.prototype.setOperationValues = function (name, op) {
+                App.prototype.setOperationValues = function (opName, op) {
                     var operationState = Object.assign({}, this.state.operationState);
-                    operationState[name] = op;
+                    operationState[opName] = op;
                     this.setState({ operationState: operationState });
                     localStorage.setItem("v1/operationState", JSON.stringify(operationState));
                 };
@@ -174,11 +175,43 @@ System.register(['react', './Header', './Sidebar', './Content', './ColumnPrefsDi
                 App.prototype.hideDialog = function () {
                     this.setState({ dialog: null });
                 };
+                App.prototype.saveQuery = function (opName) {
+                    var name = prompt("Save Query as:", "My Query");
+                    if (!name)
+                        return;
+                    var op = this.getOperationValues(opName);
+                    if (!op.queries) {
+                        op.queries = [];
+                    }
+                    op.queries.push({
+                        name: name,
+                        searchField: op.searchField,
+                        searchType: op.searchType,
+                        searchText: op.searchText,
+                        conditions: op.conditions.map(function (x) { return Object.assign({}, x); })
+                    });
+                    this.setOperationValues(opName, op);
+                };
+                App.prototype.removeQuery = function (opName, query) {
+                    var op = this.getOperationValues(opName);
+                    if (!op.queries)
+                        return;
+                    op.queries = op.queries.filter(function (x) { return x.name != query.name; });
+                    this.setOperationValues(opName, op);
+                };
+                App.prototype.loadQuery = function (opName, query) {
+                    var op = this.getOperationValues(opName);
+                    op.searchField = query.searchField;
+                    op.searchType = query.searchType;
+                    op.searchText = query.searchText;
+                    op.conditions = query.conditions;
+                    this.setOperationValues(opName, op);
+                };
                 App.prototype.render = function () {
                     var _this = this;
                     var selected = this.getSelected(this.props.name);
                     var opName = selected && selected.name;
-                    return (React.createElement("div", {style: { height: '100%' }}, React.createElement(Header_1.default, {title: this.getTitle(selected), onSidebarToggle: function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {id: "body", style: { display: 'flex', height: '100%' }}, React.createElement("div", {style: { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {basePath: this.props.basePath, hide: this.state.sidebarHidden, name: opName, viewerArgs: this.state.viewerArgs, operations: this.state.operations}), React.createElement(Content_1.default, {config: this.props.metadata.config, userinfo: this.props.metadata.userinfo, selected: selected, values: this.getOperationValues(this.props.name), conventions: this.props.metadata.config.implicitconventions, viewerArgs: this.state.viewerArgs[opName], onChange: function (args) { return _this.onOperationChange(opName, args); }, onAddCondition: function (e) { return _this.addCondition(opName); }, onRemoveCondition: function (c) { return _this.removeCondition(opName, c); }, onShowDialog: function (id) { return _this.showDialog(id); }}))), this.state.dialog !== "column-prefs-dialog" ? null : (React.createElement(ColumnPrefsDialog_1.default, {onClose: function (e) { return _this.hideDialog(); }, fields: selected.toTypeFields, values: this.getOperationValues(this.props.name), onChange: function (args) { return _this.onOperationChange(opName, args); }}))));
+                    return (React.createElement("div", {style: { height: '100%' }}, React.createElement(Header_1.default, {title: this.getTitle(selected), onSidebarToggle: function (e) { return _this.toggleSidebar(); }}), React.createElement("div", {id: "body", style: { display: 'flex', height: '100%' }}, React.createElement("div", {style: { height: '100%', display: 'flex', flexDirection: 'row' }}, React.createElement(Sidebar_1.default, {basePath: this.props.basePath, hide: this.state.sidebarHidden, name: opName, viewerArgs: this.state.viewerArgs, operations: this.state.operations}), React.createElement(Content_1.default, {config: this.props.metadata.config, userinfo: this.props.metadata.userinfo, selected: selected, values: this.getOperationValues(this.props.name), conventions: this.props.metadata.config.implicitconventions, viewerArgs: this.state.viewerArgs[opName], onChange: function (args) { return _this.onOperationChange(opName, args); }, onAddCondition: function (e) { return _this.addCondition(opName); }, onRemoveCondition: function (c) { return _this.removeCondition(opName, c); }, onShowDialog: function (id) { return _this.showDialog(id); }, onSaveQuery: function () { return _this.saveQuery(opName); }, onRemoveQuery: function (x) { return _this.removeQuery(opName, x); }, onLoadQuery: function (x) { return _this.loadQuery(opName, x); }}))), this.state.dialog !== "column-prefs-dialog" ? null : (React.createElement(ColumnPrefsDialog_1.default, {onClose: function (e) { return _this.hideDialog(); }, fields: selected.toTypeFields, values: this.getOperationValues(this.props.name), onChange: function (args) { return _this.onOperationChange(opName, args); }}))));
                 };
                 return App;
             }(React.Component));

@@ -53,7 +53,7 @@ class App extends React.Component<any, any> {
 
         this.state = {
             sidebarHidden: false, selected: null, 
-            operationState, operationNames, viewerArgs, operations, types            
+            operationState, operationNames, viewerArgs, operations, types
         };
     }
 
@@ -108,7 +108,8 @@ class App extends React.Component<any, any> {
             searchField: viewerArgs["DefaultSearchField"] || "",
             searchType: viewerArgs["DefaultSearchType"] || "",
             searchText: viewerArgs["DefaultSearchText"],
-            conditions: []
+            conditions: [],
+            queries: []
         }, this.state.operationState[name] || {});
     }
 
@@ -126,19 +127,19 @@ class App extends React.Component<any, any> {
         };
     }
 
-    onOperationChange(name: string, newValues: any) {
-        const op = this.getOperationValues(name);
+    onOperationChange(opName: string, newValues: any) {
+        const op = this.getOperationValues(opName);
 
         Object.keys(newValues).forEach(k => {
             if (newValues[k] != null)
                 op[k] = newValues[k];
         });
 
-        this.setOperationValues(name, op);
+        this.setOperationValues(opName, op);
     }
 
-    addCondition(name:string) {
-        const op = this.getOperationValues(name);
+    addCondition(opName:string) {
+        const op = this.getOperationValues(opName);
         const condition = {
             id: `${op.searchField}|${op.searchType}|${op.searchText}`,
             searchField: op.searchField,
@@ -152,18 +153,18 @@ class App extends React.Component<any, any> {
         op.searchText = "";
         op.conditions.push(condition);
 
-        this.setOperationValues(name, op);
+        this.setOperationValues(opName, op);
     }
 
-    removeCondition(name: string, condition:any) {
-        const op = this.getOperationValues(name);
+    removeCondition(opName: string, condition:any) {
+        const op = this.getOperationValues(opName);
         op.conditions = op.conditions.filter(x => x.id !== condition.id);
-        this.setOperationValues(name, op);
+        this.setOperationValues(opName, op);
     }
 
-    setOperationValues(name, op) {
+    setOperationValues(opName, op) {
         var operationState = Object.assign({}, this.state.operationState);
-        operationState[name] = op;
+        operationState[opName] = op;
         this.setState({ operationState });
         localStorage.setItem("v1/operationState", JSON.stringify(operationState));
     }
@@ -175,6 +176,42 @@ class App extends React.Component<any, any> {
 
     hideDialog() {
         this.setState({ dialog: null });
+    }
+
+    saveQuery(opName:string) {
+        const name = prompt("Save Query as:", "My Query");
+        if (!name) return;
+
+        const op = this.getOperationValues(opName);
+        if (!op.queries) {
+            op.queries = [];
+        }
+
+        op.queries.push({
+            name,
+            searchField: op.searchField,
+            searchType: op.searchType,
+            searchText: op.searchText,
+            conditions: op.conditions.map(x => Object.assign({}, x))
+        });
+
+        this.setOperationValues(opName, op);
+    }
+
+    removeQuery(opName: string, query: any) {
+        const op = this.getOperationValues(opName);
+        if (!op.queries) return;
+        op.queries = op.queries.filter(x => x.name != query.name);
+        this.setOperationValues(opName, op);
+    }
+
+    loadQuery(opName: string, query: any) {
+        const op = this.getOperationValues(opName);
+        op.searchField = query.searchField;
+        op.searchType = query.searchType;
+        op.searchText = query.searchText;
+        op.conditions = query.conditions;
+        this.setOperationValues(opName, op);
     }
 
     render() {
@@ -200,7 +237,10 @@ class App extends React.Component<any, any> {
                             onChange={args => this.onOperationChange(opName, args)}
                             onAddCondition={e => this.addCondition(opName)}
                             onRemoveCondition={c => this.removeCondition(opName, c) }
-                            onShowDialog={id => this.showDialog(id)}
+                            onShowDialog={id => this.showDialog(id) }
+                            onSaveQuery={() => this.saveQuery(opName) }
+                            onRemoveQuery={x => this.removeQuery(opName, x) }
+                            onLoadQuery={x => this.loadQuery(opName, x) }
                             />
                     </div>
                 </div>
