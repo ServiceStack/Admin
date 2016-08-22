@@ -221,7 +221,7 @@ class App extends React.Component<any, any> {
             <div style={{ height: '100%' }}>
                 <Header title={this.getTitle(selected)} onSidebarToggle={e => this.toggleSidebar() } />
                 <div id="body" style={{ display:'flex', height:'100%' }}>
-                    <div style={{ height: '100%', display: 'flex', flexDirection: 'row' }}>
+                    <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'row' }}>
                         <Sidebar basePath={this.props.basePath}
                             hide={this.state.sidebarHidden} name={opName}                        
                             viewerArgs={this.state.viewerArgs}
