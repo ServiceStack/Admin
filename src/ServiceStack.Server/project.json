@@ -1,0 +1,26 @@
+{
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": ["DEBUG", "TRACE"]
+      }
+    },
+    "Release": {
+      "buildOptions": {
+        "define": ["TRACE"],
+        "optimize": true
+      }
+    }
+  },
+  "dependencies": {
+  },
+  "frameworks": {
+    "netstandard1.6": { 
+        "dependencies" : {
+        },
+        "bin" : { "assembly":"../../lib/netstandard1.6/ServiceStack.Server.dll", "pdb" : "../../lib/netstandard1.6/ServiceStack.Server.pdb" }
+     }
+   
+  },
+  "version": "1.0.0"
+}

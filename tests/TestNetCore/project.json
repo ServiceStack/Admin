@@ -1,0 +1,60 @@
+{
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.1",
+      "type": "platform"
+    },
+    "System.Data.Common": "4.1.0",
+    "System.ComponentModel.Primitives": "4.1.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
+    "Microsoft.Data.Sqlite": "1.0.0",
+    "ServiceStack": "1.0.0",
+    "ServiceStack.Admin": "1.0.0",
+    "ServiceStack.Client": "1.0.0",
+    "ServiceStack.Common": "1.0.0",
+    "ServiceStack.Interfaces": "1.0.0",
+    "ServiceStack.OrmLite": "1.0.0",
+    "ServiceStack.Redis": "1.0.0",
+    "ServiceStack.Server": "1.0.0",
+    "ServiceStack.Text": "1.0.0",
+    "ServiceStack.OrmLite.Sqlite": "1.0.0"
+  },
+
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  },
+
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+
+  "runtimeOptions": {
+    "configProperties": {
+      "System.GC.Server": true
+    }
+  },
+
+  "publishOptions": {
+    "include": [
+      "wwwroot",
+      "web.config"
+    ]
+  },
+
+  "scripts": {
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+  }
+}
