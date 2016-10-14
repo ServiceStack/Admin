@@ -304,3 +304,19 @@ Other classes worth reviewing is the
 containing the NUnit tests used to create the test sqlite database on-the-fly, directly from the GitHub and 
 StackOverflow JSON APIs, the ease of which speaks to the simplicity of 
 [ServiceStack's code-first POCO approach](http://stackoverflow.com/a/32940275/85785).
+
+## Building this solution
+
+This project is based on jspm as said earlier. You can install this through nodeJS:
+
+1. open command line in `src\ServiceStack.Admin.WebHost`
+2. run command `npm install jspm -g` to install jspm
+3. run command `jspm init` do boot up jspm
+4. run command `jspm install` to download all packages
+
+Now open the project solution:
+
+1. Restore all the nuget packages.
+2. Set ServiceStack.Admin.WebHost as startup project
+3. Run Solution
+
