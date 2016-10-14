@@ -238,3 +238,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+src/ServiceStack.Admin.WebHost/src/*.map
+src/ServiceStack.Admin.WebHost/src/*.js
