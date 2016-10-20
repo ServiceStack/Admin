@@ -124,7 +124,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:ss-utils@0.1.0": {
-      "jquery": "npm:jquery@2.2.0"
+      "jquery": "npm:jquery@3.1.1"
     },
     "npm:stream-browserify@1.0.0": {
       "events": "github:jspm/nodelibs-events@0.1.1",
