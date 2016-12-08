@@ -1,6 +1,4 @@
-﻿/// <reference path='../typings/main.d.ts'/>
-
-import * as React from 'react';
+﻿import * as React from 'react';
 
 export default class Header extends React.Component<any, any> {
     render() {

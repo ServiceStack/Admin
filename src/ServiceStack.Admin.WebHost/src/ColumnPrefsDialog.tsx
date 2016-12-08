@@ -1,6 +1,4 @@
-﻿/// <reference path='../typings/main.d.ts'/>
-
-import * as React from 'react';
+﻿import * as React from 'react';
 import { render } from 'react-dom';
 
 export default class ColumnPrefsDialog extends React.Component<any, any> {

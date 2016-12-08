@@ -24,5 +24,9 @@ MD ..\ServiceStack.Admin\ss_admin\img
 
 XCOPY /E img ..\ServiceStack.Admin\ss_admin\img
 
-jspm bundle -m src\main ..\ServiceStack.Admin\ss_admin\app.js
+REM jspm bundle src/app.js - [./src/**/*] ./deps.lib.js
 
+REM old-style bundling
+REM jspm bundle -m src/app.js ../ServiceStack.Admin/ss_admin/app.js
+
+REM jspm build -m src/app.js ../ServiceStack.Admin/ss_admin/app.js

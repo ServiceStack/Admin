@@ -267,8 +267,8 @@ form:focus {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
 }
  
 ::-webkit-scrollbar-track {

@@ -23,7 +23,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.0</TypeScriptToolsVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -97,8 +97,10 @@
     <Content Include="img\roboto\roboto-v15-latin-regular.woff2" />
     <Content Include="img\octicon\octicons.ttf" />
     <Content Include="img\octicon\octicons.woff" />
+    <Content Include="jspm.config.js" />
     <Content Include="packages.config" />
     <Content Include="tsconfig.json" />
+    <Content Include="package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,7 +113,6 @@
       <Link>sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="config.js" />
     <Content Include="deps.lib.js" />
     <Content Include="Global.asax" />
     <Content Include="img\iconfont\material-icons.css" />
@@ -119,7 +120,6 @@
     <Content Include="default.css" />
     <Content Include="img\octicon\octicon.css" />
     <Content Include="index.html" />
-    <Content Include="jspm_packages\system.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -141,13 +141,12 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\core.ts" />
-    <TypeScriptCompile Include="src\deps.tsx" />
     <TypeScriptCompile Include="src\Content.tsx" />
     <TypeScriptCompile Include="src\Results.tsx" />
     <TypeScriptCompile Include="src\ColumnPrefsDialog.tsx" />
     <TypeScriptCompile Include="src\Sidebar.tsx" />
     <TypeScriptCompile Include="src\Header.tsx" />
-    <TypeScriptCompile Include="src\main.tsx">
+    <TypeScriptCompile Include="src\app.tsx">
       <SubType>Code</SubType>
     </TypeScriptCompile>
   </ItemGroup>

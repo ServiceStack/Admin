@@ -1,6 +1,4 @@
-﻿/// <reference path='../typings/main.d.ts'/>
-
-import * as React from 'react';
+﻿import * as React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, Link, Redirect, browserHistory } from 'react-router';
 
@@ -14,7 +12,7 @@ class App extends React.Component<any, any> {
         return this.props.children;
     }
 }
-
+ 
 var BasePath = location.pathname.substring(0, location.pathname.indexOf("/ss_admin") + 1);
 var AppPath = BasePath + "ss_admin";
 const AutoQueryPath = AppPath + "/autoquery";

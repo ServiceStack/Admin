@@ -8,13 +8,13 @@
     <link href="/img/octicon/octicon.css" rel="stylesheet" />
     <link href="/default.css" rel="stylesheet" />
     <script src="/jspm_packages/system.js"></script>
-    <script src="/config.js"></script>
+    <script src="/jspm.config.js"></script>
     <script src="/deps.lib.js"></script>
 </head>
 <body>
     <div id="app" style="height:100%;"></div>
     <script>
-        System.import("/src/main");
+        System.import("app").catch(console.error.bind(console));
     </script>
 </body>
 </html>

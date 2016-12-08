@@ -101,10 +101,6 @@
     <EmbeddedResource Include="ss_admin\img\iconfont\MaterialIcons-Regular.svg" />
     <EmbeddedResource Include="ss_admin\img\octicon\octicon.css" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ss_admin\config.js" />
-    <EmbeddedResource Include="ss_admin\system.js" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
