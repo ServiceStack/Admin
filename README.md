@@ -163,6 +163,17 @@ Queries can be constructed with multiple conditions by hitting **Enter** or clic
 
 Clicking the **red** remove icon removes the condition.
 
+### Saving Queries
+
+After adding multiple conditions you can then save queries under each AutoQuery Service by clicking the **save icon**. 
+
+The saved query will be listed with the name provided and displayed to the right of the save icon, e.g:
+
+[![](http://i.imgur.com/hySw1T9.png)](https://github.com/ServiceStack/Admin)
+
+This makes it easy for everyone to maintain and easily switch between multiple personalized views 
+of any AutoQuery Service.
+
 ### Change Content-Type
 
 You can force a query to return a specific Content-Type response by clicking on one of the format links. E.g
