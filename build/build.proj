@@ -77,7 +77,7 @@
 
     <ItemGroup>
       <AdminFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/net45/ServiceStack.Admin.*"></AdminFiles>
-      <AdminCoreFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/net45/ServiceStack.Admin.*"></AdminCoreFiles>
+      <AdminCoreFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/netstandard1.6/ServiceStack.Admin.*"></AdminCoreFiles>
     </ItemGroup>
     
     <!-- .NET 4.5 -->
