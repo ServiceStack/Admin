@@ -1,26 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Admin", "ServiceStack.Admin\ServiceStack.Admin.xproj", "{A7102DBA-1879-423B-8202-7DC8BC57510D}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack", "ServiceStack\ServiceStack.xproj", "{1CE78A63-839F-4C91-A644-3BD157920A72}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Client", "ServiceStack.Client\ServiceStack.Client.xproj", "{A3283D37-F735-47E8-8300-1D9FE7F19727}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Common", "ServiceStack.Common\ServiceStack.Common.xproj", "{911D9B5D-4318-4561-8DE6-AABB1EC185C6}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Interfaces", "ServiceStack.Interfaces\ServiceStack.Interfaces.xproj", "{99D9CFBC-2BA9-4A8F-895E-5CCA0208C95A}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.OrmLite", "ServiceStack.OrmLite\ServiceStack.OrmLite.xproj", "{59CE678A-35BD-400E-B7B6-098B27FD2CD2}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Redis", "ServiceStack.Redis\ServiceStack.Redis.xproj", "{C2B7009A-ABED-44E0-AB82-E69CC8C7A17A}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Server", "ServiceStack.Server\ServiceStack.Server.xproj", "{BD5A56F9-1318-4D80-9F1E-EA5CC3B8FEC0}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.Text", "ServiceStack.Text\ServiceStack.Text.xproj", "{1392785A-B8DB-4221-80EB-CCBB07F8A42C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3CC4ADC8-802D-4289-8FC2-3A5D5A6145CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6543B24E-7A67-431C-AEC3-61311F906D11}"
@@ -28,9 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\tests\global.json = ..\tests\global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ServiceStack.OrmLite.Sqlite", "ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.xproj", "{E660111A-10F0-40CB-9356-C940F41E7CB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetCore", "..\tests\TestNetCore\TestNetCore.csproj", "{27F9D195-AE30-409F-ACB9-9F31C36A146A}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TestNetCore", "..\tests\TestNetCore\TestNetCore.xproj", "{27F9D195-AE30-409F-ACB9-9F31C36A146A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Admin", "ServiceStack.Admin\ServiceStack.Admin.csproj", "{7964DBBF-7E3B-4B25-9536-11962875BFB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Admin.Signed", "ServiceStack.Admin\ServiceStack.Admin.Signed.csproj", "{C926D481-C552-494A-8A85-1F0270BCE4C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,50 +22,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A7102DBA-1879-423B-8202-7DC8BC57510D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7102DBA-1879-423B-8202-7DC8BC57510D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7102DBA-1879-423B-8202-7DC8BC57510D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7102DBA-1879-423B-8202-7DC8BC57510D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CE78A63-839F-4C91-A644-3BD157920A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CE78A63-839F-4C91-A644-3BD157920A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CE78A63-839F-4C91-A644-3BD157920A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CE78A63-839F-4C91-A644-3BD157920A72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3283D37-F735-47E8-8300-1D9FE7F19727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3283D37-F735-47E8-8300-1D9FE7F19727}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3283D37-F735-47E8-8300-1D9FE7F19727}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3283D37-F735-47E8-8300-1D9FE7F19727}.Release|Any CPU.Build.0 = Release|Any CPU
-		{911D9B5D-4318-4561-8DE6-AABB1EC185C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{911D9B5D-4318-4561-8DE6-AABB1EC185C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{911D9B5D-4318-4561-8DE6-AABB1EC185C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{911D9B5D-4318-4561-8DE6-AABB1EC185C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99D9CFBC-2BA9-4A8F-895E-5CCA0208C95A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99D9CFBC-2BA9-4A8F-895E-5CCA0208C95A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99D9CFBC-2BA9-4A8F-895E-5CCA0208C95A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99D9CFBC-2BA9-4A8F-895E-5CCA0208C95A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59CE678A-35BD-400E-B7B6-098B27FD2CD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59CE678A-35BD-400E-B7B6-098B27FD2CD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59CE678A-35BD-400E-B7B6-098B27FD2CD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59CE678A-35BD-400E-B7B6-098B27FD2CD2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2B7009A-ABED-44E0-AB82-E69CC8C7A17A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2B7009A-ABED-44E0-AB82-E69CC8C7A17A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2B7009A-ABED-44E0-AB82-E69CC8C7A17A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2B7009A-ABED-44E0-AB82-E69CC8C7A17A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD5A56F9-1318-4D80-9F1E-EA5CC3B8FEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD5A56F9-1318-4D80-9F1E-EA5CC3B8FEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD5A56F9-1318-4D80-9F1E-EA5CC3B8FEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD5A56F9-1318-4D80-9F1E-EA5CC3B8FEC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1392785A-B8DB-4221-80EB-CCBB07F8A42C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1392785A-B8DB-4221-80EB-CCBB07F8A42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1392785A-B8DB-4221-80EB-CCBB07F8A42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1392785A-B8DB-4221-80EB-CCBB07F8A42C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E660111A-10F0-40CB-9356-C940F41E7CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E660111A-10F0-40CB-9356-C940F41E7CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E660111A-10F0-40CB-9356-C940F41E7CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E660111A-10F0-40CB-9356-C940F41E7CB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27F9D195-AE30-409F-ACB9-9F31C36A146A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27F9D195-AE30-409F-ACB9-9F31C36A146A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27F9D195-AE30-409F-ACB9-9F31C36A146A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27F9D195-AE30-409F-ACB9-9F31C36A146A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7964DBBF-7E3B-4B25-9536-11962875BFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7964DBBF-7E3B-4B25-9536-11962875BFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7964DBBF-7E3B-4B25-9536-11962875BFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7964DBBF-7E3B-4B25-9536-11962875BFB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C926D481-C552-494A-8A85-1F0270BCE4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C926D481-C552-494A-8A85-1F0270BCE4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C926D481-C552-494A-8A85-1F0270BCE4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C926D481-C552-494A-8A85-1F0270BCE4C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
