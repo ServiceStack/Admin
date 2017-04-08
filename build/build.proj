@@ -93,7 +93,7 @@
 
     <!-- .NET Core -->
     <MakeDir Directories="$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6" Condition="!Exists('$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6')" />
-    <Copy SourceFiles="%(AwsCoreFiles.Identity)" DestinationFolder="$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6" />
+    <Copy SourceFiles="%(AdminCoreFiles.Identity)" DestinationFolder="$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6" />
 
     <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/servicestack.admin.core.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageCoreDir)&quot; -Version $(PackageCoreVersion) -Symbols"
           LogStandardErrorAsError="true" />
