@@ -81,7 +81,7 @@
     <Delete Files="@(NugetPackageFilesToDelete)" />
 
     <ItemGroup>
-      <AdminFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/ServiceStack.Admin.*"></AdminFiles>
+      <AdminFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/net45/ServiceStack.Admin.*"></AdminFiles>
     </ItemGroup>
 
     <MSBuild Projects="$(BuildSolutionDir)/src/ServiceStack.Admin/ServiceStack.Admin.Signed.csproj"

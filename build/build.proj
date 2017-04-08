@@ -15,14 +15,16 @@
     <Configuration Condition="$(Configuration) == ''">Release</Configuration>
     <NuGetPath>$(BuildSolutionDir)/src/.nuget/nuget.exe</NuGetPath>
     <NuGetPackageDir>$(BuildSolutionDir)/NuGet/</NuGetPackageDir>
+    <NuGetPackageCoreDir>$(BuildSolutionDir)/NuGet.Core/</NuGetPackageCoreDir>
     <Version>$(MajorVersion).$(MinorVersion).$(PatchVersion).0</Version>
     <UnstableTag Condition="$(RELEASE) == ''">-unstable</UnstableTag>
     <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(UnstableTag)</PackageVersion>
-    <EnvVersion>$(MajorVersion).$(MinorVersion)$(PatchVersion)</EnvVersion>
+    <PackageCoreVersion>1.0.$(PatchCoreVersion)$(UnstableTag)</PackageCoreVersion>
   </PropertyGroup>
 
   <ItemGroup>
-      <NugetPackageFilesToDelete Include="$(NuGetPackageDir)/*.nupkg"/>
+    <NugetPackageFilesToDelete Include="$(NuGetPackageDir)/*.nupkg"/>
+    <NugetPackageFilesToDelete Include="$(NuGetPackageCoreDir)/*.nupkg"/>
   </ItemGroup>
 
   <PropertyGroup>
@@ -59,6 +61,10 @@
         <Find>version="4\.5[^"]*"</Find>
         <ReplaceWith>version="$(PackageVersion)"</ReplaceWith>
       </RegexTransform>
+      <RegexTransform Include="$(NuGetPackageCoreDir)/**/*.nuspec">
+        <Find>version="1\.0\.[^"]*"</Find>
+        <ReplaceWith>version="$(PackageCoreVersion)"</ReplaceWith>
+      </RegexTransform>
     </ItemGroup>
 
     <RegexTransform Items="@(RegexTransform)" />
@@ -70,7 +76,8 @@
     <Delete Files="@(NugetPackageFilesToDelete)" />
 
     <ItemGroup>
-      <AdminFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/ServiceStack.Admin.*"></AdminFiles>
+      <AdminFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/net45/ServiceStack.Admin.*"></AdminFiles>
+      <AdminCoreFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/net45/ServiceStack.Admin.*"></AdminCoreFiles>
     </ItemGroup>
     
     <!-- .NET 4.5 -->
@@ -83,6 +90,13 @@
 
     <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageDir)/ServiceStack.Admin/servicestack.admin.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageDir)&quot; -Version $(PackageVersion) -Symbols"
             LogStandardErrorAsError="true" />
+
+    <!-- .NET Core -->
+    <MakeDir Directories="$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6" Condition="!Exists('$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6')" />
+    <Copy SourceFiles="%(AwsCoreFiles.Identity)" DestinationFolder="$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/lib/netstandard1.6" />
+
+    <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageCoreDir)/ServiceStack.Admin.Core/servicestack.admin.core.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageCoreDir)&quot; -Version $(PackageCoreVersion) -Symbols"
+          LogStandardErrorAsError="true" />
 
   </Target>
 </Project>
