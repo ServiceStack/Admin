@@ -23,6 +23,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
