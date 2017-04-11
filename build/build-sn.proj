@@ -42,9 +42,6 @@
     <Message Text="*****Before building solution*****" Importance="high"/>
   </Target>
 
-  <Target Name="UnitTests" DependsOnTargets="$(DoBuildSolutionsDependsOn)">
-  </Target>
-
   <Target Name="BuildSolutions">
     <!--<MSBuild Projects="$(BuildSolutionDir)/src/ServiceStack.Admin.sln" Targets="Build"
       Properties="Configuration=$(Configuration)" />-->
@@ -85,7 +82,8 @@
     </ItemGroup>
 
     <MSBuild Projects="$(BuildSolutionDir)/src/ServiceStack.Admin/ServiceStack.Admin.Signed.csproj"
-             Targets="Build" Properties="Configuration=$(Configuration)" />
+             Targets="Build"
+             Properties="Version=$(PackageVersion)" />
 
     <MakeDir Directories="$(NuGetPackageDir)/ServiceStack.Admin.Signed/lib/net45" Condition="!Exists('$(NuGetPackageDir)/ServiceStack.Admin.Signed/lib/net45')" />
     <Copy SourceFiles="%(AdminFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/ServiceStack.Admin.Signed/lib/net45" />
