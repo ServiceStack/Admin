@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ServiceStack.Admin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Service Stack LLC")]
+[assembly: AssemblyCompany("ServiceStack, Inc")]
 [assembly: AssemblyProduct("ServiceStack")]
 [assembly: AssemblyCopyright("Copyright (c) ServiceStack 2016")]
-[assembly: AssemblyTrademark("Service Stack")]
+[assembly: AssemblyTrademark("ServiceStack")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
