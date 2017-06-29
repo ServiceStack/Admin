@@ -34,7 +34,7 @@ namespace TestSelfHost
         public override void Configure(Container container)
         {
             container.Register<IDbConnectionFactory>(c =>
-                new OrmLiteConnectionFactory("~/db.sqlite".MapServerPath(), SqliteDialect.Provider));
+                new OrmLiteConnectionFactory(MapProjectPath("~/db.sqlite"), SqliteDialect.Provider));
 
             Plugins.Add(new AutoQueryFeature {
                 MaxLimit = 100

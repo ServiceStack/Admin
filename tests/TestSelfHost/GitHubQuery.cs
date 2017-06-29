@@ -1,7 +1,7 @@
 ﻿using System;
 using ServiceStack.DataAnnotations;
 
-namespace ServiceStack.Admin.WebHost
+namespace ServiceStack.Admin.Web
 {
     [Route("/repos")]
     [AutoQueryViewer(Title = "ServiceStack Repositories", Description = "Browse different ServiceStack repos",

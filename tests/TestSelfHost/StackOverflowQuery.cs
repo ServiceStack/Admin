@@ -2,7 +2,7 @@
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite;
 
-namespace ServiceStack.Admin.WebHost
+namespace ServiceStack.Admin.Web
 {
     [Route("/questions")]
     [AutoQueryViewer(

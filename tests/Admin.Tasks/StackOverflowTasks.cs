@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using NUnit.Framework;
 using ServiceStack;
-using ServiceStack.Admin.WebHost;
+using ServiceStack.Admin.Web;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 using ServiceStack.Text;
