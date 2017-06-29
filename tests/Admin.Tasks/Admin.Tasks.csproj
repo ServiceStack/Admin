@@ -88,12 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\ServiceStack.Admin.WebHost\ServiceStack.Admin.WebHost.csproj">
-      <Project>{0e928576-283f-486a-b6c6-52bfe7cdd0a2}</Project>
-      <Name>ServiceStack.Admin.WebHost</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
