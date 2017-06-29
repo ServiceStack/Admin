@@ -19,7 +19,7 @@ namespace ServiceStack.Admin
                     ? (pathInfo == "/ss_admin/index.html" || !appHost.VirtualFileSources.FileExists(pathInfo)
                         ? new CustomActionHandler((req, res) => {
                             res.ContentType = MimeTypes.Html;
-                            res.Write(indexHtml.Replace("/ss_admin", req.ResolveAbsoluteUrl("~/ss_admin")));
+                            res.Write(indexHtml.Replace("/dist", req.ResolveAbsoluteUrl("~/ss_admin/dist")));
                         }) as IHttpHandler
                         : new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)))
                     : null);
