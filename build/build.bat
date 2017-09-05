@@ -17,3 +17,4 @@ COPY App_Data\db.sqlite ..\..\tests\TestWebHost\App_Data
 RMDIR ..\ServiceStack.Admin\ss_admin /s /q
 XCOPY /E wwwroot ..\ServiceStack.Admin\ss_admin\
 
+msbuild /p:Configuration=Release ..\src\ServiceStack.Admin.sln
