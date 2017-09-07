@@ -5,7 +5,6 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     background: #eee;
-    overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6, form {
@@ -99,21 +98,51 @@ form:focus {
     height: 30px;
 }
 
+#body {
+}
+#body .inner {
+}
+
 #sidebar {
     z-index: 1;
     background: #eee;
     margin-left: 0;
     transition: .3s;
     width: 250px;
-    min-width: 250px;
-    padding: 0 30px 0 0;
+    height: 100%;
+    position: fixed;
     overflow-y: auto;
+    min-width: 250px;
+    padding: 0;
 }
-    #sidebar.hide {
-        margin-left: -280px;
+    #sidebar .inner {
+        padding: 90px 0 0 0;
+    }
+    .hide-sidebar #sidebar {
+        margin-left: -250px;
         transition: .3s;
         transition-timing-function: ease-out;
     }
+
+#content {
+    padding-left: 250px;
+}
+.hide-sidebar #content {
+    padding-left: 0;
+    transition: .3s;
+    transition-timing-function: ease-out;
+}
+#content .inner {
+    padding: 90px 0 20px 20px;
+}
+
+#query-title {
+    z-index: 2;
+    color: #757575;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+}
 
 .aq-item {
     display: flex;

@@ -220,7 +220,7 @@ export default class Content extends React.Component<any, any> {
 
         return (
             <div>
-                <div style={{ zIndex:2, color: '#757575', position: 'absolute', top:'25px', right: '25px', maxWidth:'700px' }}>
+                <div id="query-title">
                     {this.props.viewerArgs["Description"] }
                 </div>
                 <div id="url" style={{ padding: '0 0 10px 0', whiteSpace:'nowrap' }}>
@@ -311,12 +311,12 @@ export default class Content extends React.Component<any, any> {
     render() {
         const isMsEdge = /Edge/.test(navigator.userAgent);
         return (
-            <div id="content" style={{ width: '100%', height: '100%', overflow: 'auto' }}>
-                <div style={{ padding: '90px 0 20px 20px' }}>
+            <div id="content">
+                <div className="inner">
                     <table>
                     <tbody>
                         <tr>
-                            {isMsEdge ? <td style={{ minWidth: '290px' }}></td> : null}
+                            {isMsEdge ? <td style={{ minWidth: '20px' }}></td> : null}
                             <td>
                                 {this.props.selected
                                     ? this.renderBody(this.props.selected, this.props.values)
@@ -328,7 +328,7 @@ export default class Content extends React.Component<any, any> {
                                                     ? "There are no queries available"
                                                     : "Please Sign In to see your available queries"}</div>) }
                             </td>
-                            {!isMsEdge ? <td style={{ minWidth: '290px' }}></td> : null}
+                            {!isMsEdge ? <td style={{ minWidth: '20px' }}></td> : null}
                         </tr>
                      </tbody>
                      </table>

@@ -222,10 +222,10 @@ class App extends React.Component<any, any> {
         return (
             <div style={{ height: '100%' }}>
                 <Header title={this.getTitle(selected)} onSidebarToggle={e => this.toggleSidebar() } />
-                <div id="body" style={{ display:'flex', height:'100%' }}>
-                    <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'row' }}>
+                <div id="body" className={this.state.sidebarHidden ? 'hide-sidebar' : ''}>
+                    <div className="inner">
                         <Sidebar
-                            hide={this.state.sidebarHidden} name={opName}                        
+                            name={opName}                        
                             viewerArgs={this.state.viewerArgs}
                             operations={this.state.operations}
                             />

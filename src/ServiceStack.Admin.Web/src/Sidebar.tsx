@@ -29,8 +29,8 @@ export default class Sidebar extends React.Component<any, any> {
 
     render() {
         return (
-            <div id="sidebar" className={this.props.hide ? ' hide' : ''}>
-                <div style={{ padding: '90px 0 0 0' }}>
+            <div id="sidebar">
+                <div className="inner">
                     <div id="aq-filter">
                         <input type="text" placeholder="filter" style={{ margin: "10px 15px" }}
                             onChange={e => this.handleFilter(e)} value={this.state.filter} />
