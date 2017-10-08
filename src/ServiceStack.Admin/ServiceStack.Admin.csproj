@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.6</TargetFrameworks>
-    <!--<TargetFrameworks>netstandard1.6</TargetFrameworks>-->
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <AssemblyName>ServiceStack.Admin</AssemblyName>
     <PackageId>ServiceStack.Admin</PackageId>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -33,7 +32,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
 
-    <Reference Include="..\..\lib\pcl\ServiceStack.Interfaces.dll" />
+    <Reference Include="..\..\lib\net45\ServiceStack.Interfaces.dll" />
     <Reference Include="..\..\lib\net45\ServiceStack.Text.dll" />
     <Reference Include="..\..\lib\net45\ServiceStack.Common.dll" />
     <Reference Include="..\..\lib\net45\ServiceStack.Client.dll" />
@@ -43,11 +42,11 @@
     <Reference Include="..\..\lib\net45\ServiceStack.OrmLite.dll" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD1_6</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
@@ -58,14 +57,14 @@
     <PackageReference Include="System.Threading.ThreadPool" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
 
-    <Reference Include="..\..\lib\netstandard1.1\ServiceStack.Interfaces.dll" />
-    <Reference Include="..\..\lib\netstandard1.3\ServiceStack.Text.dll" />
-    <Reference Include="..\..\lib\netstandard1.3\ServiceStack.Common.dll" />
-    <Reference Include="..\..\lib\netstandard1.6\ServiceStack.Client.dll" />
-    <Reference Include="..\..\lib\netstandard1.6\ServiceStack.dll" />
-    <Reference Include="..\..\lib\netstandard1.6\ServiceStack.Server.dll" />
-    <Reference Include="..\..\lib\netstandard1.3\ServiceStack.Redis.dll" />
-    <Reference Include="..\..\lib\netstandard1.3\ServiceStack.OrmLite.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.Interfaces.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.Text.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.Common.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.Client.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.Server.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.Redis.dll" />
+    <Reference Include="..\..\lib\netstandard2.0\ServiceStack.OrmLite.dll" />
   </ItemGroup>
 
 </Project>
