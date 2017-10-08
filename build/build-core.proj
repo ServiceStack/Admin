@@ -68,7 +68,7 @@
     <Delete Files="@(NugetPackageFilesToDelete)" />
 
     <ItemGroup>
-      <AdminCoreFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/netstandard1.6/ServiceStack.Admin.*"></AdminCoreFiles>
+      <AdminCoreFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/netstandard2.0/ServiceStack.Admin.*"></AdminCoreFiles>
     </ItemGroup>
     
     <!-- .NET 4.5 -->
@@ -77,8 +77,8 @@
             Properties="Version=$(PackageVersion);Configuration=$(Configuration)" />
 
     <!-- .NET Core -->
-    <MakeDir Directories="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard1.6" Condition="!Exists('$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard1.6')" />
-    <Copy SourceFiles="%(AdminCoreFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard1.6" />
+    <MakeDir Directories="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0" Condition="!Exists('$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0')" />
+    <Copy SourceFiles="%(AdminCoreFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0" />
 
     <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageDir)/ServiceStack.Admin.Core/servicestack.admin.core.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageDir)&quot; -Version $(PackageVersion)"
           LogStandardErrorAsError="true" />
