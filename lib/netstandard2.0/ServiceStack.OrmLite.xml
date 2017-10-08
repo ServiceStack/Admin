@@ -4150,7 +4150,7 @@
         <member name="M:ServiceStack.OrmLite.OrmLiteWriteExpressionsApi.UpdateAdd``1(System.Data.IDbConnection,System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Action{System.Data.IDbCommand})">
              <summary>
              Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-             Numeric fields generates an increment sql which is usefull to increment counters, etc...
+             Numeric fields generates an increment sql which is useful to increment counters, etc...
              avoiding concurrency conflicts
              
                db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
@@ -4163,7 +4163,7 @@
         <member name="M:ServiceStack.OrmLite.OrmLiteWriteExpressionsApi.UpdateAdd``1(System.Data.IDbConnection,System.Linq.Expressions.Expression{System.Func{``0}},ServiceStack.OrmLite.SqlExpression{``0},System.Action{System.Data.IDbCommand})">
             <summary>
             Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-            Numeric fields generates an increment sql which is usefull to increment counters, etc...
+            Numeric fields generates an increment sql which is useful to increment counters, etc...
             avoiding concurrency conflicts
             
               db.UpdateAdd(() => new Person { Age = 5 }, db.From&lt;Person&gt;().Where(p => p.LastName == "Hendrix"));
@@ -4285,7 +4285,7 @@
         <member name="M:ServiceStack.OrmLite.OrmLiteWriteExpressionsApiAsync.UpdateAddAsync``1(System.Data.IDbConnection,System.Linq.Expressions.Expression{System.Func{``0}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Action{System.Data.IDbCommand},System.Threading.CancellationToken)">
              <summary>
              Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-             Numeric fields generates an increment sql which is usefull to increment counters, etc...
+             Numeric fields generates an increment sql which is useful to increment counters, etc...
              avoiding concurrency conflicts
              
                db.UpdateAddAsync(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
@@ -4306,7 +4306,7 @@
         <member name="M:ServiceStack.OrmLite.OrmLiteWriteExpressionsApiAsync.UpdateAddAsync``1(System.Data.IDbConnection,System.Linq.Expressions.Expression{System.Func{``0}},ServiceStack.OrmLite.SqlExpression{``0},System.Action{System.Data.IDbCommand},System.Threading.CancellationToken)">
             <summary>
             Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-            Numeric fields generates an increment sql which is usefull to increment counters, etc...
+            Numeric fields generates an increment sql which is useful to increment counters, etc...
             avoiding concurrency conflicts
             
               db.UpdateAddAsync(() => new Person { Age = 5 }, db.From&lt;Person&gt;().Where(p => p.LastName == "Hendrix"));
