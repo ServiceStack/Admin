@@ -7,12 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Admin", "Servi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{2A9F798E-B4A8-4089-AF2D-E841BB354244}"
 	ProjectSection(SolutionItems) = preProject
-		..\build\build-sn.proj = ..\build\build-sn.proj
 		..\build\build.bat = ..\build\build.bat
 		..\build\build.proj = ..\build\build.proj
 		..\lib\copy.bat = ..\lib\copy.bat
 		..\NuGet\ServiceStack.Admin\servicestack.admin.nuspec = ..\NuGet\ServiceStack.Admin\servicestack.admin.nuspec
-		..\NuGet.Signed\ServiceStack.Admin.Signed\servicestack.admin.signed.nuspec = ..\NuGet.Signed\ServiceStack.Admin.Signed\servicestack.admin.signed.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BC1E449B-0360-4DF6-9FA4-049CCD434301}"
