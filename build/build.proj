@@ -67,6 +67,7 @@
 
     <ItemGroup>
       <AdminFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/net45/ServiceStack.Admin.*"></AdminFiles>
+      <AdminCoreFiles Include="$(SrcDir)/ServiceStack.Admin/bin/$(Configuration)/netstandard2.0/ServiceStack.Admin.*"></AdminCoreFiles>
     </ItemGroup>
     
     <!-- .NET 4.5 -->
@@ -76,6 +77,9 @@
       
     <MakeDir Directories="$(NuGetPackageDir)/ServiceStack.Admin/lib/net45" Condition="!Exists('$(NuGetPackageDir)/ServiceStack.Admin/lib/net45')" />
     <Copy SourceFiles="%(AdminFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/ServiceStack.Admin/lib/net45" />
+
+    <MakeDir Directories="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0" Condition="!Exists('$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0')" />
+    <Copy SourceFiles="%(AdminCoreFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0" />
 
     <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageDir)/ServiceStack.Admin/servicestack.admin.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageDir)&quot; -Version $(PackageVersion) -Symbols"
             LogStandardErrorAsError="true" />
