@@ -85,5 +85,12 @@
     <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageDir)/ServiceStack.Admin/servicestack.admin.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageDir)&quot; -Version $(PackageVersion) -Symbols"
             LogStandardErrorAsError="true" />
 
+    <!-- .NET Core -->
+    <MakeDir Directories="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0" Condition="!Exists('$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0')" />
+    <Copy SourceFiles="%(AdminCoreFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/ServiceStack.Admin.Core/lib/netstandard2.0" />
+
+    <Exec Command="&quot;$(NuGetPath)&quot; pack &quot;$(NuGetPackageDir)/ServiceStack.Admin.Core/servicestack.admin.core.nuspec&quot; -OutputDirectory &quot;$(NuGetPackageDir)&quot; -Version $(PackageVersion) -Symbols"
+          LogStandardErrorAsError="true" />
+
   </Target>
 </Project>
