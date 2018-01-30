@@ -4,7 +4,8 @@ using ServiceStack.DataAnnotations;
 namespace ServiceStack.Admin.Web
 {
     [Route("/repos")]
-    [AutoQueryViewer(Title = "ServiceStack Repositories", Description = "Browse different ServiceStack repos",
+    [AutoQueryViewer(Name = "ServiceStack Repo's",
+        Title = "ServiceStack Repositories", Description = "Browse different ServiceStack repos",
         DefaultSearchField = "Language", DefaultSearchType = "=", DefaultSearchText = "C#",
         IconUrl = "octicon:repo",
         DefaultFields = "Id,Name,Language,Description:500,Homepage,Has_Wiki")]
