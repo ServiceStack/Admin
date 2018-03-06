@@ -13,6 +13,8 @@ const isArray = (o: any) => Object.prototype.toString.call(o) === '[object Array
 const log = (o: any) => { console.log(o, typeof(o)); return o; }
 
 export const normalize = (dto: any, deep?: boolean) => {
+    if (dto == null)
+        return dto;
     if (isArray(dto)) {
         if (!deep) return dto;
         const to = [];
