@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using NUnit.Framework;
 using ServiceStack;
@@ -36,30 +37,34 @@ namespace Admin.Tasks
                 {
                     //Throttle queries
                     Thread.Sleep(100);
-                    var questionsResponse = client.Get("https://api.stackexchange.com/2.2/questions?page={0}&pagesize={1}&site={2}&tagged=servicestack"
-                        .Fmt(i, pageSize, "stackoverflow"));
-
-                    QuestionsResponse qResponse;
-                    using (new ConfigScope())
+                    using (var questionsResponse = client.Get<HttpWebResponse>(
+                        "https://api.stackexchange.com/2.2/questions?page={0}&pagesize={1}&site={2}&tagged=servicestack"
+                            .Fmt(i, pageSize, "stackoverflow")))
                     {
-                        var json = questionsResponse.ReadToEnd();
-                        qResponse = json.FromJson<QuestionsResponse>();
-                        dbQuestions.AddRange(qResponse.Items.Select(q => q.ConvertTo<Question>()));
-                    }
+                        QuestionsResponse qResponse;
+                        using (new ConfigScope())
+                        {
+                            var json = questionsResponse.ReadToEnd();
+                            qResponse = json.FromJson<QuestionsResponse>();
+                            dbQuestions.AddRange(qResponse.Items.Select(q => q.ConvertTo<Question>()));
+                        }
 
-                    var acceptedAnswers =
-                        qResponse.Items
-                        .Where(x => x.AcceptedAnswerId != null)
-                        .Select(x => x.AcceptedAnswerId).ToList();
+                        var acceptedAnswers =
+                            qResponse.Items
+                                .Where(x => x.AcceptedAnswerId != null)
+                                .Select(x => x.AcceptedAnswerId).ToList();
 
-                    var answersResponse = client.Get("https://api.stackexchange.com/2.2/answers/{0}?sort=activity&site=stackoverflow"
-                        .Fmt(acceptedAnswers.Join(";")));
-
-                    using (new ConfigScope())
-                    {
-                        var json = answersResponse.ReadToEnd();
-                        var aResponse = JsonSerializer.DeserializeFromString<AnswersResponse>(json);
-                        dbAnswers.AddRange(aResponse.Items.Select(a => a.ConvertTo<Answer>()));
+                        using (var answersResponse = client.Get<HttpWebResponse>(
+                            "https://api.stackexchange.com/2.2/answers/{0}?sort=activity&site=stackoverflow"
+                                .Fmt(acceptedAnswers.Join(";"))))
+                        {
+                            using (new ConfigScope())
+                            {
+                                var json = answersResponse.ReadToEnd();
+                                var aResponse = JsonSerializer.DeserializeFromString<AnswersResponse>(json);
+                                dbAnswers.AddRange(aResponse.Items.Select(a => a.ConvertTo<Answer>()));
+                            }
+                        }
                     }
                 }
             }
@@ -107,11 +112,11 @@ namespace Admin.Tasks
 
         public ConfigScope()
         {
-            scope = JsConfig.With(
-                dateHandler: DateHandler.UnixTime,
-                propertyConvention: PropertyConvention.Lenient,
-                emitLowercaseUnderscoreNames: true,
-                emitCamelCaseNames: false);
+            scope = JsConfig.With(new ServiceStack.Text.Config {
+                DateHandler = DateHandler.UnixTime,
+                PropertyConvention = PropertyConvention.Lenient,
+                EmitLowercaseUnderscoreNames = true
+            });
 
             holdQsStrategy = QueryStringSerializer.ComplexTypeStrategy;
             QueryStringSerializer.ComplexTypeStrategy = QueryStringStrategy.FormUrlEncoded;

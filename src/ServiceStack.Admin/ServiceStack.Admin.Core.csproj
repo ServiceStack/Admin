@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>ServiceStack.Admin</PackageId>
+    <PackageId>ServiceStack.Admin.Core</PackageId>
     <AssemblyName>ServiceStack.Admin</AssemblyName>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Title>ServiceStack Admin UI and AutoQuery Browser</Title>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Title>ServiceStack.Admin .NET Standard 2.0</Title>
     <PackageDescription>
-      ServiceStack Admin UI with AutoQuery Viewer -  an instant UI for constructing 
-      and browsing your AutoQuery Services.
+      .NET Standard 2.0 version of ServiceStack.Admin
     </PackageDescription>
     <PackageTags>ServiceStack;Admin;AutoQuery;WebServices;Database;Browser</PackageTags>
   </PropertyGroup>
