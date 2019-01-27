@@ -3,6 +3,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack.Admin.Core</PackageId>
     <AssemblyName>ServiceStack.Admin</AssemblyName>
+    <RootNamespace>ServiceStack.Admin</RootNamespace>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Title>ServiceStack.Admin .NET Standard 2.0</Title>
     <PackageDescription>
