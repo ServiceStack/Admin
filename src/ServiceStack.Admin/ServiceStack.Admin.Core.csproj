@@ -18,7 +18,7 @@
   
   <ItemGroup>
     <PackageReference Include="ServiceStack.Server.Core" Version="$(Version)" />
-    <PackageReference Include="System.Memory" Version="4.5.1" />
+    <PackageReference Include="System.Memory" Version="4.5.2" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
