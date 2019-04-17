@@ -13,7 +13,7 @@ AutoQuery Viewer - an instant UI for constructing and browsing your
 - http://github.servicestack.net/ss_admin/
 - http://northwind.servicestack.net/ss_admin/
 - http://stackapis.servicestack.net/ss_admin/
-- https://www.techstacks.io/ss_admin
+- http://techstacks.netcore.io/ss_admin
 
 The ServiceStack.Admin UI is a Single Page React App encapsulated in a single `ServiceStack.Admin.dll` 
 that's available from NuGet at:
