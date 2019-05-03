@@ -9,6 +9,8 @@ using ServiceStack.Admin.Web;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
+using GithubRepo=ServiceStack.Admin.Web.GithubRepo;
+
 namespace Admin.Tasks
 {
     [TestFixture]
