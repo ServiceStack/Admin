@@ -5,7 +5,7 @@ namespace ServiceStack.Admin
 {
     public class AdminFeature : IPlugin, IPreInitPlugin
     {
-        public void Configure(IAppHost appHost)
+        public void BeforePluginsLoaded(IAppHost appHost)
         {
             appHost.Config.EmbeddedResourceBaseTypes.Add(typeof(AdminFeature));
         }
