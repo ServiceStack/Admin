@@ -11,8 +11,8 @@ AutoQuery Viewer - an instant UI for constructing and browsing your
 ### Live AutoQuery Viewer Examples
 
 - http://github.servicestack.net/ss_admin/
-- http://northwind.servicestack.net/ss_admin/
-- http://stackapis.servicestack.net/ss_admin/
+- http://northwind.netcore.io/ss_admin/
+- http://stackapis.netcore.io/ss_admin/
 - http://techstacks.netcore.io/ss_admin
 
 The ServiceStack.Admin UI is a Single Page React App encapsulated in a single `ServiceStack.Admin.dll` 
@@ -49,7 +49,7 @@ The AutoQuery Viewer provides an instant automatic UI to quickly browse and quer
 
 By default AutoQuery Services start with a minimal UI that uses the Request DTO name to identify the Query.
 An example of this can be seen with the 
-[Northwind AutoQuery Services](http://northwind.servicestack.net/ss_admin/autoquery/QueryCustomers) below:
+[Northwind AutoQuery Services](http://northwind.netcore.io/ss_admin/autoquery/QueryCustomers) below:
 
 ```csharp
 [Route("/query/customers")]
@@ -61,7 +61,7 @@ public class QueryOrders : QueryDb<Order> {}
 
 Which renders a UI with the default query and initial fields unpopulated:
 
-[![](https://raw.githubusercontent.com/ServiceStack/Admin/master/img/unannotated-autoquery-services.png)](http://northwind.servicestack.net/ss_admin/autoquery/QueryCustomers)
+[![](https://raw.githubusercontent.com/ServiceStack/Admin/master/img/unannotated-autoquery-services.png)](http://northwind.netcore.io/ss_admin/autoquery/QueryCustomers)
 
 ### Marking up AutoQuery Services
 
