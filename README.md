@@ -1,3 +1,5 @@
+Follow [@ServiceStack](https://twitter.com/servicestack) or [view the docs](https://docs.servicestack.net), use [StackOverflow](http://stackoverflow.com/questions/ask) or the [Customer Forums](https://forums.servicestack.net/) for support.
+
 # ServiceStack.Admin UI
 
 ServiceStack.Admin is the home for ServiceStack's new Admin UI with initial support for 
