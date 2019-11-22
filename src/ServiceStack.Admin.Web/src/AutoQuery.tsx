@@ -65,7 +65,7 @@ class App extends React.Component<any, any> {
         let inherits = type.inherits;
         while (inherits) {
             const t = this.state.types[inherits.name];
-            if (!t && !t.properties) continue;
+            if (!t || !t.properties) continue;
             t.properties.forEach(p => props.push(p));
             inherits = t.inherits;
         }
