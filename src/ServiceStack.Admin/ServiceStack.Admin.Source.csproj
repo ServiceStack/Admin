@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>ServiceStack.Admin</PackageId>
+    <AssemblyName>ServiceStack.Admin</AssemblyName>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <Title>ServiceStack Admin UI and AutoQuery Browser</Title>
+    <PackageDescription>
+      ServiceStack Admin UI with AutoQuery Viewer -  an instant UI for constructing 
+      and browsing your AutoQuery Services.
+    </PackageDescription>
+    <PackageTags>ServiceStack;Admin;AutoQuery;WebServices;Database;Browser</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ss_admin\**\*.*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack.OrmLite\src\ServiceStack.OrmLite\ServiceStack.OrmLite.Source.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack.Redis\src\ServiceStack.Redis\ServiceStack.Redis.Source.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Client\ServiceStack.Client.Source.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Common\ServiceStack.Common.Source.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack\ServiceStack.Source.csproj" />
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Server\ServiceStack.Server.Source.csproj" />
+
+    <PackageReference Include="System.Memory" Version="4.5.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.3" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <PackageReference Include="System.Threading" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Threading.ThreadPool" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
