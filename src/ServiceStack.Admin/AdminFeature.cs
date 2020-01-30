@@ -12,7 +12,11 @@ namespace ServiceStack.Admin
 
         public void Register(IAppHost appHost)
         {
-            var indexHtml = appHost.VirtualFileSources.GetFile("ss_admin/index.html").ReadAllText();
+            var indexFile = appHost.VirtualFileSources.GetFile("ss_admin/index.html");
+            if (indexFile == null)
+                return; // not accessible when referenced as a source project 
+            
+            var indexHtml = indexFile.ReadAllText();
 
             appHost.CatchAllHandlers.Add((httpMethod, pathInfo, filePath) => 
                 pathInfo.StartsWith("/ss_admin") 
