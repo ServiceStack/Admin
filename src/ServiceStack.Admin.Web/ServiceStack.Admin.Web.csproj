@@ -48,72 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib" />
-    <Reference Include="ServiceStack, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.5.8.1\lib\net45\ServiceStack.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.Client.5.8.1\lib\net45\ServiceStack.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Common, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.Common.5.8.1\lib\net45\ServiceStack.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.Interfaces.5.8.1\lib\net45\ServiceStack.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.OrmLite.5.8.1\lib\net45\ServiceStack.OrmLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite.Sqlite, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.OrmLite.Sqlite.5.8.1\lib\net45\ServiceStack.OrmLite.Sqlite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Redis, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.Redis.5.8.1\lib\net45\ServiceStack.Redis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Server, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.Server.5.8.1\lib\net45\ServiceStack.Server.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\packages\ServiceStack.Text.5.8.1\lib\net45\ServiceStack.Text.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data.SQLite, Version=1.0.112.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.112.0\lib\net45\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard1.1\System.Memory.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
@@ -140,7 +75,6 @@
     <Content Include="src\assets\img\roboto\Roboto-Regular.ttf" />
     <Content Include="src\assets\img\roboto\roboto-v15-latin-regular.woff" />
     <Content Include="src\assets\img\roboto\roboto-v15-latin-regular.woff2" />
-    <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -181,6 +115,23 @@
     <TypeScriptCompile Include="src\Results.tsx" />
     <TypeScriptCompile Include="src\Sidebar.tsx" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ServiceStack" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.Client" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.Common" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.OrmLite" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.Redis" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.Server" Version="5.8.1" />
+    <PackageReference Include="ServiceStack.Text" Version="5.8.1" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112.2" />
+    <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -208,13 +159,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.112.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net45\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.112.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.112.0\build\net45\System.Data.SQLite.Core.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

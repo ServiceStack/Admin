@@ -115,7 +115,7 @@ namespace Admin.Tasks
             scope = JsConfig.With(new ServiceStack.Text.Config {
                 DateHandler = DateHandler.UnixTime,
                 PropertyConvention = PropertyConvention.Lenient,
-                EmitLowercaseUnderscoreNames = true
+                TextCase = TextCase.SnakeCase,
             });
 
             holdQsStrategy = QueryStringSerializer.ComplexTypeStrategy;
