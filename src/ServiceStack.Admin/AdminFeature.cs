@@ -1,8 +1,5 @@
-﻿#if NETSTANDARD2_0        
+﻿using System.Web;
 using ServiceStack.Host;
-#else
-using System.Web;
-#endif
 using ServiceStack.Host.Handlers;
 
 namespace ServiceStack.Admin
