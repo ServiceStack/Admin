@@ -116,7 +116,7 @@
     <TypeScriptCompile Include="src\Sidebar.tsx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ServiceStack" Version="5.8.1" />
+    <PackageReference Include="ServiceStack" Version="5.9.0" />
     <PackageReference Include="ServiceStack.Client" Version="5.9.0" />
     <PackageReference Include="ServiceStack.Common" Version="5.9.0" />
     <PackageReference Include="ServiceStack.Interfaces" Version="5.9.0" />
