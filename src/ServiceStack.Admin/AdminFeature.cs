@@ -6,6 +6,8 @@ namespace ServiceStack.Admin
 {
     public class AdminFeature : IPlugin, IPreInitPlugin
     {
+        public string InsertHtml { get; set; }
+        
         public void BeforePluginsLoaded(IAppHost appHost)
         {
             appHost.Config.EmbeddedResourceBaseTypes.Add(typeof(AdminFeature));
@@ -24,7 +26,10 @@ namespace ServiceStack.Admin
                     ? (pathInfo == "/ss_admin/index.html" || !appHost.VirtualFileSources.FileExists(pathInfo)
                         ? new CustomActionHandlerAsync(async (req, res) => {
                             res.ContentType = MimeTypes.Html;
-                            await res.WriteAsync(indexHtml.Replace("/dist", req.ResolveAbsoluteUrl("~/ss_admin/dist")));
+                            var html = indexHtml.Replace("/dist", req.ResolveAbsoluteUrl("~/ss_admin/dist"));
+                            if (!string.IsNullOrEmpty(InsertHtml))
+                                html = html.Replace("</body>", InsertHtml + "</body>");
+                            await res.WriteAsync(html);
                         }) as IHttpHandler
                         : new StaticFileHandler(appHost.VirtualFileSources.GetFile(pathInfo)))
                     : null);
