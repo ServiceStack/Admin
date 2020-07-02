@@ -27,11 +27,13 @@ namespace TestVirtualWebHost
                 MaxLimit = 100
             });
 
-            Plugins.Add(new AdminFeature());
+            Plugins.Add(new AdminFeature {
+                InsertHtml = $"<script>document.title='My App'</script>"
+            });
 
             SetConfig(new HostConfig {
                 HandlerFactoryPath = "api",
-                WebHostUrl = "http://localhost/TestVirtual.WebHost/api",
+                // WebHostUrl = "http://localhost/TestVirtual.WebHost/api",
             });
         }
     }
