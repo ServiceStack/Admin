@@ -33,12 +33,12 @@ class App extends React.Component<any, any> {
     constructor(props?, context?) {
         super(props, context);
 
-        var operationNames = this.props.metadata.operations.map(op => op.request);
+        const operationNames = this.props.metadata.operations.map(op => op.request);
 
-        var viewerArgs = {}, operations = {}, types = {};
+        const viewerArgs = {}, operations = {}, types = {};
         operationNames.forEach(name => {
             viewerArgs[name] = {};
-            var aqViewer = this.getAutoQueryViewer(name);
+            const aqViewer = this.getAutoQueryViewer(name);
             if (aqViewer && aqViewer.args) {
                 aqViewer.args.forEach(arg => viewerArgs[name][arg.name] = arg.value);
             }
@@ -46,10 +46,11 @@ class App extends React.Component<any, any> {
             operations[name] = this.props.metadata.operations.filter(op => op.request === name)[0];
         });
 
+        console.log(this.props.metadata);
         this.props.metadata.types.forEach(t => types[t.name] = t);
 
-        var operationState = {};
-        var json = localStorage.getItem("v1/operationState");
+        let operationState = {};
+        let json = localStorage.getItem("v1/operationState");
         if (json)
             operationState = JSON.parse(json);
 
@@ -89,8 +90,8 @@ class App extends React.Component<any, any> {
     }
 
     getAutoQueryViewerArgValue(name:string, argName:string) {
-        var aqViewer = this.getAutoQueryViewer(name);
-        var arg = aqViewer
+        const aqViewer = this.getAutoQueryViewer(name);
+        const arg = aqViewer
             ? aqViewer.args.filter(x => x.name === argName)[0]
             : null;
         return arg != null
@@ -165,7 +166,7 @@ class App extends React.Component<any, any> {
     }
 
     setOperationValues(opName, op) {
-        var operationState = Object.assign({}, this.state.operationState);
+        const operationState = Object.assign({}, this.state.operationState);
         operationState[opName] = op;
         this.setState({ operationState });
         localStorage.setItem("v1/operationState", JSON.stringify(operationState));
@@ -217,8 +218,8 @@ class App extends React.Component<any, any> {
     }
 
     render() {
-        var selected = this.getSelected(this.props.name);
-        var opName = selected && selected.name;
+        const selected = this.getSelected(this.props.name);
+        const opName = selected && selected.name;
         return (
             <div style={{ height: '100%' }}>
                 <Header title={this.getTitle(selected)} onSidebarToggle={e => this.toggleSidebar() } />

@@ -50,13 +50,13 @@ export default class Content extends React.Component<any, any> {
     }
 
     getAutoQueryUrl(format:string) {
-        const firstRoute = (this.props.selected.requestType.routes || []).filter(x => x.path.indexOf('{') === -1)[0];
+        const firstRoute = (this.props.selected.operation.routes || []).filter(x => x.path.indexOf('{') === -1)[0];
 
         const path = firstRoute
             ? firstRoute.path
             : `/${format || 'html'}/reply/` + this.props.selected.requestType.name;
 
-        var url = combinePaths(this.props.config.servicebaseurl, path);
+        let url = combinePaths(this.props.config.servicebaseurl, path);
 
         if (firstRoute && format)
             url += "." + format;

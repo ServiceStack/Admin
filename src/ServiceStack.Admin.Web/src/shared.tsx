@@ -24,7 +24,7 @@ export const normalize = (dto: any, deep?: boolean) => {
         return to;
     }
     if (typeof dto != "object") return dto;
-    var o = {};
+    const o = {};
     for (let k in dto) {
         o[normalizeKey(k)] = deep ? normalize(dto[k], deep) : dto[k];
     }
@@ -38,7 +38,7 @@ export const getField = (o: any, name: string) =>
 
 export const parseResponseStatus = (json, defaultMsg=null) => {
     try {
-        var err = JSON.parse(json);
+        const err = JSON.parse(json);
         return sanitize(err.ResponseStatus || err.responseStatus);
     } catch (e) {
         return {
