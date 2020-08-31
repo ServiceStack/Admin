@@ -57,7 +57,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.Sqlite, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
-      <HintPath>..\..\src\packages\ServiceStack.OrmLite.Sqlite.5.9.1\lib\net45\ServiceStack.OrmLite.Sqlite.dll</HintPath>
+      <HintPath>..\..\src\packages\ServiceStack.OrmLite.Sqlite.5.9.3\lib\net45\ServiceStack.OrmLite.Sqlite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ServiceStack.Redis, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587">
