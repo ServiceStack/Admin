@@ -116,15 +116,15 @@
     <TypeScriptCompile Include="src\Sidebar.tsx" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ServiceStack" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.Client" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.Common" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.Interfaces" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.OrmLite" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.Redis" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.Server" Version="5.9.1" />
-    <PackageReference Include="ServiceStack.Text" Version="5.9.1" />
+    <PackageReference Include="ServiceStack" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.Client" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.Common" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.Interfaces" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.OrmLite" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.Redis" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.Server" Version="5.9.3" />
+    <PackageReference Include="ServiceStack.Text" Version="5.9.3" />
     <PackageReference Include="System.Buffers" Version="4.5.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.113.1" />
