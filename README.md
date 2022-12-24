@@ -1,4 +1,4 @@
-ServiceStack.Admin has been replaced with [ServiceStack Admin UI](https://docs.servicestack.net/admin-ui) and [Locode](https://docs.servicestack.net/locode/).
+# ServiceStack.Admin has been replaced with [Admin UI](https://docs.servicestack.net/admin-ui) and [Locode](https://docs.servicestack.net/locode/)
 
 ---
 
