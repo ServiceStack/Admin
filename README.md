@@ -1,3 +1,7 @@
+ServiceStack.Admin has been replaced with [ServiceStack Admin UI](https://docs.servicestack.net/admin-ui) and [Locode](https://docs.servicestack.net/locode/).
+
+---
+
 Follow [@ServiceStack](https://twitter.com/servicestack) or [view the docs](https://docs.servicestack.net), use [StackOverflow](http://stackoverflow.com/questions/ask) or the [Customer Forums](https://forums.servicestack.net/) for support.
 
 # ServiceStack.Admin UI
